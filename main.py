@@ -12,7 +12,7 @@ class GameManager:
         self.FPS = 60
         self.MOLE_WIDTH = 90
         self.MOLE_HEIGHT = 81
-        self.FONT_SIZE = 31
+        self.FONT_SIZE = 18
         self.FONT_TOP_MARGIN = 26
         self.LEVEL_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
@@ -52,14 +52,93 @@ class GameManager:
         self.debugger = Debugger("debug")
         # Sound effects
         self.soundEffect = SoundEffect()
+        self.pause = False
 
-    def pause(self):
-        global pause
-        pause = True
+    def text_objects(self, text, font):
+        textSurface = font.render(text, True, (50,50,50))# (0,0,0) =  black
+        return textSurface, textSurface.get_rect()
 
-    def unpause(self):
-        global pause
-        pause = False
+    def intro(self):
+        while self.intro_complete:
+            pause_string = "Welcome! Press 'c' to continue, or 'q' to quit"
+            pause_text = self.font_obj.render(pause_string, True, (255, 255, 255))
+            pause_text_pos = pause_text.get_rect()
+            pause_text_pos.centerx = self.background.get_rect().centerx
+            pause_text_pos.centery = self.SCREEN_HEIGHT/2
+            self.screen.blit(pause_text, pause_text_pos)
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        self.intro_complete = False
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
+
+    def write_message(self, message, loc_x, loc_y):
+        text = self.font_obj.render(message, True, (255, 255, 255))
+        text_pos = text.get_rect()
+        text_pos.centerx = loc_x
+        text_pos.centery = loc_y
+        self.screen.blit(text, text_pos)
+        pygame.display.update()
+
+    def intro(self):
+        while self.intro_complete:
+            self.write_message("Welcome to the Brain Decision Modelling Lab Whack-A-Mole Game!",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2-80 )
+            self.write_message("Using the touch screen your task is to whack (touch) as many moles as possible",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2 - 40)
+            self.write_message("You will score points for each mole you hit, the more accurate the more points",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2)
+            self.write_message("But sometimes the environment doesn't behave...",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2+ 40)
+            self.write_message("... and you will score more or less than you deserve",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2+ 80)
+            self.write_message("To continue press 'c', to quit press 'q'",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2 + 140)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        self.intro_complete = False
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
+
+    def paused(self):
+        while self.pause:
+            pause_string = "Game Paused! Press 'c' to continue, or 'q' to quit"
+            pause_text = self.font_obj.render(pause_string, True, (255, 255, 255))
+            pause_text_pos = pause_text.get_rect()
+            pause_text_pos.centerx = self.background.get_rect().centerx
+            pause_text_pos.centery = self.SCREEN_HEIGHT/2
+            self.screen.blit(pause_text, pause_text_pos)
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        self.pause = False
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
 
     # Calculate the player level according to his current score & the LEVEL_SCORE_GAP constant
     def get_player_level(self):
@@ -117,24 +196,6 @@ class GameManager:
         level_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(level_text, level_text_pos)
 
-    def intro(self):
-        intro = True
-
-        while intro:
-            for event in pygame.event.get():
-                print(event)
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-
-            gameDisplay.fill(white)
-            largeText = pygame.font.Font('freesansbold.ttf', 115)
-            TextSurf, TextRect = text_objects("A bit Racey", largeText)
-            TextRect.center = ((display_width / 2), (display_height / 2))
-            gameDisplay.blit(TextSurf, TextRect)
-            pygame.display.update()
-            clock.tick(15)
-
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
     def start(self):
@@ -152,9 +213,18 @@ class GameManager:
         for i in range(len(self.mole)):
             self.mole[i].set_colorkey((0, 0, 0))
             self.mole[i] = self.mole[i].convert_alpha()
-
+        self.intro_complete = True
         while loop:
             for event in pygame.event.get():
+                if self.intro_complete == True:
+                    self.intro()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_p:
+                        self.pause = True
+                        self.paused()
+                    if event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
                 if event.type == pygame.QUIT:
                     loop = False
                 if event.type == MOUSEBUTTONDOWN and event.button == self.LEFT_MOUSE_BUTTON:
