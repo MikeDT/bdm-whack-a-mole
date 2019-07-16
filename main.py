@@ -107,6 +107,9 @@ class GameManager:
             self.write_message("To continue press 'c', to quit press 'q'",
                                self.background.get_rect().centerx,
                                self.SCREEN_HEIGHT/2 + 140)
+            self.write_message("If you need to pause while playing press 'p'",
+                               self.background.get_rect().centerx,
+                               self.SCREEN_HEIGHT/2 + 220)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
