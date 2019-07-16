@@ -53,6 +53,14 @@ class GameManager:
         # Sound effects
         self.soundEffect = SoundEffect()
 
+    def pause(self):
+        global pause
+        pause = True
+
+    def unpause(self):
+        global pause
+        pause = False
+
     # Calculate the player level according to his current score & the LEVEL_SCORE_GAP constant
     def get_player_level(self):
         newLevel = 1 + int(self.score / self.LEVEL_SCORE_GAP)
@@ -108,6 +116,24 @@ class GameManager:
         level_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
         level_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(level_text, level_text_pos)
+
+    def intro(self):
+        intro = True
+
+        while intro:
+            for event in pygame.event.get():
+                print(event)
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+            gameDisplay.fill(white)
+            largeText = pygame.font.Font('freesansbold.ttf', 115)
+            TextSurf, TextRect = text_objects("A bit Racey", largeText)
+            TextRect.center = ((display_width / 2), (display_height / 2))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+            clock.tick(15)
 
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
