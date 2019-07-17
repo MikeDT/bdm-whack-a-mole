@@ -177,10 +177,18 @@ class GameManager:
         if (mouse_x > current_hole_x) and\
                 (mouse_x < current_hole_x + self.MOLE_WIDTH) and\
                 (mouse_y > current_hole_y) and\
-                (mouse_y < current_hole_y + self.MOLE_HEIGHT and \
-                (np.random.binomial(1, 0.5, 1)[0])>0):
-            return True
+                (mouse_y < current_hole_y + self.MOLE_HEIGHT):
+                if (np.random.binomial(1, 0.5, 1)[0])>0:
+                    self.wam_logger.log_it("<Event(9.1-True Hit {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                    return True
+                else:
+                    self.wam_logger.log_it("<Event(9.2-Fake Miss {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                    return False
         else:
+            if (np.random.binomial(1, 0.5, 1)[0]) > 0:
+                self.wam_logger.log_it("<Event(9.3-Fake Hit {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                return True
+            self.wam_logger.log_it("<Event(9.4-True Miss {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
             return False
 
     # Update the game states, re-calculate the player's score, misses, level

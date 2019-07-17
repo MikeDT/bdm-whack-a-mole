@@ -1,13 +1,15 @@
 import logging
 from time import time
+import os
 
 class WAM_Logger:# timestamp
     def __init__(self):
         self.timestamp = str(time())
         self.logger = logging.getLogger('BDM-WAM ' + self.timestamp)
+
         if not len(self.logger.handlers):
             self.logger.setLevel(logging.DEBUG)
-            self.fh = logging.FileHandler('BDM-WAM ' + self.timestamp + '.log')
+            self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/BDM-WAM ' + self.timestamp + '.log')
             self.fh.setLevel(logging.DEBUG)
 
             # create console handler with a higher log level
