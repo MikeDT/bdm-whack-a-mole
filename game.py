@@ -4,6 +4,7 @@ import numpy as np
 from pygame import *
 from sound import SoundEffect
 from debug import Debugger
+from logger import WAM_Logger
 
 class GameManager:
     def __init__(self):
@@ -71,12 +72,14 @@ class GameManager:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.wam_logger.log_end()
                     pygame.quit()
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
                         self.intro_complete = False
                     elif event.key == pygame.K_q:
+                        self.wam_logger.log_end()
                         pygame.quit()
                         quit()
 
@@ -114,12 +117,14 @@ class GameManager:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.wam_logger.log_end()
                     pygame.quit()
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
                         self.intro_complete = False
                     elif event.key == pygame.K_q:
+                        self.wam_logger.log_end()
                         pygame.quit()
                         quit()
 
@@ -135,12 +140,14 @@ class GameManager:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.wam_logger.log_end()
                     pygame.quit()
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
                         self.pause = False
                     elif event.key == pygame.K_q:
+                        self.wam_logger.log_end()
                         pygame.quit()
                         quit()
 
@@ -203,6 +210,7 @@ class GameManager:
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
     def start(self):
+        self.wam_logger = WAM_Logger()
         cycle_time = 0
         num = -1
         loop = True
@@ -220,6 +228,7 @@ class GameManager:
         self.intro_complete = True
         while loop:
             for event in pygame.event.get():
+                self.wam_logger.log_it(event)
                 if self.intro_complete == True:
                     self.intro()
                 if event.type == pygame.KEYDOWN:
