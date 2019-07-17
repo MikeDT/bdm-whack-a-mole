@@ -2,7 +2,8 @@ import logging
 from time import time
 import os
 
-class WAM_Logger:# timestamp
+
+class WamLogger:
     def __init__(self):
         self.timestamp = str(time())
         self.logger = logging.getLogger('BDM-WAM ' + self.timestamp)
@@ -29,7 +30,7 @@ class WAM_Logger:# timestamp
         try:
             self.logger.info(event)
         except:
-            self.logger.info('Log Failure')
+            self.logger.info('Event Logging Failure')
 
     def log_end(self):
         self.logger.info('************* HAPPY ANALYSING... LOG COMPLETE!!! ************* ')

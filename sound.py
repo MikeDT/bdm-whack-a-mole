@@ -1,6 +1,7 @@
 from pygame import *
 import pygame
 
+
 class SoundEffect:
     def __init__(self):
         self.mainTrack = pygame.mixer.music.load("sounds/themesong.wav")
@@ -11,26 +12,26 @@ class SoundEffect:
         self.levelSound = pygame.mixer.Sound("sounds/point.wav")
         pygame.mixer.music.play(-1)
 
-    def playFire(self):
+    def play_fire(self):
         self.fireSound.play()
 
-    def stopFire(self):
+    def stop_fire(self):
         self.fireSound.sop()
 
-    def playPop(self):
+    def play_pop(self):
         self.popSound.play()
 
-    def stopPop(self):
+    def stop_pop(self):
         self.popSound.stop()
 
-    def playHurt(self):
+    def play_hurt(self):
         self.hurtSound.play()
 
-    def stopHurt(self):
+    def stop_hurt(self):
         self.hurtSound.stop()
 
-    def playLevelUp(self):
+    def play_level_up(self):
         self.levelSound.play()
 
-    def stopLevelUp(self):
+    def stop_level_up(self):
         self.levelSound.stop()

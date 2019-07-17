@@ -4,7 +4,8 @@ import numpy as np
 from pygame import *
 from sound import SoundEffect
 from debug import Debugger
-from logger import WAM_Logger
+from logger import WamLogger
+
 
 class GameManager:
     def __init__(self):
@@ -19,6 +20,8 @@ class GameManager:
         self.LEVEL_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
         self.GAME_TITLE = "Whack A Mole - Game Programming - Assignment 1"
+        self.wam_logger = WamLogger()
+        self.intro_complete = False
         # Initialize player's score, number of missed hits and level
         self.score = 0
         self.misses = 0
@@ -56,32 +59,10 @@ class GameManager:
         self.soundEffect = SoundEffect()
         self.pause = False
 
-    def text_objects(self, text, font):
-        textSurface = font.render(text, True, (50,50,50))# (0,0,0) =  black
-        return textSurface, textSurface.get_rect()
-
-    def intro(self):
-        while self.intro_complete:
-            pause_string = "Welcome! Press 'c' to continue, or 'q' to quit"
-            pause_text = self.font_obj.render(pause_string, True, (255, 255, 255))
-            pause_text_pos = pause_text.get_rect()
-            pause_text_pos.centerx = self.background.get_rect().centerx
-            pause_text_pos.centery = self.SCREEN_HEIGHT/2
-            self.screen.blit(pause_text, pause_text_pos)
-            pygame.display.update()
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.wam_logger.log_end()
-                    pygame.quit()
-                    quit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_c:
-                        self.intro_complete = False
-                    elif event.key == pygame.K_q:
-                        self.wam_logger.log_end()
-                        pygame.quit()
-                        quit()
+    @staticmethod
+    def text_objects(text, font):
+        text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) =  black
+        return text_surface, text_surface.get_rect()
 
     def write_message(self, message, loc_x, loc_y):
         text = self.font_obj.render(message, True, (255, 255, 255))
@@ -92,10 +73,10 @@ class GameManager:
         pygame.display.update()
 
     def intro(self):
-        while self.intro_complete:
+        while self.intro_complete is False:
             self.write_message("Welcome to the Brain Decision Modelling Lab Whack-A-Mole Game!",
                                self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2-80 )
+                               self.SCREEN_HEIGHT/2 - 80)
             self.write_message("Using the touch screen your task is to whack (touch) as many moles as possible",
                                self.background.get_rect().centerx,
                                self.SCREEN_HEIGHT/2 - 40)
@@ -104,10 +85,10 @@ class GameManager:
                                self.SCREEN_HEIGHT/2)
             self.write_message("But sometimes the environment doesn't behave...",
                                self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2+ 40)
+                               self.SCREEN_HEIGHT/2 + 40)
             self.write_message("... and you will score more or less than you deserve",
                                self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2+ 80)
+                               self.SCREEN_HEIGHT/2 + 80)
             self.write_message("To continue press 'c', to quit press 'q'",
                                self.background.get_rect().centerx,
                                self.SCREEN_HEIGHT/2 + 140)
@@ -122,7 +103,7 @@ class GameManager:
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
-                        self.intro_complete = False
+                        self.intro_complete = True
                     elif event.key == pygame.K_q:
                         self.wam_logger.log_end()
                         pygame.quit()
@@ -153,10 +134,10 @@ class GameManager:
 
     # Calculate the player level according to his current score & the LEVEL_SCORE_GAP constant
     def get_player_level(self):
-        newLevel = 1 + int(self.score / self.LEVEL_SCORE_GAP)
-        if newLevel != self.level:
+        new_level = 1 + int(self.score / self.LEVEL_SCORE_GAP)
+        if new_level != self.level:
             # if player get a new level play this sound
-            self.soundEffect.playLevelUp()
+            self.soundEffect.play_level_up()
         return 1 + int(self.score / self.LEVEL_SCORE_GAP)
 
     # Get the new duration between the time the mole pop up and down the holes
@@ -178,17 +159,21 @@ class GameManager:
                 (mouse_x < current_hole_x + self.MOLE_WIDTH) and\
                 (mouse_y > current_hole_y) and\
                 (mouse_y < current_hole_y + self.MOLE_HEIGHT):
-                if (np.random.binomial(1, 0.5, 1)[0])>0:
-                    self.wam_logger.log_it("<Event(9.1-True Hit {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                if (np.random.binomial(1, 0.5, 1)[0]) > 0:
+                    self.wam_logger.log_it("<Event(9.1-True Hit {'pos': ("
+                                           + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
                     return True
                 else:
-                    self.wam_logger.log_it("<Event(9.2-Fake Miss {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                    self.wam_logger.log_it("<Event(9.2-Fake Miss {'pos': (" + str(mouse_x)
+                                           + "," + str(mouse_y) + "), 'window': None})>")
                     return False
         else:
             if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                self.wam_logger.log_it("<Event(9.3-Fake Hit {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+                self.wam_logger.log_it("<Event(9.3-Fake Hit {'pos': (" + str(mouse_x)
+                                       + "," + str(mouse_y) + "), 'window': None})>")
                 return True
-            self.wam_logger.log_it("<Event(9.4-True Miss {'pos': (" + str(mouse_x) + "," + str(mouse_y) + "), 'window': None})>")
+            self.wam_logger.log_it("<Event(9.4-True Miss {'pos': (" + str(mouse_x) + ","
+                                   + str(mouse_y) + "), 'window': None})>")
             return False
 
     # Update the game states, re-calculate the player's score, misses, level
@@ -218,7 +203,6 @@ class GameManager:
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
     def start(self):
-        self.wam_logger = WAM_Logger()
         cycle_time = 0
         num = -1
         loop = True
@@ -233,11 +217,10 @@ class GameManager:
         for i in range(len(self.mole)):
             self.mole[i].set_colorkey((0, 0, 0))
             self.mole[i] = self.mole[i].convert_alpha()
-        self.intro_complete = True
         while loop:
             for event in pygame.event.get():
                 self.wam_logger.log_it(event)
-                if self.intro_complete == True:
+                if self.intro_complete is False:
                     self.intro()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
@@ -249,7 +232,7 @@ class GameManager:
                 if event.type == pygame.QUIT:
                     loop = False
                 if event.type == MOUSEBUTTONDOWN and event.button == self.LEFT_MOUSE_BUTTON:
-                    self.soundEffect.playFire()
+                    self.soundEffect.play_fire()
                     if self.is_mole_hit(mouse.get_pos(), self.hole_positions[frame_num]) and num > 0 and left == 0:
                         num = 3
                         left = 14
@@ -258,9 +241,9 @@ class GameManager:
                         self.score += 1  # Increase player's score
                         self.level = self.get_player_level()  # Calculate player's level
                         # Stop popping sound effect
-                        self.soundEffect.stopPop()
+                        self.soundEffect.stop_pop()
                         # Play hurt sound
-                        self.soundEffect.playHurt()
+                        self.soundEffect.play_hurt()
                         self.update()
                     else:
                         self.misses += 1
@@ -297,7 +280,7 @@ class GameManager:
                 elif num == 3:
                     num -= 1
                     is_down = True
-                    self.soundEffect.playPop()
+                    self.soundEffect.play_pop()
                     interval = self.get_interval_by_level(initial_interval)  # get the newly decreased interval value
                 else:
                     interval = 0.1
