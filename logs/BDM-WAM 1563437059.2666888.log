@@ -1,0 +1,7 @@
+2019-07-18 09:04:20,684 - BDM-WAM 1563437059.2666888 - INFO - <Event(17-VideoExpose {})>
+2019-07-18 09:04:24,408 - BDM-WAM 1563437059.2666888 - INFO - <Event(16-VideoResize {'size': (800, 600), 'w': 800, 'h': 600})>
+2019-07-18 09:04:24,408 - BDM-WAM 1563437059.2666888 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2019-07-18 09:04:24,408 - BDM-WAM 1563437059.2666888 - INFO - <Event(4-MouseMotion {'pos': (799, 56), 'rel': (800, 57), 'buttons': (0, 0, 0), 'window': None})>
+2019-07-18 09:04:24,594 - BDM-WAM 1563437059.2666888 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'scancode': 46, 'window': None})>
+2019-07-18 09:04:25,116 - BDM-WAM 1563437059.2666888 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2019-07-18 09:04:26,018 - BDM-WAM 1563437059.2666888 - INFO - ************* HAPPY ANALYSING... LOG COMPLETE!!! ************* 

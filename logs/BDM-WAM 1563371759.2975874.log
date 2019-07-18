@@ -1,0 +1,7 @@
+2019-07-17 14:56:01,646 - BDM-WAM 1563371759.2975874 - INFO - <Event(17-VideoExpose {})>
+2019-07-17 14:56:03,911 - BDM-WAM 1563371759.2975874 - INFO - <Event(16-VideoResize {'size': (800, 600), 'w': 800, 'h': 600})>
+2019-07-17 14:56:03,912 - BDM-WAM 1563371759.2975874 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2019-07-17 14:56:03,912 - BDM-WAM 1563371759.2975874 - INFO - <Event(4-MouseMotion {'pos': (734, 438), 'rel': (735, 439), 'buttons': (0, 0, 0), 'window': None})>
+2019-07-17 14:56:03,912 - BDM-WAM 1563371759.2975874 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2019-07-17 14:56:03,919 - BDM-WAM 1563371759.2975874 - INFO - <Event(4-MouseMotion {'pos': (735, 438), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2019-07-17 14:56:04,040 - BDM-WAM 1563371759.2975874 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'scancode': 46, 'window': None})>

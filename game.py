@@ -17,21 +17,23 @@ class GameManager:
         self.MOLE_HEIGHT = 81
         self.FONT_SIZE = 18
         self.FONT_TOP_MARGIN = 26
-        self.LEVEL_SCORE_GAP = 4
+        self.STAGE_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
-        self.GAME_TITLE = "Whack A Mole - Game Programming - Assignment 1"
+        self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
         self.wam_logger = WamLogger()
         self.intro_complete = False
-        # Initialize player's score, number of missed hits and level
+        self.stage_time_change = False
+        # Initialize player's score, number of missed hits and stage
         self.score = 0
         self.misses = 0
-        self.level = 1
+        self.stage = 1
+        self.stage_type = 'Standard' # Standard or Attempts
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pygame.display.set_caption(self.GAME_TITLE)
         self.background = pygame.image.load("images/bg.png")
         # Font object for displaying text
-        self.font_obj = pygame.font.Font('./fonts/GROBOLD.ttf', self.FONT_SIZE)
+        self.font_obj = pygame.font.SysFont("comicsansms", 20) #pygame.font.Font('./fonts/GROBOLD.ttf', self.FONT_SIZE)
         # Initialize the mole's sprite sheet
         # 6 different states
         sprite_sheet = pygame.image.load("images/mole.png")
@@ -57,7 +59,7 @@ class GameManager:
         self.debugger = Debugger("debug")
         # Sound effects
         self.soundEffect = SoundEffect()
-        self.pause = False
+        self.paused = False
 
     @staticmethod
     def text_objects(text, font):
@@ -74,27 +76,20 @@ class GameManager:
 
     def intro(self):
         while self.intro_complete is False:
-            self.write_message("Welcome to the Brain Decision Modelling Lab Whack-A-Mole Game!",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 - 80)
-            self.write_message("Using the touch screen your task is to whack (touch) as many moles as possible",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 - 40)
-            self.write_message("You will score points for each mole you hit, the more accurate the more points",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2)
-            self.write_message("But sometimes the environment doesn't behave...",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 + 40)
-            self.write_message("... and you will score more or less than you deserve",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 + 80)
-            self.write_message("To continue press 'c', to quit press 'q'",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 + 140)
-            self.write_message("If you need to pause while playing press 'p'",
-                               self.background.get_rect().centerx,
-                               self.SCREEN_HEIGHT/2 + 220)
+            self.write_text("Welcome to the Brain Decision Modelling Lab Whack-A-Mole Game!",
+                            location_y = self.SCREEN_HEIGHT/2 - 80)
+            self.write_text("Using the touch screen your task is to whack (touch) as many moles as possible",
+                            location_y=self.SCREEN_HEIGHT / 2 - 40)
+            self.write_text("You will score points for each mole you hit, the more accurate the more points",
+                            location_y=self.SCREEN_HEIGHT / 2)
+            self.write_text("But sometimes the environment doesn't behave...",
+                            location_y=self.SCREEN_HEIGHT / 2 + 40)
+            self.write_text("... and you will score more or less than you deserve",
+                            location_y=self.SCREEN_HEIGHT / 2 + 80)
+            self.write_text("To continue press 'c', to quit press 'q'",
+                            location_y=self.SCREEN_HEIGHT / 2 + 120)
+            self.write_text("If you need to pause while playing press 'p'",
+                            location_y=self.SCREEN_HEIGHT / 2 + 180)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -109,15 +104,34 @@ class GameManager:
                         pygame.quit()
                         quit()
 
-    def paused(self):
-        while self.pause:
-            pause_string = "Game Paused! Press 'c' to continue, or 'q' to quit"
-            pause_text = self.font_obj.render(pause_string, True, (255, 255, 255))
-            pause_text_pos = pause_text.get_rect()
-            pause_text_pos.centerx = self.background.get_rect().centerx
-            pause_text_pos.centery = self.SCREEN_HEIGHT/2
-            self.screen.blit(pause_text, pause_text_pos)
-            pygame.display.update()
+    def rate(self):
+        self.write_text("Rate the skill level, press keys 1 to 7")
+
+    def write_text(self, string, colour = (255, 255, 255), location_x = None, location_y = None):
+        if location_x == None:
+            location_x = self.background.get_rect().centerx
+        if location_y == None:
+            location_y = self.SCREEN_HEIGHT / 2
+        text = self.font_obj.render(string, True, colour)
+        text_pos = text.get_rect()
+        text_pos.centerx = location_x
+        text_pos.centery = location_y
+        self.screen.blit(text, text_pos)
+        pygame.display.update()
+
+    def pause(self, pause_reason = 'standard'):
+        while self.paused:
+            if pause_reason == 'standard':
+                self.write_text("Game Paused! Press 'c' to continue, or 'q' to quit")
+
+            elif pause_reason == 'stage':
+                self.write_text('New Stage, please rate the level of luck and skill that you and teh environment ' \
+                               'have, press "r" to start rating')
+
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_r:
+                            self.rate()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -126,28 +140,40 @@ class GameManager:
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
-                        self.pause = False
+                        self.paused = False
                     elif event.key == pygame.K_q:
                         self.wam_logger.log_end()
                         pygame.quit()
                         quit()
 
-    # Calculate the player level according to his current score & the LEVEL_SCORE_GAP constant
-    def get_player_level(self):
-        new_level = 1 + int(self.score / self.LEVEL_SCORE_GAP)
-        if new_level != self.level:
-            # if player get a new level play this sound
-            self.soundEffect.play_level_up()
-        return 1 + int(self.score / self.LEVEL_SCORE_GAP)
+    # Calculate the player stage according to his current score & the STAGE_SCORE_GAP constant
+    def get_player_stage(self):
+        if self.stage_type == 'Standard':
+            new_stage = 1 + int(self.score / self.STAGE_SCORE_GAP)
+            if new_stage != self.stage:
+                # if player get a new stage play this sound
+                self.soundEffect.play_stage_up()
+                self.paused = True
+                self.pause(pause_reason = 'stage')
+            return 1 + int(self.score / self.STAGE_SCORE_GAP)
+        elif self.stage_type == 'Time':
+            if (self.misses + self.score) % 25 == 0:
+                return 1 + self.stage
+            else:
+                return self.stage
+
 
     # Get the new duration between the time the mole pop up and down the holes
-    # It's in inverse ratio to the player's current level
-    def get_interval_by_level(self, initial_interval):
-        new_interval = initial_interval - self.level * 0.15
-        if new_interval > 0:
-            return new_interval
+    # It's in inverse ratio to the player's current stage
+    def get_interval_by_stage(self, initial_interval):
+        if self.stage_time_change:
+            new_interval = initial_interval - self.stage * 0.15
+            if new_interval > 0:
+                return new_interval
+            else:
+                return 0.05
         else:
-            return 0.05
+            return 1.0
 
     # Check whether the mouse click hit the mole or not
     def is_mole_hit(self, mouse_position, current_hole_position):
@@ -176,7 +202,7 @@ class GameManager:
                                    + str(mouse_y) + "), 'window': None})>")
             return False
 
-    # Update the game states, re-calculate the player's score, misses, level
+    # Update the game states, re-calculate the player's score, misses, stage
     def update(self):
         # Update the player's score
         current_score_string = "SCORE: " + str(self.score)
@@ -192,13 +218,13 @@ class GameManager:
         misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
         misses_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(misses_text, misses_text_pos)
-        # Update the player's level
-        current_level_string = "LEVEL: " + str(self.level)
-        level_text = self.font_obj.render(current_level_string, True, (255, 255, 255))
-        level_text_pos = level_text.get_rect()
-        level_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
-        level_text_pos.centery = self.FONT_TOP_MARGIN
-        self.screen.blit(level_text, level_text_pos)
+        # Update the player's stage
+        current_stage_string = "STAGE: " + str(self.stage)
+        stage_text = self.font_obj.render(current_stage_string, True, (255, 255, 255))
+        stage_text_pos = stage_text.get_rect()
+        stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
+        stage_text_pos.centery = self.FONT_TOP_MARGIN
+        self.screen.blit(stage_text, stage_text_pos)
 
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
@@ -224,8 +250,8 @@ class GameManager:
                     self.intro()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
-                        self.pause = True
-                        self.paused()
+                        self.paused = True
+                        self.pause()
                     if event.key == pygame.K_q:
                         pygame.quit()
                         quit()
@@ -239,7 +265,7 @@ class GameManager:
                         is_down = False
                         interval = 0
                         self.score += 1  # Increase player's score
-                        self.level = self.get_player_level()  # Calculate player's level
+                        self.stage = self.get_player_stage()  # Calculate player's stage
                         # Stop popping sound effect
                         self.soundEffect.stop_pop()
                         # Play hurt sound
@@ -281,7 +307,7 @@ class GameManager:
                     num -= 1
                     is_down = True
                     self.soundEffect.play_pop()
-                    interval = self.get_interval_by_level(initial_interval)  # get the newly decreased interval value
+                    interval = self.get_interval_by_stage(initial_interval)  # get the newly decreased interval value
                 else:
                     interval = 0.1
                 cycle_time = 0

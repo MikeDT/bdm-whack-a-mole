@@ -30,8 +30,8 @@ class SoundEffect:
     def stop_hurt(self):
         self.hurtSound.stop()
 
-    def play_level_up(self):
+    def play_stage_up(self):
         self.levelSound.play()
 
-    def stop_level_up(self):
+    def stop_stage_up(self):
         self.levelSound.stop()
