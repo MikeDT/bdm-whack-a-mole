@@ -129,9 +129,18 @@ class GameManager:
                                'have, press "r" to start rating')
 
                 for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_r:
-                            self.rate()
+                    if event.type == pygame.QUIT:
+                        self.wam_logger.log_end()
+                        pygame.quit()
+                        quit()
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_r:
+                                self.rate()
+                            elif event.key == pygame.K_q:
+                                self.wam_logger.log_end()
+                                pygame.quit()
+                                quit()
+
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
