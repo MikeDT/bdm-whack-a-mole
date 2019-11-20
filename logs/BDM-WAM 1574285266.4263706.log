@@ -1,0 +1,173 @@
+2019-11-20 21:27:46,613 - BDM-WAM 1574285266.4263706 - INFO - <Event(17-VideoExpose {})>
+2019-11-20 21:27:47,891 - BDM-WAM 1574285266.4263706 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2019-11-20 21:27:47,891 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (333, 187), 'window': None, 'pos': (332, 186)})>
+2019-11-20 21:27:47,972 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 99, 'window': None, 'scancode': 46})>
+2019-11-20 21:27:48,581 - BDM-WAM 1574285266.4263706 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2019-11-20 21:27:48,590 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (32, 7), 'window': None, 'pos': (364, 193)})>
+2019-11-20 21:27:48,598 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (29, 7), 'window': None, 'pos': (393, 200)})>
+2019-11-20 21:27:48,614 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (29, 5), 'window': None, 'pos': (422, 205)})>
+2019-11-20 21:27:48,631 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (27, 3), 'window': None, 'pos': (449, 208)})>
+2019-11-20 21:27:48,648 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (20, 3), 'window': None, 'pos': (469, 211)})>
+2019-11-20 21:27:48,665 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (15, 2), 'window': None, 'pos': (484, 213)})>
+2019-11-20 21:27:48,683 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (10, 0), 'window': None, 'pos': (494, 213)})>
+2019-11-20 21:27:48,699 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (4, 0), 'window': None, 'pos': (498, 213)})>
+2019-11-20 21:27:48,716 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (2, 0), 'window': None, 'pos': (500, 213)})>
+2019-11-20 21:27:48,735 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (1, 0), 'window': None, 'pos': (501, 213)})>
+2019-11-20 21:27:48,750 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (2, 0), 'window': None, 'pos': (503, 213)})>
+2019-11-20 21:27:48,767 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (1, 0), 'window': None, 'pos': (504, 213)})>
+2019-11-20 21:27:48,783 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (0, 0, 0), 'rel': (1, 0), 'window': None, 'pos': (505, 213)})>
+2019-11-20 21:27:50,653 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (526, 165)})>
+2019-11-20 21:27:50,655 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (526, 165)})>
+2019-11-20 21:27:51,431 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (524, 170)})>
+2019-11-20 21:27:51,431 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:27:53,001 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:27:53,526 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:27:53,871 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:27:53,872 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.3-Fake Hit {'pos': (524,170), 'window': None})>
+2019-11-20 21:27:53,873 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (524, 170)})>
+2019-11-20 21:27:54,024 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:27:54,631 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (680, 418)})>
+2019-11-20 21:27:54,633 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (680, 418)})>
+2019-11-20 21:27:55,347 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (679, 419)})>
+2019-11-20 21:27:55,347 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:27:56,428 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:27:56,751 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:27:57,023 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:27:57,024 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (679,419), 'window': None})>
+2019-11-20 21:27:57,024 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (679, 419)})>
+2019-11-20 21:27:57,234 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:27:57,969 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (445, 330)})>
+2019-11-20 21:27:57,970 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (445, 330)})>
+2019-11-20 21:27:58,547 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (440, 351)})>
+2019-11-20 21:27:58,548 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:27:59,130 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:27:59,407 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:27:59,637 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:27:59,638 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (440,351), 'window': None})>
+2019-11-20 21:27:59,639 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (440, 351)})>
+2019-11-20 21:27:59,815 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:00,539 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (524, 166)})>
+2019-11-20 21:28:00,540 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (524, 166)})>
+2019-11-20 21:28:00,975 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (518, 186)})>
+2019-11-20 21:28:00,976 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:01,543 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:01,756 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:01,947 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:01,948 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (518,186), 'window': None})>
+2019-11-20 21:28:01,949 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (518, 186)})>
+2019-11-20 21:28:02,054 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:03,463 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (436, 337)})>
+2019-11-20 21:28:03,464 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (436, 337)})>
+2019-11-20 21:28:03,630 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (436, 337)})>
+2019-11-20 21:28:03,632 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:04,154 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:04,358 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:04,560 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:04,560 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (436,337), 'window': None})>
+2019-11-20 21:28:04,774 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:05,848 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (663, 281)})>
+2019-11-20 21:28:05,849 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (663, 281)})>
+2019-11-20 21:28:06,040 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (690, 287)})>
+2019-11-20 21:28:06,041 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:06,761 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:06,952 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:07,163 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:07,163 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (690,287), 'window': None})>
+2019-11-20 21:28:07,164 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (690, 287)})>
+2019-11-20 21:28:07,265 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:09,018 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (159, 93)})>
+2019-11-20 21:28:09,019 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (159, 93)})>
+2019-11-20 21:28:09,121 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (159, 93)})>
+2019-11-20 21:28:09,121 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:09,521 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:09,733 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:09,906 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:09,906 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (154,93), 'window': None})>
+2019-11-20 21:28:09,907 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (-5, 0), 'window': None, 'pos': (154, 93)})>
+2019-11-20 21:28:10,017 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:11,381 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (649, 322)})>
+2019-11-20 21:28:11,381 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (13, -12), 'window': None, 'pos': (662, 310)})>
+2019-11-20 21:28:11,395 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (2, -1), 'window': None, 'pos': (664, 309)})>
+2019-11-20 21:28:11,412 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (4, -3), 'window': None, 'pos': (668, 306)})>
+2019-11-20 21:28:11,429 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (0, -1), 'window': None, 'pos': (668, 305)})>
+2019-11-20 21:28:11,446 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (1, 0), 'window': None, 'pos': (669, 305)})>
+2019-11-20 21:28:11,463 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (1, 0), 'window': None, 'pos': (670, 305)})>
+2019-11-20 21:28:11,513 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (670, 305)})>
+2019-11-20 21:28:11,738 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (701, 301)})>
+2019-11-20 21:28:11,739 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:12,670 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:12,864 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:13,014 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:13,015 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (701,301), 'window': None})>
+2019-11-20 21:28:13,015 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (701, 301)})>
+2019-11-20 21:28:13,155 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:14,627 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (715, 281)})>
+2019-11-20 21:28:14,628 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (715, 281)})>
+2019-11-20 21:28:14,743 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (715, 281)})>
+2019-11-20 21:28:14,743 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:15,193 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:15,363 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:15,543 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:15,543 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (706,289), 'window': None})>
+2019-11-20 21:28:15,544 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (-9, 8), 'window': None, 'pos': (706, 289)})>
+2019-11-20 21:28:15,633 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:17,036 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (538, 164)})>
+2019-11-20 21:28:17,038 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (538, 164)})>
+2019-11-20 21:28:17,132 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (538, 164)})>
+2019-11-20 21:28:17,132 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:17,552 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:17,772 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:17,946 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:17,946 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (521,181), 'window': None})>
+2019-11-20 21:28:17,947 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (-17, 17), 'window': None, 'pos': (521, 181)})>
+2019-11-20 21:28:18,089 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:19,429 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (226, 212)})>
+2019-11-20 21:28:19,432 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (226, 212)})>
+2019-11-20 21:28:19,530 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (226, 212)})>
+2019-11-20 21:28:19,530 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:19,959 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:20,190 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:20,363 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:20,364 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (227,220), 'window': None})>
+2019-11-20 21:28:20,365 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (1, 8), 'window': None, 'pos': (227, 220)})>
+2019-11-20 21:28:20,512 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:21,887 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (434, 341)})>
+2019-11-20 21:28:21,887 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (434, 341)})>
+2019-11-20 21:28:21,971 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (434, 341)})>
+2019-11-20 21:28:21,972 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:22,442 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:22,683 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:22,986 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:22,987 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (434,349), 'window': None})>
+2019-11-20 21:28:22,987 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (0, 8), 'window': None, 'pos': (434, 349)})>
+2019-11-20 21:28:23,140 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:24,540 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (243, 224)})>
+2019-11-20 21:28:24,540 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (243, 224)})>
+2019-11-20 21:28:24,641 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (243, 224)})>
+2019-11-20 21:28:24,641 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:25,065 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:25,338 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:25,539 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:25,539 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (236,230), 'window': None})>
+2019-11-20 21:28:25,539 - BDM-WAM 1574285266.4263706 - INFO - <Event(4-MouseMotion {'buttons': (1, 0, 0), 'rel': (-7, 6), 'window': None, 'pos': (236, 230)})>
+2019-11-20 21:28:25,692 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:27,091 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (680, 449)})>
+2019-11-20 21:28:27,092 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (680, 449)})>
+2019-11-20 21:28:27,297 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (680, 420)})>
+2019-11-20 21:28:27,298 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:27,891 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:28,122 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:28,346 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:28,346 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.2-Fake Miss {'pos': (680,420), 'window': None})>
+2019-11-20 21:28:28,347 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (680, 420)})>
+2019-11-20 21:28:28,544 - BDM-WAM 1574285266.4263706 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 49, 'window': None, 'scancode': 2})>
+2019-11-20 21:28:29,801 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (684, 416)})>
+2019-11-20 21:28:29,802 - BDM-WAM 1574285266.4263706 - INFO - <Event(6-MouseButtonUp {'button': 1, 'window': None, 'pos': (684, 416)})>
+2019-11-20 21:28:29,885 - BDM-WAM 1574285266.4263706 - INFO - <Event(5-MouseButtonDown {'button': 1, 'window': None, 'pos': (684, 416)})>
+2019-11-20 21:28:29,885 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:30,369 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': hit_conf49 })>
+2019-11-20 21:28:30,579 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': reward_conf49 })>
+2019-11-20 21:28:30,770 - BDM-WAM 1574285266.4263706 - INFO - <Event(7-Rate {'': player_skill49 })>
+2019-11-20 21:28:30,770 - BDM-WAM 1574285266.4263706 - INFO - <Event(9.1-True Hit {'pos': (680,421), 'window': None})>
+2019-11-20 21:28:30,771 - BDM-WAM 1574285266.4263706 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x00000182818A0908>> })>
+2019-11-20 21:28:36,818 - BDM-WAM 1574285266.4263706 - INFO - ************* HAPPY ANALYSING... LOG COMPLETE!!! ************* 

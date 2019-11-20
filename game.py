@@ -1,7 +1,7 @@
 import pygame
 import random
 import numpy as np
-from pygame import *
+#from pygame import *
 from sound import SoundEffect
 from debug import Debugger
 from logger import WamLogger
@@ -27,10 +27,13 @@ class GameManager:
         # Initialize player's score, number of missed hits and stage
         self.score = 0
         self.misses = 0
-        self.stage = 1
+        self.stage = 'Demo'
         self.stage_type = 'Standard'  # Standard or Attempts
         self.feedback_count = 0 
         self.feedback_limit = 2
+        self.stage_length = 10
+        self.demo_len = 5
+        self.stages = range(self.demo_len,100 + self.demo_len,self.stage_length)
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, 
                                                self.SCREEN_HEIGHT + 100))
@@ -64,7 +67,8 @@ class GameManager:
         # Sound effects
         self.soundEffect = SoundEffect()
         self.paused = False
-        self.pause_list = [False, 'standard', 'rate_conf', 'rate_skill', 'rate_env']
+        self.pause_list = [False, 'standard', 'hit_conf', 'rate_skill', 'rate_env', 'stage']
+        self.demo = True
 
     @staticmethod
     def text_objects(text, font):
@@ -153,22 +157,50 @@ class GameManager:
         self.wam_logger.log_it("<Event(8-Pause {'reason': " + 
                                str(self.pause) + " })>")
         while self.paused != False:
-            if self.paused == 'pause':
-                self.write_text('Game Paused! Press "c" to continue, or "q" ' +
-                                'to quit')
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.wam_logger.log_end()
-                        pygame.quit()
-                        quit()
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_c:
-                            self.intro_complete = True
-                        elif event.key == pygame.K_q:
+            if self.paused in ['pause', 'stage', 'demo'] :
+                if self.paused == 'stage':
+                    self.write_text('Stage Complete! Press "c" to continue, or "q" to quit', location_y = self.SCREEN_HEIGHT/2 + 40)
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
                             self.wam_logger.log_end()
                             pygame.quit()
                             quit()
-
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_c:
+                                self.paused = False
+                            elif event.key == pygame.K_q:
+                                self.wam_logger.log_end()
+                                pygame.quit()
+                                quit()
+                elif self.paused == 'paused':
+                    self.write_text('Game Paused! Press "c" to continue, or "q" to quit')
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            self.wam_logger.log_end()
+                            pygame.quit()
+                            quit()
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_c:
+                                self.paused = False
+                            elif event.key == pygame.K_q:
+                                self.wam_logger.log_end()
+                                pygame.quit()
+                                quit()
+                else:
+                    self.write_text('Demo Complete! Press "c" to start the real game, or "q" to quit', location_y = self.SCREEN_HEIGHT/2 + 40)
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            self.wam_logger.log_end()
+                            pygame.quit()
+                            quit()
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_c:
+                                self.demo = False
+                                self.paused = False
+                            elif event.key == pygame.K_q:
+                                self.wam_logger.log_end()
+                                pygame.quit()
+                                quit()
             elif self.paused == 'hit_conf':
                 self.write_text('Please rate your confidence in a hit between 1 (lowest) and 7 (highest)',
                                 location_y = self.SCREEN_HEIGHT/2 - 80)
@@ -187,18 +219,26 @@ class GameManager:
     # the STAGE_SCORE_GAP constant
     def get_player_stage(self):
         if self.stage_type == 'Standard':
-            new_stage = 1 + int(self.score / self.STAGE_SCORE_GAP)
-            if new_stage != self.stage:
-                # if player get a new stage play this sound
-                self.soundEffect.play_stage_up()
-                self.paused = 'hit_conf'
-                self.pause(pause_reason = 'feedback')
-            return 1 + int(self.score / self.STAGE_SCORE_GAP)
-        elif self.stage_type == 'Time':
-            if (self.misses + self.score) % 25 == 0:
-                return 1 + self.stage
-            else:
-                return self.stage
+            if (self.misses + self.score) in self.stages:
+                if self.demo == True:
+                    self.misses = 0
+                    self.score = 0
+                    self.stage = 1
+                    self.paused = 'demo'
+                    self.demo = False
+                    self.pause()                # if player get a new stage play this sound
+                else:
+                    self.soundEffect.play_stage_up()
+                    self.paused = 'stage'
+                    self.pause()
+                    self.stage +=1
+
+                    #code defunct, to be deleted
+#        elif self.stage_type == 'Time':
+#            if (self.misses + self.score) % self.stage_length == 0:
+#                return 1 + self.stage
+#            else:
+#                return self.stage
 
 
     # Get the new duration between the time the mole pop up and down the holes
@@ -315,6 +355,7 @@ class GameManager:
                 if (event.type == pygame.MOUSEBUTTONDOWN and
                     event.button == self.LEFT_MOUSE_BUTTON):
                     self.soundEffect.play_fire()
+                    self.get_player_stage()
                     if (self.is_mole_hit(pygame.mouse.get_pos(),
                                         self.hole_positions[frame_num]) and
                                         num > 0 and left == 0):
@@ -323,7 +364,7 @@ class GameManager:
                         is_down = False
                         interval = 0
                         self.score += 1  
-                        self.stage = self.get_player_stage()
+                        self.get_player_stage()
                         # Stop popping sound effect
                         self.soundEffect.stop_pop()
                         # Play hurt sound
