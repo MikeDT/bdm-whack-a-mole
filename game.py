@@ -10,8 +10,8 @@ class GameManager:
     def __init__(self):
         # Define constants
         self.feedback = True
-        self.SCREEN_WIDTH = 800
-        self.SCREEN_HEIGHT = 600
+        self.SCREEN_WIDTH = 1600
+        self.SCREEN_HEIGHT = 1200        
         self.FPS = 60
         self.MOLE_WIDTH = 90
         self.MOLE_HEIGHT = 81
@@ -32,6 +32,7 @@ class GameManager:
         self.feedback_limit = 2
         self.stage_length = 10
         self.demo_len = 5
+        self.margin = 10
         self.stages = range(self.demo_len,
                             100 + self.demo_len,
                             self.stage_length)
@@ -39,7 +40,10 @@ class GameManager:
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT + 100))
         pygame.display.set_caption(self.GAME_TITLE)
-        self.background = pygame.image.load("images/bg.png")
+        if self.SCREEN_WIDTH == 1600:
+            self.background = pygame.image.load("images/bg 1600x1300.png")
+        else:
+            self.background = pygame.image.load("images/bg.png")
         # Font object for displaying text
         self.font_obj = pygame.font.SysFont("comicsansms", 20)
         # Initialize the mole's sprite sheet
@@ -63,7 +67,7 @@ class GameManager:
         self.hole_positions.append((464, 119))
         self.hole_positions.append((95, 43))
         self.hole_positions.append((603, 11))
-        self.hit_process = 'binomial'
+        self.hit_process = 'standard'
         # Init debugger
         self.debugger = Debugger("debug")
         # Sound effects
@@ -72,6 +76,8 @@ class GameManager:
         self.pause_list = [False, 'standard', 'hit_conf',
                            'rate_skill', 'rate_env', 'stage']
         self.demo = True
+        self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
+                               '53': '5', '54': '6', '55': '7', '56': '8', '57': '9'}
 
     @staticmethod
     def text_objects(text, font):
@@ -144,9 +150,10 @@ class GameManager:
                                  pygame.K_5,
                                  pygame.K_6,
                                  pygame.K_7]:
+                    event_act = self.event_key_dict[str(event.key)]
                     self.wam_logger.log_it("<Event(7-Rate {'" +
-                                           "': " + action[0] +
-                                           str(event.key) + " })>")
+                                           action[0] + "': " +
+                                           event_act + " })>")
                     self.paused = action[1]
                 elif event.key == pygame.K_q:
                     self.wam_logger.log_end()
@@ -259,6 +266,32 @@ class GameManager:
             else:
                 return (False, False)
 
+    def is_mole_hit_margin(self, mouse_x, mouse_y,
+                           current_hole_x, current_hole_y):
+        actual_hit = False
+        margin_hit = False
+        if ((mouse_x > current_hole_x) and
+                (mouse_x < current_hole_x + self.MOLE_WIDTH) and
+                (mouse_y > current_hole_y) and
+                (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
+                actual_hit = True
+        if ((mouse_x > current_hole_x - self.margin) and
+                (mouse_x < current_hole_x + self.MOLE_WIDTH + self.margin) and
+                (mouse_y > current_hole_y - self.margin) and
+                (mouse_y < current_hole_y + self.MOLE_HEIGHT + self.margin)):
+                margin_hit = True
+        return (actual_hit, margin_hit)
+
+    def is_mole_hit_standard(self, mouse_x, mouse_y,
+                             current_hole_x, current_hole_y):
+        actual_hit = False
+        if ((mouse_x > current_hole_x) and
+                (mouse_x < current_hole_x + self.MOLE_WIDTH) and
+                (mouse_y > current_hole_y) and
+                (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
+                actual_hit = True
+        return (actual_hit, actual_hit)
+
     # Check whether the mouse click hit the mole or not
     def is_mole_hit(self, mouse_position, current_hole_position):
         mouse_x = mouse_position[0]
@@ -267,6 +300,7 @@ class GameManager:
         current_hole_y = current_hole_position[1]
         distance = ((mouse_x - current_hole_x)**2 +
                     (mouse_y - current_hole_y)**2)**0.5
+        relative_loc = (mouse_x - current_hole_x, mouse_y - current_hole_y)
         self.feedback_count += 1
         if self.feedback_count == self.feedback_limit:
             self.feedback_count = 0
@@ -275,30 +309,24 @@ class GameManager:
         if self.hit_process == 'binomial':
             result = self.is_mole_hit_binomial(mouse_x, mouse_y,
                                                current_hole_x, current_hole_y)
-        if result == (True, True):
-            self.wam_logger.log_it("<Event(9.1-True Hit {'pos': (" +
-                                   str(mouse_x) + "," +
-                                   str(mouse_y) + ")," +
-                                   "'distance: " + str(distance) +
-                                   "'window': None})>")
-        elif result == (False, True):
-            self.wam_logger.log_it("<Event(9.2-Fake Miss {'pos': (" +
-                                   str(mouse_x) + "," +
-                                   str(mouse_y) + ")," +
-                                   "'distance: " + str(distance) +
-                                   "'window': None})>")
-        elif result == (True, False):
-            self.wam_logger.log_it("<Event(9.3-Fake Hit {'pos': (" +
-                                   str(mouse_x) + "," +
-                                   str(mouse_y) + ")," +
-                                   "'distance: " + str(distance) +
-                                   "'window': None})>")
+        elif self.hit_process == 'margin':
+            result = self.is_mole_hit_margin(mouse_x, mouse_y,
+                                             current_hole_x, current_hole_y)
         else:
-            self.wam_logger.log_it("<Event(9.4-True Miss {'pos': (" +
-                                   str(mouse_x) + "," +
-                                   str(mouse_y) + ")," +
-                                   "'distance: " + str(distance) +
-                                   "'window': None})>")
+            result = self.is_mole_hit_standard(mouse_x, mouse_y,
+                                               current_hole_x, current_hole_y)
+        log_string = ("{'pos': (" + str(mouse_x) + "," + str(mouse_y) + ")," +
+                      "'distance: " + str(distance) + "," +
+                      "'relative_loc: " + str(relative_loc) + "," +
+                      "'window': None})>")
+        if result == (True, True):
+            self.wam_logger.log_it("<Event(9.1-True Hit " + log_string)
+        elif result == (False, True):
+            self.wam_logger.log_it("<Event(9.2-Fake Miss " + log_string)
+        elif result == (True, False):
+            self.wam_logger.log_it("<Event(9.3-Fake Hit " + log_string)
+        else:
+            self.wam_logger.log_it("<Event(9.4-True Miss " + log_string)
         return result[0]
 
     # Update the game states, re-calculate the player's score, misses, stage
