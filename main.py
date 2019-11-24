@@ -1,8 +1,6 @@
 from game import GameManager
 import pygame
 
-
-###############################################################
 # Initialize the game
 pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
 pygame.init()

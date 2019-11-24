@@ -1,0 +1,14 @@
+2019-11-24 19:27:06,104 - BDM-WAM 1574623625.5960355 - INFO - <Event(17-VideoExpose {})>
+2019-11-24 19:27:10,417 - BDM-WAM 1574623625.5960355 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2019-11-24 19:27:10,418 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (421, 865), 'buttons': (0, 0, 0), 'pos': (420, 864), 'window': None})>
+2019-11-24 19:27:10,419 - BDM-WAM 1574623625.5960355 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2019-11-24 19:27:10,419 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (-2, 8), 'buttons': (0, 0, 0), 'pos': (418, 872), 'window': None})>
+2019-11-24 19:27:10,420 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (187, -145), 'buttons': (0, 0, 0), 'pos': (605, 727), 'window': None})>
+2019-11-24 19:27:10,819 - BDM-WAM 1574623625.5960355 - INFO - <Event(3-KeyUp {'scancode': 46, 'key': 99, 'window': None, 'mod': 0})>
+2019-11-24 19:27:10,819 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (165, -139), 'buttons': (0, 0, 0), 'pos': (1146, 596), 'window': None})>
+2019-11-24 19:27:11,002 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (30, -65), 'buttons': (0, 0, 0), 'pos': (1176, 531), 'window': None})>
+2019-11-24 19:27:11,163 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (-35, 0), 'buttons': (0, 0, 0), 'pos': (1141, 531), 'window': None})>
+2019-11-24 19:27:11,169 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (-4, 0), 'buttons': (0, 0, 0), 'pos': (1137, 531), 'window': None})>
+2019-11-24 19:27:11,194 - BDM-WAM 1574623625.5960355 - INFO - <Event(4-MouseMotion {'rel': (-11, 0), 'buttons': (0, 0, 0), 'pos': (1126, 531), 'window': None})>
+2019-11-24 19:27:12,512 - BDM-WAM 1574623625.5960355 - INFO - <Event(2-KeyDown {'scancode': 25, 'key': 112, 'window': None, 'mod': 0, 'unicode': 'p'})>
+2019-11-24 19:27:12,512 - BDM-WAM 1574623625.5960355 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x000001C858AA6DA0>> })>

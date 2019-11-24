@@ -108,7 +108,7 @@ class GameManager:
             self.write_text('... and you will score more or less than you' +
                             '"deserve"',
                             location_y=self.SCREEN_HEIGHT / 2 + 80)
-            self.write_text("To continue press 'c', to quit press 'q'",
+            self.write_text("To continue press 'c', to quit press 'ctrl q'",
                             location_y=self.SCREEN_HEIGHT / 2 + 120)
             self.write_text("If you need to pause while playing press 'p'",
                             location_y=self.SCREEN_HEIGHT / 2 + 180)
@@ -121,8 +121,10 @@ class GameManager:
                     if event.key == pygame.K_c:
                         self.intro_complete = True
                     elif event.key == pygame.K_q:
-                        self.wam_logger.log_end()
-                        pygame.quit()
+                        mods = pygame.key.get_mods()
+                        if mods & pygame.KMOD_CTRL:
+                            pygame.quit()
+                            self.wam_logger.log_end()
 
     def write_text(self, string, colour=(255, 255, 255),
                    location_x=None, location_y=None):
@@ -156,8 +158,10 @@ class GameManager:
                                            event_act + " })>")
                     self.paused = action[1]
                 elif event.key == pygame.K_q:
-                    self.wam_logger.log_end()
-                    pygame.quit()
+                    mods = pygame.key.get_mods()
+                    if mods & pygame.KMOD_CTRL:
+                        pygame.quit()
+                        self.wam_logger.log_end()
 
     def pause(self):
         self.wam_logger.log_it("<Event(8-Pause {'reason': " +
@@ -166,7 +170,7 @@ class GameManager:
             if self.paused in ['pause', 'stage', 'demo']:
                 if self.paused == 'stage':
                     self.write_text('Stage Complete! Press "c" to continue, ' +
-                                    'or "q" to quit',
+                                    'or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -176,11 +180,13 @@ class GameManager:
                             if event.key == pygame.K_c:
                                 self.paused = False
                             elif event.key == pygame.K_q:
-                                self.wam_logger.log_end()
-                                pygame.quit()
+                                mods = pygame.key.get_mods()
+                                if mods & pygame.KMOD_CTRL:
+                                    pygame.quit()
+                                    self.wam_logger.log_end()
                 elif self.paused == 'paused':
                     self.write_text('Game Paused! Press "c" to continue, or ' +
-                                    '"q" to quit')
+                                    '"ctrl q" to quit')
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             self.wam_logger.log_end()
@@ -189,11 +195,13 @@ class GameManager:
                             if event.key == pygame.K_c:
                                 self.paused = False
                             elif event.key == pygame.K_q:
-                                self.wam_logger.log_end()
-                                pygame.quit()
+                                mods = pygame.key.get_mods()
+                                if mods & pygame.KMOD_CTRL:
+                                    pygame.quit()
+                                    self.wam_logger.log_end()
                 else:
                     self.write_text('Demo Complete! Press "c" to start the ' +
-                                    'real game, or "q" to quit',
+                                    'real game, or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -204,8 +212,10 @@ class GameManager:
                                 self.demo = False
                                 self.paused = False
                             elif event.key == pygame.K_q:
-                                self.wam_logger.log_end()
-                                pygame.quit()
+                                mods = pygame.key.get_mods()
+                                if mods & pygame.KMOD_CTRL:
+                                    pygame.quit()
+                                    self.wam_logger.log_end()
             elif self.paused == 'hit_conf':
                 self.write_text('Please rate your confidence in a hit ' +
                                 'between 1 (lowest) and 7 (highest)',
@@ -383,7 +393,9 @@ class GameManager:
                         self.paused = 'pause'
                         self.pause()
                     if event.key == pygame.K_q:
-                        pygame.quit()
+                        mods = pygame.key.get_mods()
+                        if mods & pygame.KMOD_CTRL:
+                            pygame.quit()
                 if event.type == pygame.QUIT:
                     loop = False
                 if (event.type == pygame.MOUSEBUTTONDOWN and

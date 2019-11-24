@@ -10,7 +10,9 @@ class WamLogger:
 
         if not len(self.logger.handlers):
             self.logger.setLevel(logging.DEBUG)
-            self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/BDM-WAM ' + self.timestamp + '.log')
+            self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/' +
+                                          'BDM-WAM ' +
+                                          self.timestamp + '.log')
             self.fh.setLevel(logging.DEBUG)
 
             # create console handler with a higher log level
@@ -18,7 +20,8 @@ class WamLogger:
             self.ch.setLevel(logging.ERROR)
 
             # create formatter and add it to the handlers
-            self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            self.formatter = logging.Formatter('%(asctime)s - %(name)s - ' +
+                                               '%(levelname)s - %(message)s')
             self.fh.setFormatter(self.formatter)
             self.ch.setFormatter(self.formatter)
 
@@ -33,7 +36,8 @@ class WamLogger:
             self.logger.info('Event Logging Failure')
 
     def log_end(self):
-        self.logger.info('************* HAPPY ANALYSING... LOG COMPLETE!!! ************* ')
+        self.logger.info('************* HAPPY ANALYSING... ' +
+                         'LOG COMPLETE!!! ************* ')
         logging.shutdown()
         self.fh.close()
         self.ch.close()
