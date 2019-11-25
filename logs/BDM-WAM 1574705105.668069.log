@@ -1,0 +1,19 @@
+2019-11-25 18:05:05,903 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 0, 'scancode': 0, 'key': 49, 'window': None})>
+2019-11-25 18:05:07,041 - BDM-WAM 1574705105.668069 - INFO - <Event(17-VideoExpose {})>
+2019-11-25 18:05:07,041 - BDM-WAM 1574705105.668069 - INFO - <Event(2-KeyDown {'unicode': '1', 'mod': 0, 'scancode': 2, 'key': 49, 'window': None})>
+2019-11-25 18:05:07,041 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 0, 'scancode': 2, 'key': 49, 'window': None})>
+2019-11-25 18:05:07,042 - BDM-WAM 1574705105.668069 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
+2019-11-25 18:05:07,050 - BDM-WAM 1574705105.668069 - INFO - <Event(12-Quit {})>
+2019-11-25 18:05:07,050 - BDM-WAM 1574705105.668069 - INFO - <Event(4-MouseMotion {'pos': (387, 699), 'window': None, 'buttons': (0, 0, 0), 'rel': (-117, 440)})>
+2019-11-25 18:05:07,050 - BDM-WAM 1574705105.668069 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 1})>
+2019-11-25 18:05:07,051 - BDM-WAM 1574705105.668069 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
+2019-11-25 18:05:07,051 - BDM-WAM 1574705105.668069 - INFO - <Event(2-KeyDown {'unicode': '', 'mod': 0, 'scancode': 29, 'key': 306, 'window': None})>
+2019-11-25 18:05:07,051 - BDM-WAM 1574705105.668069 - INFO - <Event(2-KeyDown {'unicode': '\x1a', 'mod': 64, 'scancode': 44, 'key': 122, 'window': None})>
+2019-11-25 18:05:07,052 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 64, 'scancode': 44, 'key': 122, 'window': None})>
+2019-11-25 18:05:07,052 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 0, 'scancode': 29, 'key': 306, 'window': None})>
+2019-11-25 18:05:07,052 - BDM-WAM 1574705105.668069 - INFO - <Event(2-KeyDown {'unicode': '', 'mod': 0, 'scancode': 29, 'key': 306, 'window': None})>
+2019-11-25 18:05:07,052 - BDM-WAM 1574705105.668069 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'mod': 64, 'scancode': 16, 'key': 113, 'window': None})>
+2019-11-25 18:05:07,053 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 64, 'scancode': 16, 'key': 113, 'window': None})>
+2019-11-25 18:05:07,053 - BDM-WAM 1574705105.668069 - INFO - <Event(3-KeyUp {'mod': 0, 'scancode': 29, 'key': 306, 'window': None})>
+2019-11-25 18:05:07,054 - BDM-WAM 1574705105.668069 - INFO - <Event(12-Quit {})>
+2019-11-25 18:05:07,113 - BDM-WAM 1574705105.668069 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>

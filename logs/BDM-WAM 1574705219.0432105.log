@@ -1,0 +1,41 @@
+2019-11-25 18:06:59,255 - BDM-WAM 1574705219.0432105 - INFO - <Event(17-VideoExpose {})>
+2019-11-25 18:07:00,523 - BDM-WAM 1574705219.0432105 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2019-11-25 18:07:00,524 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (173, 136), 'buttons': (0, 0, 0), 'pos': (172, 136), 'window': None})>
+2019-11-25 18:07:00,524 - BDM-WAM 1574705219.0432105 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2019-11-25 18:07:00,524 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (44, 68), 'buttons': (0, 0, 0), 'pos': (216, 204), 'window': None})>
+2019-11-25 18:07:00,617 - BDM-WAM 1574705219.0432105 - INFO - <Event(10-MoleUp) {'loc': (404,479)})>
+2019-11-25 18:07:00,747 - BDM-WAM 1574705219.0432105 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'window': None, 'scancode': 46})>
+2019-11-25 18:07:01,082 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (55, 27), 'buttons': (0, 0, 0), 'pos': (424, 477), 'window': None})>
+2019-11-25 18:07:01,086 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (7, 6), 'buttons': (0, 0, 0), 'pos': (431, 483), 'window': None})>
+2019-11-25 18:07:01,102 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (9, 6), 'buttons': (0, 0, 0), 'pos': (440, 489), 'window': None})>
+2019-11-25 18:07:01,117 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (2, 2), 'buttons': (0, 0, 0), 'pos': (442, 491), 'window': None})>
+2019-11-25 18:07:01,135 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (0, 3), 'buttons': (0, 0, 0), 'pos': (442, 494), 'window': None})>
+2019-11-25 18:07:01,171 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-4, 1), 'buttons': (0, 0, 0), 'pos': (438, 495), 'window': None})>
+2019-11-25 18:07:01,187 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-2, 1), 'buttons': (0, 0, 0), 'pos': (436, 496), 'window': None})>
+2019-11-25 18:07:01,221 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-1, 0), 'buttons': (0, 0, 0), 'pos': (435, 496), 'window': None})>
+2019-11-25 18:07:01,238 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (0, 1), 'buttons': (0, 0, 0), 'pos': (435, 497), 'window': None})>
+2019-11-25 18:07:01,256 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (10, 10), 'buttons': (0, 0, 0), 'pos': (445, 507), 'window': None})>
+2019-11-25 18:07:01,271 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (21, 16), 'buttons': (0, 0, 0), 'pos': (466, 523), 'window': None})>
+2019-11-25 18:07:01,288 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (17, 16), 'buttons': (0, 0, 0), 'pos': (483, 539), 'window': None})>
+2019-11-25 18:07:01,305 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (10, 14), 'buttons': (0, 0, 0), 'pos': (493, 553), 'window': None})>
+2019-11-25 18:07:01,322 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (6, 9), 'buttons': (0, 0, 0), 'pos': (499, 562), 'window': None})>
+2019-11-25 18:07:01,340 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (2, 5), 'buttons': (0, 0, 0), 'pos': (501, 567), 'window': None})>
+2019-11-25 18:07:01,356 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (1, 3), 'buttons': (0, 0, 0), 'pos': (502, 570), 'window': None})>
+2019-11-25 18:07:01,373 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (1, 1), 'buttons': (0, 0, 0), 'pos': (503, 571), 'window': None})>
+2019-11-25 18:07:01,407 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (0, 1), 'buttons': (0, 0, 0), 'pos': (503, 572), 'window': None})>
+2019-11-25 18:07:01,509 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-2, -2), 'buttons': (0, 0, 0), 'pos': (501, 570), 'window': None})>
+2019-11-25 18:07:01,526 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-3, -3), 'buttons': (0, 0, 0), 'pos': (498, 567), 'window': None})>
+2019-11-25 18:07:01,543 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-9, -8), 'buttons': (0, 0, 0), 'pos': (489, 559), 'window': None})>
+2019-11-25 18:07:01,560 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-8, -7), 'buttons': (0, 0, 0), 'pos': (481, 552), 'window': None})>
+2019-11-25 18:07:01,578 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-9, -8), 'buttons': (0, 0, 0), 'pos': (472, 544), 'window': None})>
+2019-11-25 18:07:01,595 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-4, -4), 'buttons': (0, 0, 0), 'pos': (468, 540), 'window': None})>
+2019-11-25 18:07:01,612 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-3, -4), 'buttons': (0, 0, 0), 'pos': (465, 536), 'window': None})>
+2019-11-25 18:07:01,630 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-4, -2), 'buttons': (0, 0, 0), 'pos': (461, 534), 'window': None})>
+2019-11-25 18:07:01,648 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-3, -3), 'buttons': (0, 0, 0), 'pos': (458, 531), 'window': None})>
+2019-11-25 18:07:01,663 - BDM-WAM 1574705219.0432105 - INFO - <Event(4-MouseMotion {'rel': (-1, -2), 'buttons': (0, 0, 0), 'pos': (457, 529), 'window': None})>
+2019-11-25 18:07:01,747 - BDM-WAM 1574705219.0432105 - INFO - <Event(5-MouseButtonDown {'window': None, 'button': 1, 'pos': (457, 529)})>
+2019-11-25 18:07:01,748 - BDM-WAM 1574705219.0432105 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x000001EC6C20E438>> })>
+2019-11-25 18:07:02,996 - BDM-WAM 1574705219.0432105 - INFO - <Event(7-Rate {'hit_conf': 2 })>
+2019-11-25 18:07:03,188 - BDM-WAM 1574705219.0432105 - INFO - <Event(7-Rate {'reward_conf': 3 })>
+2019-11-25 18:07:03,593 - BDM-WAM 1574705219.0432105 - INFO - <Event(7-Rate {'player_skill': 3 })>
+2019-11-25 18:07:03,593 - BDM-WAM 1574705219.0432105 - INFO - <Event(9.1-True Hit {'pos': (457,529),'distance: 72.86288492778748,'relative_loc: (53, 50),'window': None})>

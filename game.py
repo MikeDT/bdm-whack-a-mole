@@ -4,14 +4,15 @@ import numpy as np
 from sound import SoundEffect
 from debug import Debugger
 from logger import WamLogger
+from scorer import Scorer
 
 
 class GameManager:
     def __init__(self):
         # Define constants
         self.feedback = True
-        self.SCREEN_WIDTH = 1600
-        self.SCREEN_HEIGHT = 1200        
+        self.SCREEN_WIDTH = 800
+        self.SCREEN_HEIGHT = 600        
         self.FPS = 60
         self.MOLE_WIDTH = 90
         self.MOLE_HEIGHT = 81
@@ -29,10 +30,12 @@ class GameManager:
         self.stage = 'Demo'
         self.stage_type = 'Standard'  # Standard or Attempts
         self.feedback_count = 0
-        self.feedback_limit = 2
+        self.feedback_limit = 1
         self.stage_length = 10
         self.demo_len = 5
         self.margin = 10
+        self.score_manip = 'static_skill' #'full_random'
+        self.mole_count = 0
         self.stages = range(self.demo_len,
                             100 + self.demo_len,
                             self.stage_length)
@@ -77,7 +80,9 @@ class GameManager:
                            'rate_skill', 'rate_env', 'stage']
         self.demo = True
         self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
-                               '53': '5', '54': '6', '55': '7', '56': '8', '57': '9'}
+                               '53': '5', '54': '6', '55': '7', '56': '8',
+                               '57': '9'}
+        self.scorer = Scorer(self.hole_positions)
 
     @staticmethod
     def text_objects(text, font):
@@ -100,8 +105,8 @@ class GameManager:
             self.write_text('Using the touch screen your task is to whack ' +
                             '(touch on screen) as many moles as possible',
                             location_y=self.SCREEN_HEIGHT / 2 - 40)
-            self.write_text('You will score points for each mole you hit, ' +
-                            'the more accurate the more points',
+            self.write_text('You will score between 0 and 10 points, ' +
+                            'the more accurate the hit the more points',
                             location_y=self.SCREEN_HEIGHT / 2)
             self.write_text("But sometimes the environment doesn't behave...",
                             location_y=self.SCREEN_HEIGHT / 2 + 40)
@@ -169,6 +174,7 @@ class GameManager:
         while self.paused:
             if self.paused in ['pause', 'stage', 'demo']:
                 if self.paused == 'stage':
+                    self.update(True)
                     self.write_text('Stage Complete! Press "c" to continue, ' +
                                     'or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
@@ -235,7 +241,7 @@ class GameManager:
     # Calculate the player stage according to his current score
     def get_player_stage(self):
         if self.stage_type == 'Standard':
-            if (self.misses + self.score) in self.stages:
+            if (self.mole_count) in self.stages:
                 if self.demo:
                     self.misses = 0
                     self.score = 0
@@ -339,32 +345,47 @@ class GameManager:
             self.wam_logger.log_it("<Event(9.4-True Miss " + log_string)
         return result[0]
 
+#    def get_score(self, mouse_pos, frame_num):
+#        if self.score_manip == 'full_random':
+#            score = random.choice(range(0, 11))
+#        elif self.score_manip == 'static_skill':
+#            distance = (mouse_pos[0] - self.hole_positions[frame_num][0],
+#                        mouse_pos[1] - self.hole_positions[frame_num][1])
+#            distance = (distance[0]**2 + distance[1]**2)**0.5
+#            score = max(0, score - distance)
+#        else:
+#            score = 10
+#        return score
+
     # Update the game states, re-calculate the player's score, misses, stage
-    def update(self):
-        # Update the player's score
-        current_score_string = "SCORE: " + str(self.score)
-        score_text = self.font_obj.render(current_score_string,
-                                          True, (1, 1, 1))
-        score_text_pos = score_text.get_rect()
-        score_text_pos.centerx = self.background.get_rect().centerx
-        score_text_pos.centery = self.FONT_TOP_MARGIN
-        self.screen.blit(score_text, score_text_pos)
-        # Update the player's misses
-        current_misses_string = "MISSES: " + str(self.misses)
-        misses_text = self.font_obj.render(current_misses_string,
-                                           True, (1, 1, 1))
-        misses_text_pos = misses_text.get_rect()
-        misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
-        misses_text_pos.centery = self.FONT_TOP_MARGIN
-        self.screen.blit(misses_text, misses_text_pos)
-        # Update the player's stage
-        current_stage_string = "STAGE: " + str(self.stage)
-        stage_text = self.font_obj.render(current_stage_string,
-                                          True, (1, 1, 1))
-        stage_text_pos = stage_text.get_rect()
-        stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
-        stage_text_pos.centery = self.FONT_TOP_MARGIN
-        self.screen.blit(stage_text, stage_text_pos)
+    def update(self, really_update=False):
+        if self.demo:
+            really_update = True
+        if really_update:
+            # Update the player's score
+            current_score_string = "SCORE: " + str(self.score)
+            score_text = self.font_obj.render(current_score_string,
+                                              True, (1, 1, 1))
+            score_text_pos = score_text.get_rect()
+            score_text_pos.centerx = self.background.get_rect().centerx
+            score_text_pos.centery = self.FONT_TOP_MARGIN
+            self.screen.blit(score_text, score_text_pos)
+            # Update the player's misses
+            current_misses_string = "MISSES: " + str(self.misses)
+            misses_text = self.font_obj.render(current_misses_string,
+                                               True, (1, 1, 1))
+            misses_text_pos = misses_text.get_rect()
+            misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
+            misses_text_pos.centery = self.FONT_TOP_MARGIN
+            self.screen.blit(misses_text, misses_text_pos)
+            # Update the player's stage
+            current_stage_string = "STAGE: " + str(self.stage)
+            stage_text = self.font_obj.render(current_stage_string,
+                                              True, (1, 1, 1))
+            stage_text_pos = stage_text.get_rect()
+            stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
+            stage_text_pos.centery = self.FONT_TOP_MARGIN
+            self.screen.blit(stage_text, stage_text_pos)
 
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
@@ -401,7 +422,6 @@ class GameManager:
                 if (event.type == pygame.MOUSEBUTTONDOWN and
                      event.button == self.LEFT_MOUSE_BUTTON):
                     self.soundEffect.play_fire()
-                    self.get_player_stage()
                     if (self.is_mole_hit(pygame.mouse.get_pos(),
                          self.hole_positions[frame_num]) and
                          num > 0 and left == 0):
@@ -409,17 +429,24 @@ class GameManager:
                         left = 14
                         is_down = False
                         interval = 0
-                        self.score += 1
-                        self.get_player_stage()
+                        mouse_pos = pygame.mouse.get_pos()
+                        self.score += self.scorer.get_score(self.score_manip,
+                                                            mouse_pos,
+                                                            frame_num)
                         # Stop popping sound effect
                         self.soundEffect.stop_pop()
                         # Play hurt sound
                         if self.feedback:
                             self.soundEffect.play_hurt()
+                        self.mole_count += 1
                         self.update()
                     else:
                         self.misses += 1
+                        self.mole_count += 1
                         self.update()
+                    self.get_player_stage()
+
+
 
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
@@ -434,6 +461,12 @@ class GameManager:
                 is_down = False
                 interval = 0.5
                 frame_num = random.randint(0, 8)
+                log_string = (
+                              "{'loc': (" +
+                              str(self.hole_positions[frame_num][0]) + "," +
+                              str(self.hole_positions[frame_num][1]) + ")})>"
+                              )
+                self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
 
             mil = clock.tick(self.FPS)
             sec = mil / 1000.0
