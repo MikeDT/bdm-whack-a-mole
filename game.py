@@ -12,7 +12,7 @@ class GameManager:
         # Define constants
         self.feedback = True
         self.SCREEN_WIDTH = 800
-        self.SCREEN_HEIGHT = 600        
+        self.SCREEN_HEIGHT = 600   
         self.FPS = 60
         self.MOLE_WIDTH = 90
         self.MOLE_HEIGHT = 81
@@ -34,7 +34,7 @@ class GameManager:
         self.stage_length = 10
         self.demo_len = 5
         self.margin = 10
-        self.score_manip = 'static_skill' #'full_random'
+        self.score_manip = 'standard' # 'static_skill' # 'full_random'
         self.mole_count = 0
         self.stages = range(self.demo_len,
                             100 + self.demo_len,
@@ -75,7 +75,7 @@ class GameManager:
         self.debugger = Debugger("debug")
         # Sound effects
         self.soundEffect = SoundEffect()
-        self.paused = False
+        self.pause_reason = False
         self.pause_list = [False, 'standard', 'hit_conf',
                            'rate_skill', 'rate_env', 'stage']
         self.demo = True
@@ -88,14 +88,6 @@ class GameManager:
     def text_objects(text, font):
         text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) = black
         return text_surface, text_surface.get_rect()
-
-#    def write_message(self, message, loc_x, loc_y):
-#        text = self.font_obj.render(message, True, (255, 255, 255))
-#        text_pos = text.get_rect()
-#        text_pos.centerx = loc_x
-#        text_pos.centery = loc_y
-#        self.screen.blit(text, text_pos)
-#        pygame.display.update()
 
     def intro(self):
         while self.intro_complete is False:
@@ -161,7 +153,7 @@ class GameManager:
                     self.wam_logger.log_it("<Event(7-Rate {'" +
                                            action[0] + "': " +
                                            event_act + " })>")
-                    self.paused = action[1]
+                    self.pause_reason = action[1]
                 elif event.key == pygame.K_q:
                     mods = pygame.key.get_mods()
                     if mods & pygame.KMOD_CTRL:
@@ -170,10 +162,10 @@ class GameManager:
 
     def pause(self):
         self.wam_logger.log_it("<Event(8-Pause {'reason': " +
-                               str(self.pause) + " })>")
-        while self.paused:
-            if self.paused in ['pause', 'stage', 'demo']:
-                if self.paused == 'stage':
+                               str(self.pause_reason) + " })>")
+        while self.pause_reason:
+            if self.pause_reason in ['pause', 'stage', 'demo']:
+                if self.pause_reason == 'stage':
                     self.update(True)
                     self.write_text('Stage Complete! Press "c" to continue, ' +
                                     'or "ctrl q" to quit',
@@ -184,13 +176,13 @@ class GameManager:
                             pygame.quit()
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_c:
-                                self.paused = False
+                                self.pause_reason = False
                             elif event.key == pygame.K_q:
                                 mods = pygame.key.get_mods()
                                 if mods & pygame.KMOD_CTRL:
                                     pygame.quit()
                                     self.wam_logger.log_end()
-                elif self.paused == 'paused':
+                elif self.pause_reason == 'paused':
                     self.write_text('Game Paused! Press "c" to continue, or ' +
                                     '"ctrl q" to quit')
                     for event in pygame.event.get():
@@ -199,7 +191,7 @@ class GameManager:
                             pygame.quit()
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_c:
-                                self.paused = False
+                                self.pause_reason = False
                             elif event.key == pygame.K_q:
                                 mods = pygame.key.get_mods()
                                 if mods & pygame.KMOD_CTRL:
@@ -216,23 +208,23 @@ class GameManager:
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_c:
                                 self.demo = False
-                                self.paused = False
+                                self.pause_reason = False
                             elif event.key == pygame.K_q:
                                 mods = pygame.key.get_mods()
                                 if mods & pygame.KMOD_CTRL:
                                     pygame.quit()
                                     self.wam_logger.log_end()
-            elif self.paused == 'hit_conf':
+            elif self.pause_reason == 'hit_conf':
                 self.write_text('Please rate your confidence in a hit ' +
                                 'between 1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2 - 80)
                 self.rate(('hit_conf', 'reward_conf'))
-            elif self.paused == 'reward_conf':
+            elif self.pause_reason == 'reward_conf':
                 self.write_text('Please rate your confidence in a reward ' +
                                 'between 1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2 - 40)
                 self.rate(('reward_conf', 'player_skill'))
-            elif self.paused == 'player_skill':
+            elif self.pause_reason == 'player_skill':
                 self.write_text('Please rate your skill in the game between ' +
                                 '1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2)
@@ -246,12 +238,12 @@ class GameManager:
                     self.misses = 0
                     self.score = 0
                     self.stage = 1
-                    self.paused = 'demo'
+                    self.pause_reason = 'demo'
                     self.demo = False
                     self.pause()    # if player get a new stage play this sound
                 else:
                     self.soundEffect.play_stage_up()
-                    self.paused = 'stage'
+                    self.pause_reason = 'stage'
                     self.pause()
                     self.stage += 1
 
@@ -320,7 +312,7 @@ class GameManager:
         self.feedback_count += 1
         if self.feedback_count == self.feedback_limit:
             self.feedback_count = 0
-            self.paused = 'hit_conf'
+            self.pause_reason = 'hit_conf'
             self.pause()
         if self.hit_process == 'binomial':
             result = self.is_mole_hit_binomial(mouse_x, mouse_y,
@@ -336,26 +328,14 @@ class GameManager:
                       "'relative_loc: " + str(relative_loc) + "," +
                       "'window': None})>")
         if result == (True, True):
-            self.wam_logger.log_it("<Event(9.1-True Hit " + log_string)
+            self.wam_logger.log_it("<Event(9.1-TrueHit " + log_string)
         elif result == (False, True):
-            self.wam_logger.log_it("<Event(9.2-Fake Miss " + log_string)
+            self.wam_logger.log_it("<Event(9.2-FakeMiss " + log_string)
         elif result == (True, False):
-            self.wam_logger.log_it("<Event(9.3-Fake Hit " + log_string)
+            self.wam_logger.log_it("<Event(9.3-FakeHit " + log_string)
         else:
-            self.wam_logger.log_it("<Event(9.4-True Miss " + log_string)
+            self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
         return result[0]
-
-#    def get_score(self, mouse_pos, frame_num):
-#        if self.score_manip == 'full_random':
-#            score = random.choice(range(0, 11))
-#        elif self.score_manip == 'static_skill':
-#            distance = (mouse_pos[0] - self.hole_positions[frame_num][0],
-#                        mouse_pos[1] - self.hole_positions[frame_num][1])
-#            distance = (distance[0]**2 + distance[1]**2)**0.5
-#            score = max(0, score - distance)
-#        else:
-#            score = 10
-#        return score
 
     # Update the game states, re-calculate the player's score, misses, stage
     def update(self, really_update=False):
@@ -411,7 +391,7 @@ class GameManager:
                     self.intro()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
-                        self.paused = 'pause'
+                        self.pause_reason = 'pause'
                         self.pause()
                     if event.key == pygame.K_q:
                         mods = pygame.key.get_mods()
@@ -420,19 +400,25 @@ class GameManager:
                 if event.type == pygame.QUIT:
                     loop = False
                 if (event.type == pygame.MOUSEBUTTONDOWN and
-                     event.button == self.LEFT_MOUSE_BUTTON):
+                    event.button == self.LEFT_MOUSE_BUTTON):
                     self.soundEffect.play_fire()
                     if (self.is_mole_hit(pygame.mouse.get_pos(),
-                         self.hole_positions[frame_num]) and
-                         num > 0 and left == 0):
+                                         self.hole_positions[frame_num]) and
+                        num > 0 and left == 0):
                         num = 3
                         left = 14
                         is_down = False
                         interval = 0
                         mouse_pos = pygame.mouse.get_pos()
-                        self.score += self.scorer.get_score(self.score_manip,
-                                                            mouse_pos,
-                                                            frame_num)
+                        score_inc = self.scorer.get_score(self.score_manip,
+                                                          mouse_pos,
+                                                          frame_num)
+                        self.score += score_inc
+                        score_str = ("score_inc: " + str(score_inc) + "," +
+                                       "score: " + str(self.score) + "})>")
+                        self.wam_logger.log_it("<Event(11-Score {" + score_str)
+
+                        
                         # Stop popping sound effect
                         self.soundEffect.stop_pop()
                         # Play hurt sound
@@ -445,8 +431,6 @@ class GameManager:
                         self.mole_count += 1
                         self.update()
                     self.get_player_stage()
-
-
 
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
