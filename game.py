@@ -149,11 +149,15 @@ class GameManager:
         self.screen.blit(text, text_pos)
         pygame.display.update()
         
-    def check_key_event(self):
+    def check_key_event(self, event=False):
         """
         Monitors the game for events
         """
-        for event in pygame.event.get():
+        if event:
+            event_list = [] + [event]
+        else:
+            event_list = pygame.event.get()
+        for event in event_list:
             self.current_event = event
             if self.current_event.type == pygame.QUIT:
                 self.loop = False
@@ -427,19 +431,20 @@ class GameManager:
             self.mole[i] = self.mole[i].convert_alpha()
         while loop:
             for event in pygame.event.get():
+                # log events
                 self.wam_logger.log_it(event)
+
+                # check if game intro is complete
                 if self.intro_complete is False:
                     self.intro()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_p:
-                        self.pause_reason = 'pause'
-                        self.pause()
-                    if event.key == pygame.K_q:
-                        mods = pygame.key.get_mods()
-                        if mods & pygame.KMOD_CTRL:
-                            pygame.quit()
+
+                # check if game is quit
                 if event.type == pygame.QUIT:
                     loop = False
+
+                # check any general game key events (pause, quit, continue)
+                self.check_key_event(event)
+
                 if (event.type == pygame.MOUSEBUTTONDOWN and
                     event.button == self.LEFT_MOUSE_BUTTON):
                     self.soundEffect.play_fire()
