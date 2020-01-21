@@ -240,8 +240,11 @@ class GameManager:
                                 '1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2)
                 self.check_events_rate(('player_skill', False))
-    # Calculate the player stage according to his current score
-    def get_player_stage(self):
+
+    def set_player_stage(self):
+        """
+        Sets the game stage based upon the stage type and pause_reason
+        """
         if self.stage_type == 'Standard':
             if (self.mole_count) in self.stages:
                 if self.demo:
@@ -250,7 +253,7 @@ class GameManager:
                     self.stage = 1
                     self.pause_reason = 'demo'
                     self.demo = False
-                    self.pause()    # if player get a new stage play this sound
+                    self.pause()    
                 else:
                     self.soundEffect.play_stage_up()
                     self.pause_reason = 'stage'
@@ -270,60 +273,7 @@ class GameManager:
                 return 0.05
         else:
             return 1.0
-
-    def set_mole_hit_res_binom(self):
-        """
-        As per the simple mole hit model, but with an added margin of error
-        that can be adjusted intra or inter game
-        """
-        actual_hit = False
-        binom_hit = False   
-        if ((self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
-            if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                actual_hit, binom_hit = True, True
-            else:
-                actual_hit, binom_hit = False, True
-        else:
-            if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                actual_hit, binom_hit = True, False
-            else:
-                actual_hit, binom_hit = False, False
-        self.result = (actual_hit, binom_hit)
-
-    def set_mole_hit_res_margin(self):
-        """
-        As per the simple mole hit model, but with an added margin of error
-        that can be adjusted intra or inter game
-        """                
-        actual_hit = False
-        margin_hit = False
-        if ((self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
-            actual_hit = True
-        if ((self.mouse_x > self.current_hole_x - self.margin) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH + self.margin) and
-            (self.mouse_y > self.current_hole_y - self.margin) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT + self.margin)):
-            margin_hit = True
-        self.result = (actual_hit, margin_hit)
-
-    def set_mole_hit_res_standard(self):
-        """
-        Simplest model of mole hits, with no adjustment
-        """
-        actual_hit = False
-        if ((self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
-            actual_hit = True
-        self.result = (actual_hit, actual_hit)
-    
+  
     def check_mole_hit(self, mouse_position, current_hole_position):
         """
         Checks whether a mole was hit, able to call a variety of methods
@@ -425,8 +375,11 @@ class GameManager:
         else:
             self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
 
-    # Update the game states, re-calculate the player's score, misses, stage
     def update(self, really_update=False):
+        """
+        Updates the game's states recalcualtes the player's score, misses,
+        stage etc.
+        """
         if self.demo:
             really_update = True
         if really_update:
@@ -519,7 +472,7 @@ class GameManager:
                         self.misses += 1
                         self.mole_count += 1
                         self.update()
-                    self.get_player_stage()
+                    self.set_player_stage()
 
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
