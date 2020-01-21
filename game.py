@@ -411,6 +411,42 @@ class GameManager:
             stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
             stage_text_pos.centery = self.FONT_TOP_MARGIN
             self.screen.blit(stage_text, stage_text_pos)
+            
+    def check_mouse_event(self, event, num, left, is_down, interval, frame_num):
+        if (event.type == pygame.MOUSEBUTTONDOWN and
+            event.button == self.LEFT_MOUSE_BUTTON):
+            self.soundEffect.play_fire()
+            if (self.check_mole_hit(pygame.mouse.get_pos(),
+                                 self.hole_positions[frame_num]) and
+                num > 0 and left == 0):
+                num = 3
+                left = 14
+                is_down = False
+                interval = 0
+                mouse_pos = pygame.mouse.get_pos()
+                score_inc = self.scorer.get_score(mouse_pos,
+                                                  frame_num,
+                                                  self.score_type,
+                                                  self.adj_type)
+                self.score += score_inc
+                score_str = ("score_inc: " + str(score_inc) + "," +
+                               "score: " + str(self.score) + "})>")
+                self.wam_logger.log_it("<Event(11-Score {" + score_str)
+
+                # Stop popping sound effect
+                self.soundEffect.stop_pop()
+                # Play hurt sound
+                if self.feedback:
+                    self.soundEffect.play_hurt()
+                self.mole_count += 1
+                self.update()
+            else:
+                self.misses += 1
+                self.mole_count += 1
+                self.update()
+            self.set_player_stage()
+
+        return num, left, is_down, interval, frame_num
 
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
@@ -444,40 +480,41 @@ class GameManager:
 
                 # check any general game key events (pause, quit, continue)
                 self.check_key_event(event)
+                
+                num, left, is_down, interval, frame_num = self.check_mouse_event(event, num, left, is_down, interval, frame_num)
 
-                if (event.type == pygame.MOUSEBUTTONDOWN and
-                    event.button == self.LEFT_MOUSE_BUTTON):
-                    self.soundEffect.play_fire()
-                    if (self.check_mole_hit(pygame.mouse.get_pos(),
-                                         self.hole_positions[frame_num]) and
-                        num > 0 and left == 0):
-                        num = 3
-                        left = 14
-                        is_down = False
-                        interval = 0
-                        mouse_pos = pygame.mouse.get_pos()
-                        score_inc = self.scorer.get_score(mouse_pos,
-                                                          frame_num,
-                                                          self.score_type,
-                                                          self.adj_type)
-                        self.score += score_inc
-                        score_str = ("score_inc: " + str(score_inc) + "," +
-                                       "score: " + str(self.score) + "})>")
-                        self.wam_logger.log_it("<Event(11-Score {" + score_str)
-
-                        
-                        # Stop popping sound effect
-                        self.soundEffect.stop_pop()
-                        # Play hurt sound
-                        if self.feedback:
-                            self.soundEffect.play_hurt()
-                        self.mole_count += 1
-                        self.update()
-                    else:
-                        self.misses += 1
-                        self.mole_count += 1
-                        self.update()
-                    self.set_player_stage()
+#                if (event.type == pygame.MOUSEBUTTONDOWN and
+#                    event.button == self.LEFT_MOUSE_BUTTON):
+#                    self.soundEffect.play_fire()
+#                    if (self.check_mole_hit(pygame.mouse.get_pos(),
+#                                         self.hole_positions[frame_num]) and
+#                        num > 0 and left == 0):
+#                        num = 3
+#                        left = 14
+#                        is_down = False
+#                        interval = 0
+#                        mouse_pos = pygame.mouse.get_pos()
+#                        score_inc = self.scorer.get_score(mouse_pos,
+#                                                          frame_num,
+#                                                          self.score_type,
+#                                                          self.adj_type)
+#                        self.score += score_inc
+#                        score_str = ("score_inc: " + str(score_inc) + "," +
+#                                       "score: " + str(self.score) + "})>")
+#                        self.wam_logger.log_it("<Event(11-Score {" + score_str)
+#
+#                        # Stop popping sound effect
+#                        self.soundEffect.stop_pop()
+#                        # Play hurt sound
+#                        if self.feedback:
+#                            self.soundEffect.play_hurt()
+#                        self.mole_count += 1
+#                        self.update()
+#                    else:
+#                        self.misses += 1
+#                        self.mole_count += 1
+#                        self.update()
+#                    self.set_player_stage()
 
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
