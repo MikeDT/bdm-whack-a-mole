@@ -1,0 +1,9 @@
+2019-12-18 13:41:04,161 - BDM-WAM 1576676463.9662156 - INFO - <Event(17-VideoExpose {})>
+2019-12-18 13:41:06,815 - BDM-WAM 1576676463.9662156 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
+2019-12-18 13:41:06,817 - BDM-WAM 1576676463.9662156 - INFO - <Event(4-MouseMotion {'window': None, 'rel': (528, 346), 'buttons': (0, 0, 0), 'pos': (527, 345)})>
+2019-12-18 13:41:06,886 - BDM-WAM 1576676463.9662156 - INFO - <Event(10-MoleUp) {'loc': (95,43)})>
+2019-12-18 13:41:06,940 - BDM-WAM 1576676463.9662156 - INFO - <Event(3-KeyUp {'scancode': 46, 'window': None, 'mod': 0, 'key': 99})>
+2019-12-18 13:41:07,782 - BDM-WAM 1576676463.9662156 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2019-12-18 13:41:07,805 - BDM-WAM 1576676463.9662156 - INFO - <Event(5-MouseButtonDown {'window': None, 'button': 1, 'pos': (149, 78)})>
+2019-12-18 13:41:07,805 - BDM-WAM 1576676463.9662156 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2019-12-18 13:43:26,359 - BDM-WAM 1576676463.9662156 - INFO - ************* HAPPY ANALYSING... LOG COMPLETE!!! ************* 

@@ -1,8 +1,0 @@
-2019-11-24 19:33:07,744 - BDM-WAM 1574623987.2718458 - INFO - <Event(17-VideoExpose {})>
-2019-11-24 19:33:09,648 - BDM-WAM 1574623987.2718458 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
-2019-11-24 19:33:09,649 - BDM-WAM 1574623987.2718458 - INFO - <Event(4-MouseMotion {'rel': (204, 987), 'window': None, 'buttons': (0, 0, 0), 'pos': (203, 986)})>
-2019-11-24 19:33:09,650 - BDM-WAM 1574623987.2718458 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 1})>
-2019-11-24 19:33:09,651 - BDM-WAM 1574623987.2718458 - INFO - <Event(4-MouseMotion {'rel': (127, -124), 'window': None, 'buttons': (0, 0, 0), 'pos': (330, 862)})>
-2019-11-24 19:33:10,062 - BDM-WAM 1574623987.2718458 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 99, 'window': None, 'scancode': 46})>
-2019-11-24 19:33:11,899 - BDM-WAM 1574623987.2718458 - INFO - <Event(2-KeyDown {'mod': 0, 'key': 303, 'window': None, 'unicode': '', 'scancode': 54})>
-2019-11-24 19:33:12,066 - BDM-WAM 1574623987.2718458 - INFO - <Event(2-KeyDown {'mod': 2, 'key': 113, 'window': None, 'unicode': 'Q', 'scancode': 16})>

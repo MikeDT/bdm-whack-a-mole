@@ -29,11 +29,17 @@ class WamLogger:
             self.logger.addHandler(self.fh)
             self.logger.addHandler(self.ch)
 
-    def log_it(self, event):
-        try:
-            self.logger.info(event)
-        except:
-            self.logger.info('Event Logging Failure')
+    def log_it(self, event=False):
+        if event:
+            try:
+                self.logger.info(event)
+            except:
+                self.logger.info('Event Logging Failure')
+        else:
+            try:
+                self.logger.info(pygame.event.get())
+            except:
+                self.logger.info('Event Logging Failure')            
 
     def log_end(self):
         self.logger.info('************* HAPPY ANALYSING... ' +

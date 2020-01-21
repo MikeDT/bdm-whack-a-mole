@@ -1,9 +1,0 @@
-2019-11-24 19:32:45,820 - BDM-WAM 1574623965.3008862 - INFO - <Event(17-VideoExpose {})>
-2019-11-24 19:32:47,531 - BDM-WAM 1574623965.3008862 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
-2019-11-24 19:32:47,531 - BDM-WAM 1574623965.3008862 - INFO - <Event(4-MouseMotion {'rel': (506, 934), 'window': None, 'buttons': (0, 0, 0), 'pos': (505, 933)})>
-2019-11-24 19:32:47,532 - BDM-WAM 1574623965.3008862 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 1})>
-2019-11-24 19:32:47,533 - BDM-WAM 1574623965.3008862 - INFO - <Event(4-MouseMotion {'rel': (48, -20), 'window': None, 'buttons': (0, 0, 0), 'pos': (553, 913)})>
-2019-11-24 19:32:47,956 - BDM-WAM 1574623965.3008862 - INFO - <Event(3-KeyUp {'mod': 0, 'key': 99, 'window': None, 'scancode': 46})>
-2019-11-24 19:32:49,480 - BDM-WAM 1574623965.3008862 - INFO - <Event(2-KeyDown {'mod': 0, 'key': 112, 'window': None, 'unicode': 'p', 'scancode': 25})>
-2019-11-24 19:32:49,481 - BDM-WAM 1574623965.3008862 - INFO - <Event(8-Pause {'reason': <bound method GameManager.pause of <game.GameManager object at 0x000001B030FC31D0>> })>
-2019-11-24 19:32:50,013 - BDM-WAM 1574623965.3008862 - INFO - ************* HAPPY ANALYSING... LOG COMPLETE!!! ************* 

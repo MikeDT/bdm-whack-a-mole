@@ -1,0 +1,9 @@
+2020-01-21 18:39:04,292 - BDM-WAM 1579631937.4010391 - INFO - <Event(17-VideoExpose {})>
+2020-01-21 18:39:04,292 - BDM-WAM 1579631937.4010391 - INFO - <Event(16-VideoResize {'size': (1424, 700), 'w': 1424, 'h': 700})>
+2020-01-21 18:39:04,293 - BDM-WAM 1579631937.4010391 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 18:39:04,293 - BDM-WAM 1579631937.4010391 - INFO - <Event(4-MouseMotion {'pos': (91, 0), 'rel': (92, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 18:39:04,323 - BDM-WAM 1579631937.4010391 - INFO - <Event(10-MoleUp) {'loc': (603,11)})>
+2020-01-21 18:39:04,436 - BDM-WAM 1579631937.4010391 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'scancode': 46, 'window': None})>
+2020-01-21 18:39:04,777 - BDM-WAM 1579631937.4010391 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-21 18:39:05,308 - BDM-WAM 1579631937.4010391 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-21 18:39:05,438 - BDM-WAM 1579631937.4010391 - INFO - ************* HAPPY ANALYSING... LOG COMPLETE!!! ************* 

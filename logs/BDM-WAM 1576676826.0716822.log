@@ -1,0 +1,19 @@
+2019-12-18 13:47:06,264 - BDM-WAM 1576676826.0716822 - INFO - <Event(17-VideoExpose {})>
+2019-12-18 13:47:07,621 - BDM-WAM 1576676826.0716822 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
+2019-12-18 13:47:07,622 - BDM-WAM 1576676826.0716822 - INFO - <Event(4-MouseMotion {'window': None, 'rel': (526, 500), 'buttons': (0, 0, 0), 'pos': (525, 499)})>
+2019-12-18 13:47:07,698 - BDM-WAM 1576676826.0716822 - INFO - <Event(10-MoleUp) {'loc': (179,169)})>
+2019-12-18 13:47:07,774 - BDM-WAM 1576676826.0716822 - INFO - <Event(3-KeyUp {'scancode': 46, 'window': None, 'mod': 0, 'key': 99})>
+2019-12-18 13:47:08,591 - BDM-WAM 1576676826.0716822 - INFO - <Event(5-MouseButtonDown {'window': None, 'button': 1, 'pos': (254, 217)})>
+2019-12-18 13:47:08,591 - BDM-WAM 1576676826.0716822 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2019-12-18 13:47:09,716 - BDM-WAM 1576676826.0716822 - INFO - <Event(7-Rate {'hit_conf': 7 })>
+2019-12-18 13:47:09,900 - BDM-WAM 1576676826.0716822 - INFO - <Event(7-Rate {'reward_conf': 7 })>
+2019-12-18 13:47:10,067 - BDM-WAM 1576676826.0716822 - INFO - <Event(7-Rate {'player_skill': 7 })>
+2019-12-18 13:47:10,067 - BDM-WAM 1576676826.0716822 - INFO - <Event(9.1-TrueHit {'pos': (254,217),'distance: 89.04493247793498,'relative_loc: (75, 48),'window': None})>
+2019-12-18 13:47:10,068 - BDM-WAM 1576676826.0716822 - INFO - <Event(6-MouseButtonUp {'window': None, 'button': 1, 'pos': (254, 217)})>
+2019-12-18 13:47:10,132 - BDM-WAM 1576676826.0716822 - INFO - <Event(3-KeyUp {'scancode': 8, 'window': None, 'mod': 0, 'key': 55})>
+2019-12-18 13:47:10,195 - BDM-WAM 1576676826.0716822 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2019-12-18 13:47:11,740 - BDM-WAM 1576676826.0716822 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2019-12-18 13:47:13,264 - BDM-WAM 1576676826.0716822 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2019-12-18 13:47:14,823 - BDM-WAM 1576676826.0716822 - INFO - <Event(10-MoleUp) {'loc': (404,479)})>
+2019-12-18 13:47:15,349 - BDM-WAM 1576676826.0716822 - INFO - <Event(2-KeyDown {'scancode': 29, 'mod': 0, 'unicode': '', 'window': None, 'key': 306})>
+2019-12-18 13:47:15,612 - BDM-WAM 1576676826.0716822 - INFO - <Event(2-KeyDown {'scancode': 16, 'mod': 64, 'unicode': '\x11', 'window': None, 'key': 113})>
