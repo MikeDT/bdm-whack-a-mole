@@ -99,6 +99,10 @@ class GameManager:
         return text_surface, text_surface.get_rect()
 
     def intro(self):
+        """
+        Sets the introduction text on the screen and provides a set of
+        instructions to the user
+        """
         while self.intro_complete is False:
             self.write_text('Welcome to the Brain Decision Modelling Lab' +
                             'Whack-A-Mole Game!',
@@ -145,8 +149,12 @@ class GameManager:
         self.screen.blit(text, text_pos)
         pygame.display.update()
 
-    def rate(self, action):
+    def check_events_rate(self, action):
+        """
+        Monitors the game for player feedback provided via keys
+        """
         for event in pygame.event.get():
+            self.curr_event = event
             if event.type == pygame.QUIT:
                 self.wam_logger.log_end()
                 pygame.quit()
@@ -227,17 +235,17 @@ class GameManager:
                 self.write_text('Please rate your confidence in a hit ' +
                                 'between 1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2 - 80)
-                self.rate(('hit_conf', 'reward_conf'))
+                self.check_events_rate(('hit_conf', 'reward_conf'))
             elif self.pause_reason == 'reward_conf':
                 self.write_text('Please rate your confidence in a reward ' +
                                 'between 1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2 - 40)
-                self.rate(('reward_conf', 'player_skill'))
+                self.check_events_rate(('reward_conf', 'player_skill'))
             elif self.pause_reason == 'player_skill':
                 self.write_text('Please rate your skill in the game between ' +
                                 '1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2)
-                self.rate(('player_skill', False))
+                self.check_events_rate(('player_skill', False))
 
     # Calculate the player stage according to his current score
     def get_player_stage(self):
