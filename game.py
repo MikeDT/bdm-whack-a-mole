@@ -148,6 +148,29 @@ class GameManager:
         text_pos.centery = location_y
         self.screen.blit(text, text_pos)
         pygame.display.update()
+        
+    def check_key_event(self):
+        """
+        Monitors the game for events
+        """
+        for event in pygame.event.get():
+            self.current_event = event
+            if self.current_event.type == pygame.QUIT:
+                self.loop = False
+                self.wam_logger.log_end()
+                pygame.quit()
+            if self.current_event.type == pygame.KEYDOWN:
+                if self.current_event.key == pygame.K_c:
+                    self.demo = False
+                    self.pause_reason = False
+                elif self.current_event.key == pygame.K_p:
+                    self.pause_reason = 'pause'
+                    self.pause()
+                elif self.current_event.key == pygame.K_q:
+                    mods = pygame.key.get_mods()
+                    if mods & pygame.KMOD_CTRL:
+                        pygame.quit()
+                        self.wam_logger.log_end()
 
     def check_events_rate(self, action):
         """
@@ -178,6 +201,8 @@ class GameManager:
                         self.wam_logger.log_end()
 
     def pause(self):
+        """
+        """
         self.wam_logger.log_it("<Event(8-Pause {'reason': " +
                                str(self.pause_reason) + " })>")
         while self.pause_reason:
@@ -187,52 +212,20 @@ class GameManager:
                     self.write_text('Stage Complete! Press "c" to continue, ' +
                                     'or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            self.wam_logger.log_end()
-                            pygame.quit()
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_c:
-                                self.pause_reason = False
-                            elif event.key == pygame.K_q:
-                                mods = pygame.key.get_mods()
-                                if mods & pygame.KMOD_CTRL:
-                                    pygame.quit()
-                                    self.wam_logger.log_end()
+                    self.check_key_event()
                 elif self.pause_reason == 'paused':
                     self.write_text('Game Paused! Press "c" to continue, or ' +
                                     '"ctrl q" to quit')
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            self.wam_logger.log_end()
-                            pygame.quit()
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_c:
-                                self.pause_reason = False
-                            elif event.key == pygame.K_q:
-                                mods = pygame.key.get_mods()
-                                if mods & pygame.KMOD_CTRL:
-                                    pygame.quit()
-                                    self.wam_logger.log_end()
+                    self.check_key_event()
                 else:
                     self.write_text('Demo Complete! Press "c" to start the ' +
                                     'real game, or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            self.wam_logger.log_end()
-                            pygame.quit()
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_c:
-                                self.demo = False
-                                self.pause_reason = False
-                            elif event.key == pygame.K_q:
-                                mods = pygame.key.get_mods()
-                                if mods & pygame.KMOD_CTRL:
-                                    pygame.quit()
-                                    self.wam_logger.log_end()
+                    self.scorer.reset()
+                    self.check_key_event()
+
             elif self.pause_reason == 'hit_conf':
-                self.write_text('Please rate your confidence in a hit ' +
+                self.write_text('Please rate your confidence in making a hit ' +
                                 'between 1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2 - 80)
                 self.check_events_rate(('hit_conf', 'reward_conf'))
@@ -246,7 +239,6 @@ class GameManager:
                                 '1 (lowest) and 7 (highest)',
                                 location_y=self.SCREEN_HEIGHT/2)
                 self.check_events_rate(('player_skill', False))
-
     # Calculate the player stage according to his current score
     def get_player_stage(self):
         if self.stage_type == 'Standard':
