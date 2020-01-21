@@ -202,6 +202,7 @@ class GameManager:
 
     def pause(self):
         """
+        HAndles pause events, needs to be abstracted into more functions
         """
         self.wam_logger.log_it("<Event(8-Pause {'reason': " +
                                str(self.pause_reason) + " })>")
@@ -256,8 +257,11 @@ class GameManager:
                     self.pause()
                     self.stage += 1
 
-    # Get the new duration between the time the mole pop up and down the holes
     def get_interval_by_stage(self, initial_interval):
+        """
+        Gets the game interval (i.e. the time between mole pop ups from holes)
+        period by stage
+        """
         if self.stage_time_change:
             new_interval = initial_interval - self.stage * 0.15
             if new_interval > 0:
@@ -267,47 +271,58 @@ class GameManager:
         else:
             return 1.0
 
-    def is_mole_hit_binomial(self, mouse_x, mouse_y,
-                             current_hole_x, current_hole_y):
-        if ((mouse_x > current_hole_x) and
-                (mouse_x < current_hole_x + self.MOLE_WIDTH) and
-                (mouse_y > current_hole_y) and
-                (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
-                if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                    return (True, True)
-                else:
-                    return (False, True)
+    def set_mole_hit_res_binom(self):
+        """
+        As per the simple mole hit model, but with an added margin of error
+        that can be adjusted intra or inter game
+        """
+        actual_hit = False
+        binom_hit = False   
+        if ((self.mouse_x > self.current_hole_x) and
+            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
+            (self.mouse_y > self.current_hole_y) and
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            if (np.random.binomial(1, 0.5, 1)[0]) > 0:
+                actual_hit, binom_hit = True, True
+            else:
+                actual_hit, binom_hit = False, True
         else:
             if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                return (True, False)
+                actual_hit, binom_hit = True, False
             else:
-                return (False, False)
+                actual_hit, binom_hit = False, False
+        self.result = (actual_hit, binom_hit)
 
-    def is_mole_hit_margin(self, mouse_x, mouse_y,
-                           current_hole_x, current_hole_y):
+    def set_mole_hit_res_margin(self):
+        """
+        As per the simple mole hit model, but with an added margin of error
+        that can be adjusted intra or inter game
+        """                
         actual_hit = False
         margin_hit = False
-        if ((mouse_x > current_hole_x) and
-                (mouse_x < current_hole_x + self.MOLE_WIDTH) and
-                (mouse_y > current_hole_y) and
-                (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
-                actual_hit = True
-        if ((mouse_x > current_hole_x - self.margin) and
-                (mouse_x < current_hole_x + self.MOLE_WIDTH + self.margin) and
-                (mouse_y > current_hole_y - self.margin) and
-                (mouse_y < current_hole_y + self.MOLE_HEIGHT + self.margin)):
-                margin_hit = True
-        return (actual_hit, margin_hit)
+        if ((self.mouse_x > self.current_hole_x) and
+            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
+            (self.mouse_y > self.current_hole_y) and
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            actual_hit = True
+        if ((self.mouse_x > self.current_hole_x - self.margin) and
+            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH + self.margin) and
+            (self.mouse_y > self.current_hole_y - self.margin) and
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT + self.margin)):
+            margin_hit = True
+        self.result = (actual_hit, margin_hit)
 
-    def is_mole_hit_standard(self, mouse_x, mouse_y,
-                             current_hole_x, current_hole_y):
+    def set_mole_hit_res_standard(self):
+        """
+        Simplest model of mole hits, with no adjustment
+        """
         actual_hit = False
-        if ((mouse_x > current_hole_x) and
-                (mouse_x < current_hole_x + self.MOLE_WIDTH) and
-                (mouse_y > current_hole_y) and
-                (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
-                actual_hit = True
-        return (actual_hit, actual_hit)
+        if ((self.mouse_x > self.current_hole_x) and
+            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
+            (self.mouse_y > self.current_hole_y) and
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            actual_hit = True
+        self.result = (actual_hit, actual_hit)
     
     def check_mole_hit(self, mouse_position, current_hole_position):
         """
