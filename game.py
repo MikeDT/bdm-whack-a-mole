@@ -34,6 +34,8 @@ class GameManager:
         self.stage_type = 'Standard'  # Standard or Attempts
         self.feedback_count = 0
         self.feedback_limit = 1
+        self.update_count = 0
+        self.update_delay = 0
         self.stage_length = 10
         self.mole_count = 0
         self.stages = range(self.demo_len,
@@ -213,7 +215,7 @@ class GameManager:
         while self.pause_reason:
             if self.pause_reason in ['pause', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
-                    self.update(True)
+                    self.update()
                     self.write_text('Stage Complete! Press "c" to continue, ' +
                                     'or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
@@ -379,38 +381,47 @@ class GameManager:
         else:
             self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
 
-    def update(self, really_update=False):
+    def update_check(self):
+        """
+        Checks whether an update should be performed
+        """
+        if self.demo:
+            self.update()
+        elif self.update_count == self.update_delay:
+            self.update()
+        else:
+            self.update_count += 1
+
+
+    def update(self, really_update=True):
         """
         Updates the game's states recalcualtes the player's score, misses,
         stage etc.
         """
-        if self.demo:
-            really_update = True
-        if really_update:
-            # Update the player's score
-            current_score_string = "SCORE: " + str(self.score)
-            score_text = self.font_obj.render(current_score_string,
-                                              True, (1, 1, 1))
-            score_text_pos = score_text.get_rect()
-            score_text_pos.centerx = self.background.get_rect().centerx
-            score_text_pos.centery = self.FONT_TOP_MARGIN
-            self.screen.blit(score_text, score_text_pos)
-            # Update the player's misses
-            current_misses_string = "MISSES: " + str(self.misses)
-            misses_text = self.font_obj.render(current_misses_string,
-                                               True, (1, 1, 1))
-            misses_text_pos = misses_text.get_rect()
-            misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
-            misses_text_pos.centery = self.FONT_TOP_MARGIN
-            self.screen.blit(misses_text, misses_text_pos)
-            # Update the player's stage
-            current_stage_string = "STAGE: " + str(self.stage)
-            stage_text = self.font_obj.render(current_stage_string,
-                                              True, (1, 1, 1))
-            stage_text_pos = stage_text.get_rect()
-            stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
-            stage_text_pos.centery = self.FONT_TOP_MARGIN
-            self.screen.blit(stage_text, stage_text_pos)
+        # Update the player's score
+        current_score_string = "SCORE: " + str(self.score)
+        score_text = self.font_obj.render(current_score_string,
+                                          True, (1, 1, 1))
+        score_text_pos = score_text.get_rect()
+        score_text_pos.centerx = self.background.get_rect().centerx
+        score_text_pos.centery = self.FONT_TOP_MARGIN
+        self.screen.blit(score_text, score_text_pos)
+        # Update the player's misses
+        current_misses_string = "MISSES: " + str(self.misses)
+        misses_text = self.font_obj.render(current_misses_string,
+                                           True, (1, 1, 1))
+        misses_text_pos = misses_text.get_rect()
+        misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
+        misses_text_pos.centery = self.FONT_TOP_MARGIN
+        self.screen.blit(misses_text, misses_text_pos)
+        # Update the player's stage
+        current_stage_string = "STAGE: " + str(self.stage)
+        stage_text = self.font_obj.render(current_stage_string,
+                                          True, (1, 1, 1))
+        stage_text_pos = stage_text.get_rect()
+        stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
+        stage_text_pos.centery = self.FONT_TOP_MARGIN
+        self.screen.blit(stage_text, stage_text_pos)
             
     def check_mouse_event(self, event, num, left, is_down, interval, frame_num):
         if (event.type == pygame.MOUSEBUTTONDOWN and
@@ -439,11 +450,11 @@ class GameManager:
                 if self.feedback:
                     self.soundEffect.play_hurt()
                 self.mole_count += 1
-                self.update()
+                self.update_check()
             else:
                 self.misses += 1
                 self.mole_count += 1
-                self.update()
+                self.update_check()
             self.set_player_stage()
 
         return num, left, is_down, interval, frame_num
@@ -483,48 +494,15 @@ class GameManager:
                 
                 num, left, is_down, interval, frame_num = self.check_mouse_event(event, num, left, is_down, interval, frame_num)
 
-#                if (event.type == pygame.MOUSEBUTTONDOWN and
-#                    event.button == self.LEFT_MOUSE_BUTTON):
-#                    self.soundEffect.play_fire()
-#                    if (self.check_mole_hit(pygame.mouse.get_pos(),
-#                                         self.hole_positions[frame_num]) and
-#                        num > 0 and left == 0):
-#                        num = 3
-#                        left = 14
-#                        is_down = False
-#                        interval = 0
-#                        mouse_pos = pygame.mouse.get_pos()
-#                        score_inc = self.scorer.get_score(mouse_pos,
-#                                                          frame_num,
-#                                                          self.score_type,
-#                                                          self.adj_type)
-#                        self.score += score_inc
-#                        score_str = ("score_inc: " + str(score_inc) + "," +
-#                                       "score: " + str(self.score) + "})>")
-#                        self.wam_logger.log_it("<Event(11-Score {" + score_str)
-#
-#                        # Stop popping sound effect
-#                        self.soundEffect.stop_pop()
-#                        # Play hurt sound
-#                        if self.feedback:
-#                            self.soundEffect.play_hurt()
-#                        self.mole_count += 1
-#                        self.update()
-#                    else:
-#                        self.misses += 1
-#                        self.mole_count += 1
-#                        self.update()
-#                    self.set_player_stage()
-
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
-                self.update()
+                self.update_check()
                 num = -1
                 left = 0
 
             if num == -1:
                 self.screen.blit(self.background, (0, 0))
-                self.update()
+                self.update_check()
                 num = 0
                 is_down = False
                 interval = 0.5
@@ -545,7 +523,7 @@ class GameManager:
                 self.screen.blit(pic,
                                  (self.hole_positions[frame_num][0] - left,
                                   self.hole_positions[frame_num][1]))
-                self.update()
+                self.update_check()
                 if is_down is False:
                     num += 1
                 else:
