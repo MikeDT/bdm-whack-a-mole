@@ -97,6 +97,9 @@ class GameManager:
 
     @staticmethod
     def text_objects(text, font):
+        """
+        Sets the text objects for the gui, static method as only called once
+        """
         text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) = black
         return text_surface, text_surface.get_rect()
 
@@ -140,6 +143,9 @@ class GameManager:
 
     def write_text(self, string, colour=(255, 255, 255),
                    location_x=None, location_y=None):
+        """
+        Writes text to the screen, defaulting to the centre
+        """
         if location_x is None:
             location_x = self.background.get_rect().centerx
         if location_y is None:
@@ -424,6 +430,11 @@ class GameManager:
         self.screen.blit(stage_text, stage_text_pos)
             
     def check_mouse_event(self, event, num, left, is_down, interval, frame_num):
+        """
+        Checks whether a couse event has resulted in a mole hit
+        
+        requires further abstraction
+        """
         if (event.type == pygame.MOUSEBUTTONDOWN and
             event.button == self.LEFT_MOUSE_BUTTON):
             self.soundEffect.play_fire()
@@ -492,6 +503,7 @@ class GameManager:
                 # check any general game key events (pause, quit, continue)
                 self.check_key_event(event)
                 
+                # checks the mouse events to see whether mole hits occurred
                 num, left, is_down, interval, frame_num = self.check_mouse_event(event, num, left, is_down, interval, frame_num)
 
             if num > 5:
