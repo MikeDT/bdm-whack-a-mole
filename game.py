@@ -24,7 +24,7 @@ class GameManager:
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
         self.wam_logger = WamLogger()
         self.intro_complete = False
-        self.stage_time_change = False
+        self.stage_time_change = True
         self.demo_len = 5
 
         # Initialize player's score, number of missed hits and stage data
@@ -211,6 +211,14 @@ class GameManager:
                     if mods & pygame.KMOD_CTRL:
                         pygame.quit()
                         self.wam_logger.log_end()
+                        
+    def two_by_two_rate(self):
+        """
+        refactor check mouse event into two, i.e. mole hit check or 2x2
+        then take xy coordinates, only unpause if the spot is given in the grid
+        cast te confidence etc as part of the hit info into the logger
+        """
+        pass
 
     def pause(self):
         """
@@ -277,8 +285,12 @@ class GameManager:
         Gets the game interval (i.e. the time between mole pop ups from holes)
         period by stage
         """
+        if self.stage == 'Demo':
+            stage = 1
+        else:
+            stage = self.stage
         if self.stage_time_change:
-            new_interval = initial_interval - self.stage * 0.15
+            new_interval = initial_interval - stage * 0.15
             if new_interval > 0:
                 return new_interval
             else:
@@ -387,7 +399,7 @@ class GameManager:
         else:
             self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
 
-    def update_check(self):
+    def score_update_check(self):
         """
         Checks whether an update should be performed
         """
@@ -461,18 +473,67 @@ class GameManager:
                 if self.feedback:
                     self.soundEffect.play_hurt()
                 self.mole_count += 1
-                self.update_check()
+                self.score_update_check()
             else:
                 self.misses += 1
                 self.mole_count += 1
-                self.update_check()
+                self.score_update_check()
             self.set_player_stage()
 
         return num, left, is_down, interval, frame_num
+    
+    def pop_mole(self, num, is_down, interval, frame_num):
+        self.screen.blit(self.background, (0, 0))
+        self.score_update_check()
+        num = 0
+        is_down = False
+        #interval = 0.5
+        frame_num = random.randint(0, 8)
+        log_string = (
+                      "{'loc': (" +
+                      str(self.hole_positions[frame_num][0]) + "," +
+                      str(self.hole_positions[frame_num][1]) + ")})>"
+                      )
+        self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
+        return num, is_down, interval, frame_num
+
+    def drop_mole(self, num, left, is_down, interval, frame_num, initial_interval, cycle_time, clock):
+        pic = self.mole[num]
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(pic,
+                         (self.hole_positions[frame_num][0] - left,
+                          self.hole_positions[frame_num][1]))
+        self.score_update_check()
+        if is_down is False:
+            num += 1
+        else:
+            num -= 1
+        if num == 4:
+            interval = 0.3
+        elif num == 3:
+            num -= 1
+            is_down = True
+            self.soundEffect.play_pop()
+            interval = self.get_interval_by_stage(initial_interval)
+        else:
+            interval = 0.1
+        cycle_time = 0
+        return num, left, is_down, interval, frame_num, initial_interval, cycle_time, clock
+
+    def create_moles(self):
+        """
+        Creates a set of moles
+        """
+        for i in range(len(self.mole)):
+            self.mole[i].set_colorkey((0, 0, 0))
+            self.mole[i] = self.mole[i].convert_alpha()
 
     # Start the game's main loop
     # Contains some logic for handling animations, mole hit events, etc..
-    def start(self):
+    def play_game(self):
+        """
+        Play the whack a mole game
+        """
         cycle_time = 0
         num = -1
         loop = True
@@ -483,72 +544,37 @@ class GameManager:
         left = 0
         # Time control variables
         clock = pygame.time.Clock()
-
-        for i in range(len(self.mole)):
-            self.mole[i].set_colorkey((0, 0, 0))
-            self.mole[i] = self.mole[i].convert_alpha()
+        self.create_moles()
         while loop:
-            for event in pygame.event.get():
-                # log events
-                self.wam_logger.log_it(event)
 
-                # check if game intro is complete
+            # log game events, and check whether key or mouse
+            # events have occurred (and react appropriately)
+            for event in pygame.event.get():
+                self.wam_logger.log_it(event)
                 if self.intro_complete is False:
                     self.intro()
-
-                # check if game is quit
                 if event.type == pygame.QUIT:
                     loop = False
-
-                # check any general game key events (pause, quit, continue)
                 self.check_key_event(event)
-                
-                # checks the mouse events to see whether mole hits occurred
                 num, left, is_down, interval, frame_num = self.check_mouse_event(event, num, left, is_down, interval, frame_num)
 
+            # refreshes screen at the point of mole popping
             if num > 5:
                 self.screen.blit(self.background, (0, 0))
-                self.update_check()
+                self.score_update_check()
                 num = -1
                 left = 0
 
+            # pops the mole, if it's time
             if num == -1:
-                self.screen.blit(self.background, (0, 0))
-                self.update_check()
-                num = 0
-                is_down = False
-                interval = 0.5
-                frame_num = random.randint(0, 8)
-                log_string = (
-                              "{'loc': (" +
-                              str(self.hole_positions[frame_num][0]) + "," +
-                              str(self.hole_positions[frame_num][1]) + ")})>"
-                              )
-                self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
+                num, is_down, interval, frame_num = self.pop_mole(num, is_down, interval, frame_num)
 
+            # drops the mole, if it's time
             mil = clock.tick(self.FPS)
             sec = mil / 1000.0
             cycle_time += sec
             if cycle_time > interval:
-                pic = self.mole[num]
-                self.screen.blit(self.background, (0, 0))
-                self.screen.blit(pic,
-                                 (self.hole_positions[frame_num][0] - left,
-                                  self.hole_positions[frame_num][1]))
-                self.update_check()
-                if is_down is False:
-                    num += 1
-                else:
-                    num -= 1
-                if num == 4:
-                    interval = 0.3
-                elif num == 3:
-                    num -= 1
-                    is_down = True
-                    self.soundEffect.play_pop()
-                    interval = self.get_interval_by_stage(initial_interval)
-                else:
-                    interval = 0.1
-                cycle_time = 0
+                num, left, is_down, interval, frame_num, initial_interval, cycle_time, clock = self.drop_mole(num, left, is_down, interval, frame_num, initial_interval, cycle_time, clock)
+
             # Update the display
             pygame.display.flip()
