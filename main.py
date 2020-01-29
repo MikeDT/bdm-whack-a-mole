@@ -24,3 +24,6 @@ if __name__ == "__main__":
 # hit but don't do properly?
 
 #read the BdM papers
+
+# if touch on playing screen and vice versa
+# 
