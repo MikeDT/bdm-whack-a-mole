@@ -7,7 +7,7 @@ This module contains the SoundEffect class for the pygame Whack a Mole game
 
 Attributes:
     handled within the SoundEffect class
-        
+
 Todo:
     * na
 
@@ -18,6 +18,7 @@ Related projects:
 """
 
 import pygame
+
 
 class SoundEffect:
     """
@@ -43,7 +44,7 @@ class SoundEffect:
 
     Methods
     -------
-    set_sounds(file_sound_loc geeric locations )
+    set_sounds(file_sound_loc generic locations )
         Imports the file sounds into the SoundEffect class
     play_****()
         plays the **** sound
@@ -99,7 +100,7 @@ class SoundEffect:
         Returns
         -------
         na
-        '''   
+        '''
         pygame.mixer.music.play(-1)
 
     def stop_music(self):
@@ -117,7 +118,7 @@ class SoundEffect:
         Returns
         -------
         na
-        '''  
+        '''
         pygame.mixer.music.play(-1)
 
     def play_fire(self):
