@@ -11,9 +11,11 @@ Attributes:
 
 Todo:
     * clean up the game intro text (should be a for loop, moving down screen)
+    * clean up game pause text
     * make the game constants a config read
     * make hole positions a config change
     * create log string function, then log it
+    * sort check key event
     
     * abstract the screen functionality to make the GameManager
         standalone
@@ -159,6 +161,7 @@ class GameManager:
             self.write_text("If you need to pause while playing press 'p'",
                             location_y=self.SCREEN_HEIGHT / 2 + 180)
 
+#            self.check_key_event()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.wam_logger.log_end()
@@ -295,6 +298,7 @@ class GameManager:
     def set_player_stage(self):
         """
         Sets the game stage based upon the stage type and pause_reason
+        """
         if self.stage_type == 'Standard':
             if (self.mole_count) in self.stages:
                 if self.demo:

@@ -9,7 +9,7 @@ Attributes:
     handled within the WamLogger Class
 
 Todo:
-    * na
+    * sort naked exception handling
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
@@ -21,6 +21,7 @@ import logging
 from time import time
 import os
 import pygame
+
 
 class WamLogger:
     """
@@ -38,7 +39,7 @@ class WamLogger:
         logs an event that is passed to it
     end_log()
         closes down the log
-    """    
+    """
     def __init__(self):
         self.timestamp = str(time())
         self.logger = logging.getLogger('BDM-WAM ' + self.timestamp)
