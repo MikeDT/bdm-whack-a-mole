@@ -1,3 +1,38 @@
+# -*- coding: utf-8 -*-
+"""
+main
+====
+
+Primary module, contains the majority of the game code for the
+Whack a Mole game
+
+Attributes:
+    na
+
+Todo:
+    * clean up the game intro text (should be a for loop, moving down screen)
+    * make the game constants a config read
+    * make hole positions a config change
+    * create log string function, then log it
+    
+    * abstract the screen functionality to make the GameManager
+        standalone
+    * confidence in hit vs precision of hit?
+    * confidence in score feels like it would make more sense
+        for instant feedback (otherwise confidence is anchored to just one)
+    * confidence in target
+    * degree of luck
+    * hit but don't do properly?
+    * read the BdM papers
+    * if touch on playing screen and vice versa
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
+
+@author: miketaylor
+"""
+
+
 import pygame
 import random
 import numpy as np
@@ -242,7 +277,7 @@ class GameManager:
                     self.write_text('Demo Complete! Press "c" to start the ' +
                                     'real game, or "ctrl q" to quit',
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
-                    self.scorer.reset()
+                    self.scorer.reset_score_adj()
                     self.check_key_event()
 
             elif self.pause_reason == 'hit_conf':
@@ -497,7 +532,7 @@ class GameManager:
         self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
         return num, mole_is_down, interval, frame_num
 
-    def drop_mole(self, num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock):
+    def animate_mole(self, num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock):
         """
         Drops a mole 
         """
@@ -575,7 +610,7 @@ class GameManager:
             sec = mil / 1000.0
             cycle_time += sec
             if cycle_time > interval:
-                num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock = self.drop_mole(num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock)
+                num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock = self.animate_mole(num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock)
 
             # Update the display
             pygame.display.flip()

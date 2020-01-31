@@ -151,7 +151,7 @@ class Scorer:
         distance = (distance[0]**2 + distance[1]**2)**0.5
         return distance
 
-    def score_skill_adjust(self, score_type):
+    def score_skill_adjust(self, score_raw, score_type):
         '''
         Adjusts the score based on teh skill (i.e. euclidean distance measure)
 
@@ -170,9 +170,9 @@ class Scorer:
             the skill adjusted score (i.e. nearer to optimal = better score)
         '''
         if score_type == 'lin_dist_skill':
-            score = 10 - (min(10, 0.05*self.get_distance))
+            score = score_raw - (min(10, 0.05*self.get_distance))
         elif score_type == 'non_lin_dist_skill':
-            score = 10 - (min(10, 0.05*self.get_distance))
+            score = score_raw - (min(10, 0.05*self.get_distance))
         else:
             score = self.max_score
         return score
@@ -227,6 +227,6 @@ class Scorer:
         '''
         score_raw = self.max_score
         score_skill_adj = self.score_skill_adjust(score_raw, adj_type)
-        score_skill_random_adj = self.score_skill_adjust(score_skill_adj)
+        score_skill_random_adj = self.score_rand_adjust(score_skill_adj)
         score_skill_random_adj = round(score_skill_random_adj, 2)
         return score_skill_random_adj

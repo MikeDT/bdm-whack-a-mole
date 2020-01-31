@@ -1,3 +1,23 @@
+# -*- coding: utf-8 -*-
+"""
+main
+====
+
+Typical main.py functionality, initiates the pygame game and mixer,
+starts the GameManager and spins up the game
+
+Attributes:
+    na
+
+Todo:
+    *na
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
+
+@author: miketaylor
+"""
+
 from game import GameManager
 import pygame
 
