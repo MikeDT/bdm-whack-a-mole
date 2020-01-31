@@ -37,7 +37,6 @@ import pygame
 import random
 import numpy as np
 from sound import SoundEffect
-from debug import Debugger
 from logger import WamLogger
 from scorer import Scorer
 
@@ -109,9 +108,6 @@ class GameManager:
         self.hole_positions.append((464, 119))
         self.hole_positions.append((95, 43))
         self.hole_positions.append((603, 11))
-
-        # Init debugger
-        self.debugger = Debugger("debug")
 
         # Sound effects
         self.soundEffect = SoundEffect()
@@ -299,7 +295,6 @@ class GameManager:
     def set_player_stage(self):
         """
         Sets the game stage based upon the stage type and pause_reason
-        """
         if self.stage_type == 'Standard':
             if (self.mole_count) in self.stages:
                 if self.demo:

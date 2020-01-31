@@ -31,19 +31,3 @@ if __name__ == "__main__":
     my_game.play_game()
     # Exit the game if the main loop ends
     pygame.quit()
-
-
-#consideratios
-
-# confidence in hit vs precision of hit?
-# confidence in score feels like it would make more sense for instant feedback (otherwise confidence is anchored to just one)
-
-# confidence in target
-# degree of luck
-
-# hit but don't do properly?
-
-#read the BdM papers
-
-# if touch on playing screen and vice versa
-# 
