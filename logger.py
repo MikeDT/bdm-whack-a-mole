@@ -109,7 +109,7 @@ class WamLogger:
             try:
                 self.logger.info(pygame.event.get())
             except:
-                self.logger.info('Event Logging Failure')            
+                self.logger.info('Event Logging Failure')
 
     def log_end(self):
         '''
