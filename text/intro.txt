@@ -1,0 +1,7 @@
+Welcome to the Brain Decision Modelling Lab Whack-A-Mole Game!
+Using the touch screen your task is to whack (touch on screen) as many moles as possible
+You will score between 0 and 10 points, the more accurate the hit the more points
+But sometimes the environment doesn't behave...
+... and you will score more or less than you deserve
+To continue press 'c', to quit press 'ctrl q'
+If you need to pause while playing press 'p'

@@ -10,12 +10,15 @@ Attributes:
     na
 
 Todo:
-    * clean up the game intro text (should be a for loop, moving down screen)
-    * clean up game pause text
+    * animate mole for toggling animation durations
+    * clean up game pause text (push to a dictionary, reason: text)
     * make the game constants a config read
     * make hole positions a config change
     * create log string function, then log it
     * sort check key event
+    * check mouse_event needs more abstraction
+    * build 2x2 rater
+    * make all check events link to a ting that checks whether the agent is artificial or not
     
     * abstract the screen functionality to make the GameManager
         standalone
@@ -62,6 +65,9 @@ class GameManager:
         self.intro_complete = False
         self.stage_time_change = True
         self.demo_len = 5
+
+        self.intro_txt_file_loc = 'text\\intro.txt'
+        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
 
         # Initialize player's score, number of missed hits and stage data
         self.score = 0
@@ -128,6 +134,17 @@ class GameManager:
         self.adj_type = 'static' # random_walk_neg, random_walk_pos, static, designed
         self.hit_type = 'Margin'
 
+        self.pause_reason_dict = {'stage': """Stage Complete! Press "c" to continue, or "ctrl q" to quit""",
+                                  'paused': """Game Paused! Press "c" to continue, or "ctrl q" to quit""",
+                                  'demo': """Demo Complete! Press "c" to start the real game, or "ctrl q" to quit'""",
+                                  'hit_conf': """Please rate your confidence in making a hit between 1 (lowest) and 7 (highest)""",
+                                  'reward_conf': """Please rate your confidence in a reward between 1 (lowest) and 7 (highest)""",
+                                  'player_skill': """Please rate your skill in the game between 1 (lowest) and 7 (highest)"""}
+        self.pause_trans_dict = {'hit_conf': 'reward_conf',
+                                 'reward_conf': 'player_skill',
+                                 'player_skill': False}
+
+
     @staticmethod
     def text_objects(text, font):
         """
@@ -142,24 +159,10 @@ class GameManager:
         instructions to the user
         """
         while self.intro_complete is False:
-            self.write_text('Welcome to the Brain Decision Modelling Lab' +
-                            'Whack-A-Mole Game!',
-                            location_y=self.SCREEN_HEIGHT/2 - 80)
-            self.write_text('Using the touch screen your task is to whack ' +
-                            '(touch on screen) as many moles as possible',
-                            location_y=self.SCREEN_HEIGHT / 2 - 40)
-            self.write_text('You will score between 0 and 10 points, ' +
-                            'the more accurate the hit the more points',
-                            location_y=self.SCREEN_HEIGHT / 2)
-            self.write_text("But sometimes the environment doesn't behave...",
-                            location_y=self.SCREEN_HEIGHT / 2 + 40)
-            self.write_text('... and you will score more or less than you' +
-                            '"deserve"',
-                            location_y=self.SCREEN_HEIGHT / 2 + 80)
-            self.write_text("To continue press 'c', to quit press 'ctrl q'",
-                            location_y=self.SCREEN_HEIGHT / 2 + 120)
-            self.write_text("If you need to pause while playing press 'p'",
-                            location_y=self.SCREEN_HEIGHT / 2 + 180)
+            loc_y = self.SCREEN_HEIGHT/2 - 80
+            for line in self.intro_txt:
+                self.write_text(line, location_y=loc_y)
+                loc_y += 40
 
 #            self.check_key_event()
             for event in pygame.event.get():
@@ -253,47 +256,65 @@ class GameManager:
         cast te confidence etc as part of the hit info into the logger
         """
         pass
-
+    
     def pause(self):
-        """
-        HAndles pause events, needs to be abstracted into more functions
-        """
-        self.wam_logger.log_it("<Event(8-Pause {'reason': " +
-                               str(self.pause_reason) + " })>")
-        while self.pause_reason:
+    
+         while self.pause_reason:
             if self.pause_reason in ['pause', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
                     self.update()
-                    self.write_text('Stage Complete! Press "c" to continue, ' +
-                                    'or "ctrl q" to quit',
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     self.check_key_event()
                 elif self.pause_reason == 'paused':
-                    self.write_text('Game Paused! Press "c" to continue, or ' +
-                                    '"ctrl q" to quit')
+                    self.write_text(self.pause_reason_dict[self.pause_reason])
                     self.check_key_event()
                 else:
-                    self.write_text('Demo Complete! Press "c" to start the ' +
-                                    'real game, or "ctrl q" to quit',
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     self.scorer.reset_score_adj()
                     self.check_key_event()
 
             elif self.pause_reason == 'hit_conf':
-                self.write_text('Please rate your confidence in making a hit ' +
-                                'between 1 (lowest) and 7 (highest)',
+                self.write_text(self.pause_reason_dict[self.pause_reason],
                                 location_y=self.SCREEN_HEIGHT/2 - 80)
                 self.check_events_rate(('hit_conf', 'reward_conf'))
+                #self.check_event_rate((self.pause_reason,
+                  #                     self.pause_trans_dict[self.pause_reason]))
             elif self.pause_reason == 'reward_conf':
-                self.write_text('Please rate your confidence in a reward ' +
-                                'between 1 (lowest) and 7 (highest)',
+                self.write_text(self.pause_reason_dict[self.pause_reason],
                                 location_y=self.SCREEN_HEIGHT/2 - 40)
                 self.check_events_rate(('reward_conf', 'player_skill'))
+                #self.check_event_rate((self.pause_reason,
+                 #                      self.pause_trans_dict[self.pause_reason]))
             elif self.pause_reason == 'player_skill':
-                self.write_text('Please rate your skill in the game between ' +
-                                '1 (lowest) and 7 (highest)',
+                self.write_text(self.pause_reason_dict[self.pause_reason],
                                 location_y=self.SCREEN_HEIGHT/2)
+                #self.check_event_rate((self.pause_reason,
+                 #                      self.pause_trans_dict[self.pause_reason]))
                 self.check_events_rate(('player_skill', False))
+
+    def pause_new(self):
+        """
+        HAndles pause events, needs to be abstracted into more functions
+        """
+        self.wam_logger.log_it("<Event(8-Pause {'reason': " +
+                               str(self.pause_reason) + " })>")
+        location_y = self.SCREEN_HEIGHT/2 - 80
+        while self.pause_reason:
+            if self.pause_reason in ['pause',
+                                     'stage',
+                                     'demo']:
+                self.write_text(self.pause_reason_dict[self.pause_reason],
+                                location_y=location_y)
+                self.check_key_event()
+            elif self.pause_reason in ['hit_conf',
+                                       'reward_conf',
+                                       'player_skill']:
+                self.write_text(self.pause_reason_dict[self.pause_reason],
+                                location_y=location_y)
+
+            location_y += 40
 
     def set_player_stage(self):
         """
@@ -332,15 +353,15 @@ class GameManager:
         else:
             return 1.0
   
-    def check_mole_hit(self, mouse_position, current_hole_position):
+    def check_mole_hit(self, mouse_pos, current_hole_position):
         """
         Checks whether a mole was hit, able to call a variety of methods
         dependent on the type of mole hit that is modelled for in the game at
         a given point in time (e.g. standard, with additional margin, binomial
         etc.
         """
-        self.mouse_x = mouse_position[0]
-        self.mouse_y = mouse_position[1]
+        self.mouse_x = mouse_pos[0]
+        self.mouse_y = mouse_pos[1]
         self.current_hole_x = current_hole_position[0]
         self.current_hole_y = current_hole_position[1]
         self.distance = ((self.mouse_x - self.current_hole_x)**2 +
@@ -444,13 +465,11 @@ class GameManager:
         else:
             self.update_count += 1
 
-
     def update(self, really_update=True):
         """
-        Updates the game's states recalcualtes the player's score, misses,
-        stage etc.
+        Updates the game's stage, score, misses on the gui
         """
-        # Update the player's score
+        # Update gui with player's score
         current_score_string = "SCORE: " + str(self.score)
         score_text = self.font_obj.render(current_score_string,
                                           True, (1, 1, 1))
@@ -458,7 +477,8 @@ class GameManager:
         score_text_pos.centerx = self.background.get_rect().centerx
         score_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(score_text, score_text_pos)
-        # Update the player's misses
+
+        # Update gui with player's misses
         current_misses_string = "MISSES: " + str(self.misses)
         misses_text = self.font_obj.render(current_misses_string,
                                            True, (1, 1, 1))
@@ -466,7 +486,8 @@ class GameManager:
         misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
         misses_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(misses_text, misses_text_pos)
-        # Update the player's stage
+
+        # Update gui with player's stage
         current_stage_string = "STAGE: " + str(self.stage)
         stage_text = self.font_obj.render(current_stage_string,
                                           True, (1, 1, 1))
@@ -474,7 +495,13 @@ class GameManager:
         stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
         stage_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(stage_text, stage_text_pos)
-            
+
+    def get_agent_mouse_pos(self, human=True):
+        if human:
+            pygame.mouse.get_pos()
+        else:
+            pass
+
     def check_mouse_event(self, event, num, left, mole_is_down, interval, frame_num):
         """
         Checks whether a couse event has resulted in a mole hit
@@ -491,7 +518,7 @@ class GameManager:
                 left = 14
                 mole_is_down = False
                 interval = 0
-                mouse_pos = pygame.mouse.get_pos()
+                mouse_pos = self.get_agent_mouse_pos()
                 score_inc = self.scorer.get_score(mouse_pos,
                                                   frame_num,
                                                   self.score_type,
@@ -545,15 +572,15 @@ class GameManager:
             num += 1
         else:
             num -= 1
-        if num == 4:
-            interval = 0.3
+        if num == 4: # i.e. the period of whacking
+            interval = 0.5
         elif num == 3:
             num -= 1
             mole_is_down = True
             self.soundEffect.play_pop()
-            interval = self.get_interval_by_stage(initial_interval)
+            interval = 0.5 # self.get_interval_by_stage(initial_interval)
         else:
-            interval = 0.1
+            interval = .5 #0.1
         cycle_time = 0
         return num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock
 
