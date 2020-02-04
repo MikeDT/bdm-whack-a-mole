@@ -114,6 +114,9 @@ class WamLogger:
     def log_pygame_event(self, event):
         self._log_it(event)
 
+    def log_2x2_rate(self, mouse_pos):
+        self._log_it("<Event(7-Rate {xy : " + str(mouse_pos) + " })>")
+
     def log_score(self, score_inc, score):
         score_str = ("score_inc: " + str(score_inc) + "," +
                      "score: " + str(score) + "})>")

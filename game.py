@@ -247,15 +247,18 @@ class GameManager:
                                  pygame.K_7]:
                     event_act = self.event_key_dict[str(event.key)]
                     self.wam_logger.log_event_rate(action[0], event_act)
-#                    self.wam_logger.log_it("<Event(7-Rate {'" +
-#                                           action[0] + "': " +
-#                                           event_act + " })>")
                     self.pause_reason = action[1]
                 elif event.key == pygame.K_q:
                     mods = pygame.key.get_mods()
                     if mods & pygame.KMOD_CTRL:
                         pygame.quit()
                         self.wam_logger.log_end()
+
+    def check_rate_in_grid(self, mouse_pos):
+        if mouse_pos:
+            return True
+        else:
+            return False
                         
     def two_by_two_rate(self):
         """
@@ -263,10 +266,16 @@ class GameManager:
         then take xy coordinates, only unpause if the spot is given in the grid
         cast te confidence etc as part of the hit info into the logger
         """
-        pass
-    
+        for event in pygame.event.get():
+            if (event.type == pygame.MOUSEBUTTONDOWN and
+                event.button == self.LEFT_MOUSE_BUTTON):
+                mouse_pos = pygame.mouse.get_pos()
+                if self.check_rate_in_grid(mouse_pos):
+                    self.wam_logger.log_2x2_rate(mouse_pos)
+                    self.soundEffect.play_fire()
+                    self.pause_reason = False
+
     def pause(self):
-    
          while self.pause_reason:
             if self.pause_reason in ['standard', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
@@ -282,33 +291,33 @@ class GameManager:
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     self.scorer.reset_score_adj()
                     self.check_key_event()
-
-            elif self.pause_reason == 'hit_conf':
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=self.SCREEN_HEIGHT/2 - 80)
-                self.check_events_rate(('hit_conf', 'reward_conf'))
-                #self.check_event_rate((self.pause_reason,
-                  #                     self.pause_trans_dict[self.pause_reason]))
-            elif self.pause_reason == 'reward_conf':
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=self.SCREEN_HEIGHT/2 - 40)
-                self.check_events_rate(('reward_conf', 'player_skill'))
-                #self.check_event_rate((self.pause_reason,
-                 #                      self.pause_trans_dict[self.pause_reason]))
-            elif self.pause_reason == 'player_skill':
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=self.SCREEN_HEIGHT/2)
-                #self.check_event_rate((self.pause_reason,
-                 #                      self.pause_trans_dict[self.pause_reason]))
-                self.check_events_rate(('player_skill', False))
+            elif self.pause_reason == '2x2':
+                self.write_text('please use 2x2 rater')
+                self.two_by_two_rate()
+#            elif self.pause_reason == 'hit_conf':
+#                self.write_text(self.pause_reason_dict[self.pause_reason],
+#                                location_y=self.SCREEN_HEIGHT/2 - 80)
+#                self.check_events_rate(('hit_conf', 'reward_conf'))
+#                #self.check_event_rate((self.pause_reason,
+#                  #                     self.pause_trans_dict[self.pause_reason]))
+#            elif self.pause_reason == 'reward_conf':
+#                self.write_text(self.pause_reason_dict[self.pause_reason],
+#                                location_y=self.SCREEN_HEIGHT/2 - 40)
+#                self.check_events_rate(('reward_conf', 'player_skill'))
+#                #self.check_event_rate((self.pause_reason,
+#                 #                      self.pause_trans_dict[self.pause_reason]))
+#            elif self.pause_reason == 'player_skill':
+#                self.write_text(self.pause_reason_dict[self.pause_reason],
+#                                location_y=self.SCREEN_HEIGHT/2)
+#                #self.check_event_rate((self.pause_reason,
+#                 #                      self.pause_trans_dict[self.pause_reason]))
+#                self.check_events_rate(('player_skill', False))
 
     def pause_new(self):
         """
         HAndles pause events, needs to be abstracted into more functions
         """
         self.wam_logger.log_pause(self.pause_reason)
-#        self.wam_logger.log_it("<Event(8-Pause {'reason': " +
-#                               str(self.pause_reason) + " })>")
         location_y = self.SCREEN_HEIGHT/2 - 80
         while self.pause_reason:
             if self.pause_reason in ['standard',
@@ -322,7 +331,6 @@ class GameManager:
                                        'player_skill']:
                 self.write_text(self.pause_reason_dict[self.pause_reason],
                                 location_y=location_y)
-
             location_y += 40
 
     def set_player_stage(self):
@@ -380,7 +388,7 @@ class GameManager:
         self.feedback_count += 1
         if self.feedback_count == self.feedback_limit:
             self.feedback_count = 0
-            self.pause_reason = 'hit_conf'
+            self.pause_reason = '2x2'  # hit_conf
             self.pause()
         if self.hit_type == 'Margin':
             self.set_mole_hit_res_margin()
@@ -388,7 +396,6 @@ class GameManager:
             self.set_mole_hit_res_standard()
         elif self.hit_type == 'Binomial':
             self.set_mole_hit_res_binom()
-        #self.log_hit_result()
         self.wam_logger.log_hit_result(self.result, self.mouse_x, self.mouse_y,
                                        self.distance, self.relative_loc)
         return self.result[0]
@@ -445,25 +452,6 @@ class GameManager:
             (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
             actual_hit = True
         self.result = (actual_hit, actual_hit)
-#
-#    def log_hit_result(self):
-#        """
-#        Logs the hit result based on the current mole hit criteria
-#        """
-#        log_string = ("{'pos': (" +
-#                      str(self.mouse_x) + "," +
-#                      str(self.mouse_y) + ")," +
-#                      "'distance: " + str(self.distance) + "," +
-#                      "'relative_loc: " + str(self.relative_loc) + "," +
-#                      "'window': None})>")
-#        if self.result == (True, True):
-#            self.wam_logger.log_it("<Event(9.1-TrueHit " + log_string)
-#        elif self.result == (False, True):
-#            self.wam_logger.log_it("<Event(9.2-FakeMiss " + log_string)
-#        elif self.result == (True, False):
-#            self.wam_logger.log_it("<Event(9.3-FakeHit " + log_string)
-#        else:
-#            self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
 
     def score_update_check(self):
         """
@@ -536,9 +524,6 @@ class GameManager:
                                                   self.adj_type)
                 self.score += score_inc
                 self.wam_logger.log_score(score_inc, self.score)
-#                score_str = ("score_inc: " + str(score_inc) + "," +
-#                               "score: " + str(self.score) + "})>")
-#                self.wam_logger.log_it("<Event(11-Score {" + score_str)
 
                 # Stop popping sound effect
                 self.soundEffect.stop_pop()
@@ -563,12 +548,6 @@ class GameManager:
         #interval = 0.5
         frame_num = random.randint(0, 8)
         self.wam_logger.log_mole_event(self.hole_positions[frame_num])
-#        log_string = (
-#                      "{'loc': (" +
-#                      str(self.hole_positions[frame_num][0]) + "," +
-#                      str(self.hole_positions[frame_num][1]) + ")})>"
-#                      )
-#        self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
         return num, mole_is_down, interval, frame_num
 
     def show_mole_frame(self, num, frame_num, left):
