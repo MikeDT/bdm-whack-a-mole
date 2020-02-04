@@ -11,8 +11,10 @@ Attributes:
 
 Todo:
     * animate mole for toggling animation durations
-    * clean up game pause text (push to a dictionary, reason: text)
     * make the game constants a config read
+        * sort pause_reason text import
+        * 
+    * clean up game pause text (push to a dictionary, reason: text)
     * make hole positions a config change
     * create log string function, then log it
     * sort check key event
@@ -44,6 +46,7 @@ import numpy as np
 from sound import SoundEffect
 from logger import WamLogger
 from scorer import Scorer
+import re
 
 
 class GameManager:
@@ -67,6 +70,9 @@ class GameManager:
         self.demo_len = 5
 
         self.intro_txt_file_loc = 'text\\intro.txt'
+        self.hole_pos_file_loc = 'config\\hole_positions.txt'
+        self.pause_info_file_loc = 'config\\pause_info.txt'
+
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
 
         # Initialize player's score, number of missed hits and stage data
@@ -106,16 +112,7 @@ class GameManager:
         self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
 
         # Positions of the holes in background
-        self.hole_positions = []
-        self.hole_positions.append((381, 295))
-        self.hole_positions.append((119, 366))
-        self.hole_positions.append((179, 169))
-        self.hole_positions.append((404, 479))
-        self.hole_positions.append((636, 366))
-        self.hole_positions.append((658, 232))
-        self.hole_positions.append((464, 119))
-        self.hole_positions.append((95, 43))
-        self.hole_positions.append((603, 11))
+        self.hole_positions = self.get_hole_pos()
 
         # Sound effects
         self.soundEffect = SoundEffect()
@@ -134,17 +131,30 @@ class GameManager:
         self.adj_type = 'static' # random_walk_neg, random_walk_pos, static, designed
         self.hit_type = 'Margin'
 
-        self.pause_reason_dict = {'stage': """Stage Complete! Press "c" to continue, or "ctrl q" to quit""",
-                                  'paused': """Game Paused! Press "c" to continue, or "ctrl q" to quit""",
-                                  'demo': """Demo Complete! Press "c" to start the real game, or "ctrl q" to quit'""",
-                                  'hit_conf': """Please rate your confidence in making a hit between 1 (lowest) and 7 (highest)""",
-                                  'reward_conf': """Please rate your confidence in a reward between 1 (lowest) and 7 (highest)""",
-                                  'player_skill': """Please rate your skill in the game between 1 (lowest) and 7 (highest)"""}
+        self.pause_reason_dict = self.get_pause_dict()
+#        self.pause_reason_dict = {'stage': """Stage Complete! Press "c" to continue, or "ctrl q" to quit""",
+#                                  'standard': """Game Paused! Press "c" to continue, or "ctrl q" to quit""",
+#                                  'demo': """Demo Complete! Press "c" to start the real game, or "ctrl q" to quit'""",
+#                                  'hit_conf': """Please rate your confidence in making a hit between 1 (lowest) and 7 (highest)""",
+#                                  'reward_conf': """Please rate your confidence in a reward between 1 (lowest) and 7 (highest)""",
+#                                  'player_skill': """Please rate your skill in the game between 1 (lowest) and 7 (highest)"""}
         self.pause_trans_dict = {'hit_conf': 'reward_conf',
                                  'reward_conf': 'player_skill',
                                  'player_skill': False}
 
-
+    def get_hole_pos(self):
+        hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
+        def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
+        hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
+        hole_pos_lst = [[int(x) for x in sub_lst] for sub_lst in hole_pos_lst]
+        return hole_pos_lst
+    
+    def get_pause_dict(self):
+        pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
+        pause_list = [x.split(' |') for x in pause_list]
+        pause_dict = {x[0] : x[1] for x in pause_list}
+        return pause_dict
+    
     @staticmethod
     def text_objects(text, font):
         """
@@ -210,10 +220,10 @@ class GameManager:
                 pygame.quit()
             if self.current_event.type == pygame.KEYDOWN:
                 if self.current_event.key == pygame.K_c:
-                    self.demo = False
+                    #self.demo = False
                     self.pause_reason = False
                 elif self.current_event.key == pygame.K_p:
-                    self.pause_reason = 'pause'
+                    self.pause_reason = 'standard'
                     self.pause()
                 elif self.current_event.key == pygame.K_q:
                     mods = pygame.key.get_mods()
@@ -260,13 +270,13 @@ class GameManager:
     def pause(self):
     
          while self.pause_reason:
-            if self.pause_reason in ['pause', 'stage', 'demo']:
+            if self.pause_reason in ['standard', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
                     self.update()
                     self.write_text(self.pause_reason_dict[self.pause_reason],
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
                     self.check_key_event()
-                elif self.pause_reason == 'paused':
+                elif self.pause_reason == 'standard':
                     self.write_text(self.pause_reason_dict[self.pause_reason])
                     self.check_key_event()
                 else:
@@ -302,7 +312,7 @@ class GameManager:
                                str(self.pause_reason) + " })>")
         location_y = self.SCREEN_HEIGHT/2 - 80
         while self.pause_reason:
-            if self.pause_reason in ['pause',
+            if self.pause_reason in ['standard',
                                      'stage',
                                      'demo']:
                 self.write_text(self.pause_reason_dict[self.pause_reason],
@@ -328,7 +338,7 @@ class GameManager:
                     self.stage = 1
                     self.pause_reason = 'demo'
                     self.demo = False
-                    self.pause()    
+                    self.pause()
                 else:
                     self.soundEffect.play_stage_up()
                     self.pause_reason = 'stage'
@@ -352,7 +362,7 @@ class GameManager:
                 return 0.05
         else:
             return 1.0
-  
+
     def check_mole_hit(self, mouse_pos, current_hole_position):
         """
         Checks whether a mole was hit, able to call a variety of methods
@@ -558,29 +568,60 @@ class GameManager:
         self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
         return num, mole_is_down, interval, frame_num
 
-    def animate_mole(self, num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock):
-        """
-        Drops a mole 
-        """
+    def show_mole_frame(self, num, frame_num, left):
+        '''
+        Shows the specific mole animation frame at a given hole position
+
+        Parameters
+        ----------
+        tbd : to be reworked
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        tbd : to be reworked
+        '''
         pic = self.mole[num]
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(pic,
                          (self.hole_positions[frame_num][0] - left,
                           self.hole_positions[frame_num][1]))
+
+    def animate_mole(self, num, left, mole_is_down, interval,
+                     frame_num, initial_interval, cycle_time, clock):
+        '''
+        Animates/governs the mole popping/whacking/dropping sequence
+
+        Parameters
+        ----------
+        tbd : to be reworked
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        tbd : to be reworked
+        '''
+        self.show_mole_frame(num, frame_num, left)
         self.score_update_check()
         if mole_is_down is False:
             num += 1
         else:
             num -= 1
-        if num == 4: # i.e. the period of whacking
+        if num == 4:  # i.e. the period of whacking
             interval = 0.5
         elif num == 3:
             num -= 1
             mole_is_down = True
             self.soundEffect.play_pop()
-            interval = 0.5 # self.get_interval_by_stage(initial_interval)
+            interval = 0.5  # self.get_interval_by_stage(initial_interval)
         else:
-            interval = .5 #0.1
+            interval = .5  # 0.1
         cycle_time = 0
         return num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock
 
@@ -596,6 +637,7 @@ class GameManager:
         """
         Play the whack a mole game
         """
+        # Time control variables
         cycle_time = 0
         num = -1
         loop = True
@@ -604,7 +646,6 @@ class GameManager:
         initial_interval = 1
         frame_num = 0
         left = 0
-        # Time control variables
         clock = pygame.time.Clock()
         self.create_moles()
         while loop:

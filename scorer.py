@@ -205,6 +205,7 @@ class Scorer:
                   score_type='boolean', adj_type=None):
         '''
         Gets the score for an attempted mole whack
+
         Parameters
         ----------
         mouse_pos: tuple (2 long)
