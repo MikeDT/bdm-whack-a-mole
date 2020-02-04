@@ -83,7 +83,7 @@ class WamLogger:
         self.logger.addHandler(self.fh)
         self.logger.addHandler(self.ch)
 
-    def log_it(self, event=False):
+    def _log_it(self, event=False):
         '''
         logs events within the game, either by being passed an event, or by
         pulling event from the pygame construct, then adding to the logger
@@ -110,6 +110,45 @@ class WamLogger:
                 self.logger.info(pygame.event.get())
             except:
                 self.logger.info('Event Logging Failure')
+
+    def log_pygame_event(self, event):
+        self._log_it(event)
+
+    def log_score(self, score_inc, score):
+        score_str = ("score_inc: " + str(score_inc) + "," +
+                     "score: " + str(score) + "})>")
+        self._log_it("<Event(11-Score {" + score_str)
+
+    def log_pause(self, pause_reason):
+        self._log_it("<Event(8-Pause {'reason': " + str(pause_reason) + " })>")
+
+    def log_event_rate(self, action, event_act):
+        self._log_it("<Event(7-Rate {'" + action + "': " + event_act + " })>")
+
+    def log_mole_event(self, xy):
+        log_string = ("{'loc': (" +
+                      str(xy[0]) + "," + str(xy[1]) +
+                      ")})>")
+        self._log_it("<Event(10-MoleUp) " + log_string)
+
+    def log_hit_result(self, result, mouse_x, mouse_y, distance, relative_loc):
+        """
+        Logs the hit result based on the current mole hit criteria
+        """
+        log_string = ("{'pos': (" +
+                      str(mouse_x) + "," +
+                      str(mouse_y) + ")," +
+                      "'distance: " + str(distance) + "," +
+                      "'relative_loc: " + str(relative_loc) + "," +
+                      "'window': None})>")
+        if result == (True, True):
+            self._log_it("<Event(9.1-TrueHit " + log_string)
+        elif result == (False, True):
+            self._log_it("<Event(9.2-FakeMiss " + log_string)
+        elif result == (True, False):
+            self._log_it("<Event(9.3-FakeHit " + log_string)
+        else:
+            self._log_it("<Event(9.4-TrueMiss " + log_string)
 
     def log_end(self):
         '''

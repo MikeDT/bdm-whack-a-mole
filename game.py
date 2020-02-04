@@ -246,9 +246,10 @@ class GameManager:
                                  pygame.K_6,
                                  pygame.K_7]:
                     event_act = self.event_key_dict[str(event.key)]
-                    self.wam_logger.log_it("<Event(7-Rate {'" +
-                                           action[0] + "': " +
-                                           event_act + " })>")
+                    self.wam_logger.log_event_rate(action[0], event_act)
+#                    self.wam_logger.log_it("<Event(7-Rate {'" +
+#                                           action[0] + "': " +
+#                                           event_act + " })>")
                     self.pause_reason = action[1]
                 elif event.key == pygame.K_q:
                     mods = pygame.key.get_mods()
@@ -305,8 +306,9 @@ class GameManager:
         """
         HAndles pause events, needs to be abstracted into more functions
         """
-        self.wam_logger.log_it("<Event(8-Pause {'reason': " +
-                               str(self.pause_reason) + " })>")
+        self.wam_logger.log_pause(self.pause_reason)
+#        self.wam_logger.log_it("<Event(8-Pause {'reason': " +
+#                               str(self.pause_reason) + " })>")
         location_y = self.SCREEN_HEIGHT/2 - 80
         while self.pause_reason:
             if self.pause_reason in ['standard',
@@ -386,7 +388,9 @@ class GameManager:
             self.set_mole_hit_res_standard()
         elif self.hit_type == 'Binomial':
             self.set_mole_hit_res_binom()
-        self.log_hit_result()
+        #self.log_hit_result()
+        self.wam_logger.log_hit_result(self.result, self.mouse_x, self.mouse_y,
+                                       self.distance, self.relative_loc)
         return self.result[0]
 
     def set_mole_hit_res_binom(self):
@@ -441,25 +445,25 @@ class GameManager:
             (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
             actual_hit = True
         self.result = (actual_hit, actual_hit)
-
-    def log_hit_result(self):
-        """
-        Logs the hit result based on the current mole hit criteria
-        """
-        log_string = ("{'pos': (" +
-                      str(self.mouse_x) + "," +
-                      str(self.mouse_y) + ")," +
-                      "'distance: " + str(self.distance) + "," +
-                      "'relative_loc: " + str(self.relative_loc) + "," +
-                      "'window': None})>")
-        if self.result == (True, True):
-            self.wam_logger.log_it("<Event(9.1-TrueHit " + log_string)
-        elif self.result == (False, True):
-            self.wam_logger.log_it("<Event(9.2-FakeMiss " + log_string)
-        elif self.result == (True, False):
-            self.wam_logger.log_it("<Event(9.3-FakeHit " + log_string)
-        else:
-            self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
+#
+#    def log_hit_result(self):
+#        """
+#        Logs the hit result based on the current mole hit criteria
+#        """
+#        log_string = ("{'pos': (" +
+#                      str(self.mouse_x) + "," +
+#                      str(self.mouse_y) + ")," +
+#                      "'distance: " + str(self.distance) + "," +
+#                      "'relative_loc: " + str(self.relative_loc) + "," +
+#                      "'window': None})>")
+#        if self.result == (True, True):
+#            self.wam_logger.log_it("<Event(9.1-TrueHit " + log_string)
+#        elif self.result == (False, True):
+#            self.wam_logger.log_it("<Event(9.2-FakeMiss " + log_string)
+#        elif self.result == (True, False):
+#            self.wam_logger.log_it("<Event(9.3-FakeHit " + log_string)
+#        else:
+#            self.wam_logger.log_it("<Event(9.4-TrueMiss " + log_string)
 
     def score_update_check(self):
         """
@@ -531,9 +535,10 @@ class GameManager:
                                                   self.score_type,
                                                   self.adj_type)
                 self.score += score_inc
-                score_str = ("score_inc: " + str(score_inc) + "," +
-                               "score: " + str(self.score) + "})>")
-                self.wam_logger.log_it("<Event(11-Score {" + score_str)
+                self.wam_logger.log_score(score_inc, self.score)
+#                score_str = ("score_inc: " + str(score_inc) + "," +
+#                               "score: " + str(self.score) + "})>")
+#                self.wam_logger.log_it("<Event(11-Score {" + score_str)
 
                 # Stop popping sound effect
                 self.soundEffect.stop_pop()
@@ -557,12 +562,13 @@ class GameManager:
         mole_is_down = False
         #interval = 0.5
         frame_num = random.randint(0, 8)
-        log_string = (
-                      "{'loc': (" +
-                      str(self.hole_positions[frame_num][0]) + "," +
-                      str(self.hole_positions[frame_num][1]) + ")})>"
-                      )
-        self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
+        self.wam_logger.log_mole_event(self.hole_positions[frame_num])
+#        log_string = (
+#                      "{'loc': (" +
+#                      str(self.hole_positions[frame_num][0]) + "," +
+#                      str(self.hole_positions[frame_num][1]) + ")})>"
+#                      )
+#        self.wam_logger.log_it("<Event(10-MoleUp) " + log_string)
         return num, mole_is_down, interval, frame_num
 
     def show_mole_frame(self, num, frame_num, left):
@@ -650,7 +656,7 @@ class GameManager:
             # log game events, and check whether key or mouse
             # events have occurred (and react appropriately)
             for event in pygame.event.get():
-                self.wam_logger.log_it(event)
+                self.wam_logger.log_pygame_event(event)
                 if self.intro_complete is False:
                     self.intro()
                 if event.type == pygame.QUIT:
