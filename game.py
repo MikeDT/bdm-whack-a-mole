@@ -21,6 +21,7 @@ Todo:
     * check mouse_event needs more abstraction
     * build 2x2 rater
     * make all check events link to a ting that checks whether the agent is artificial or not
+    * put all logging stuff into the logger class, just pass it the situ
     
     * abstract the screen functionality to make the GameManager
         standalone
@@ -53,7 +54,6 @@ class GameManager:
     def __init__(self):
 
         # Define constants
-        self.feedback = True
         self.SCREEN_WIDTH = 1424
         self.SCREEN_HEIGHT = 600
         self.FPS = 60
@@ -64,31 +64,31 @@ class GameManager:
         self.STAGE_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
-        self.wam_logger = WamLogger()
-        self.intro_complete = False
-        self.stage_time_change = True
-        self.demo_len = 5
 
+        # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
         self.pause_info_file_loc = 'config\\pause_info.txt'
 
-        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
-
         # Initialize player's score, number of missed hits and stage data
+        self.feedback = True
+        self.intro_complete = False
+        self.stage_time_change = True
+        self.demo_len = 5
+        self.stage, self.demo = 'Demo', True
+        self.stage_type = 'Standard'  # Standard or Attempts
         self.score = 0
         self.misses = 0
-        self.stage = 'Demo'
-        self.stage_type = 'Standard'  # Standard or Attempts
-        self.feedback_count = 0
-        self.feedback_limit = 1
-        self.update_count = 0
-        self.update_delay = 0
+        self.mole_count = 0  # moles hit in stage
+        self.feedback_count = 0  # iterations since last player feedback
+        self.feedback_limit = 1  # iterations per player feedback
+        self.update_count = 0  # iterations since last score update
+        self.update_delay = 0  # iterations per score update
         self.stage_length = 10
-        self.mole_count = 0
-        self.stages = range(self.demo_len,
-                            100 + self.demo_len,
-                            self.stage_length)
+        self.stages = 5
+        self.stage_pts = range(self.demo_len,
+                               self.stages*self.stage_length + self.demo_len,
+                               self.stage_length)
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT + 100))
@@ -98,8 +98,8 @@ class GameManager:
         else:
             self.background = pygame.image.load("images/bg_2x2_1424x700.png")
 
-        # Font object for displaying text
-        self.font_obj = pygame.font.SysFont("comicsansms", 20)
+        # Create/Import the hole positions in background
+        self.hole_positions = self.get_hole_pos()
 
         # Initialize the mole's sprite sheet (6 different states)
         sprite_sheet = pygame.image.load("images/mole.png")
@@ -111,15 +111,11 @@ class GameManager:
         self.mole.append(sprite_sheet.subsurface(717, 0, 116, 81))
         self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
 
-        # Positions of the holes in background
-        self.hole_positions = self.get_hole_pos()
-
-        # Sound effects
+        # Initialise sound effects
         self.soundEffect = SoundEffect()
         self.pause_reason = False
         self.pause_list = [False, 'standard', 'hit_conf',
                            'rate_skill', 'rate_env', 'stage']
-        self.demo = True
         self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
                                '53': '5', '54': '6', '55': '7', '56': '8',
                                '57': '9'}
@@ -131,16 +127,18 @@ class GameManager:
         self.adj_type = 'static' # random_walk_neg, random_walk_pos, static, designed
         self.hit_type = 'Margin'
 
+        # Import text information
+        self.font_obj = pygame.font.SysFont("comicsansms", 20)
+        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self.get_pause_dict()
-#        self.pause_reason_dict = {'stage': """Stage Complete! Press "c" to continue, or "ctrl q" to quit""",
-#                                  'standard': """Game Paused! Press "c" to continue, or "ctrl q" to quit""",
-#                                  'demo': """Demo Complete! Press "c" to start the real game, or "ctrl q" to quit'""",
-#                                  'hit_conf': """Please rate your confidence in making a hit between 1 (lowest) and 7 (highest)""",
-#                                  'reward_conf': """Please rate your confidence in a reward between 1 (lowest) and 7 (highest)""",
-#                                  'player_skill': """Please rate your skill in the game between 1 (lowest) and 7 (highest)"""}
+        
+        # Define pause transitions
         self.pause_trans_dict = {'hit_conf': 'reward_conf',
                                  'reward_conf': 'player_skill',
                                  'player_skill': False}
+
+        # Sets up logging
+        self.wam_logger = WamLogger()
 
     def get_hole_pos(self):
         hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
@@ -148,13 +146,13 @@ class GameManager:
         hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
         hole_pos_lst = [[int(x) for x in sub_lst] for sub_lst in hole_pos_lst]
         return hole_pos_lst
-    
+
     def get_pause_dict(self):
         pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
         pause_list = [x.split(' |') for x in pause_list]
-        pause_dict = {x[0] : x[1] for x in pause_list}
+        pause_dict = {x[0]: x[1] for x in pause_list}
         return pause_dict
-    
+
     @staticmethod
     def text_objects(text, font):
         """
@@ -203,7 +201,7 @@ class GameManager:
         text_pos.centery = location_y
         self.screen.blit(text, text_pos)
         pygame.display.update()
-        
+
     def check_key_event(self, event=False):
         """
         Monitors the game for events
@@ -220,7 +218,6 @@ class GameManager:
                 pygame.quit()
             if self.current_event.type == pygame.KEYDOWN:
                 if self.current_event.key == pygame.K_c:
-                    #self.demo = False
                     self.pause_reason = False
                 elif self.current_event.key == pygame.K_p:
                     self.pause_reason = 'standard'
@@ -331,7 +328,7 @@ class GameManager:
         Sets the game stage based upon the stage type and pause_reason
         """
         if self.stage_type == 'Standard':
-            if (self.mole_count) in self.stages:
+            if (self.mole_count) in self.stage_pts:
                 if self.demo:
                     self.misses = 0
                     self.score = 0
