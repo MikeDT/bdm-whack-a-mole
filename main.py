@@ -29,5 +29,6 @@ if __name__ == "__main__":
     # Run the main loop
     my_game = GameManager()
     my_game.play_game()
+
     # Exit the game if the main loop ends
     pygame.quit()

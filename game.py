@@ -56,6 +56,8 @@ class GameManager:
         # Define constants
         self.SCREEN_WIDTH = 1424
         self.SCREEN_HEIGHT = 600
+        self.TWO_X_TWO_LEN = 530
+        self.TWO_X_TWO_LOC = (857, 25)
         self.FPS = 60
         self.MOLE_WIDTH = 90
         self.MOLE_HEIGHT = 81
@@ -114,8 +116,7 @@ class GameManager:
         # Initialise sound effects
         self.soundEffect = SoundEffect()
         self.pause_reason = False
-        self.pause_list = [False, 'standard', 'hit_conf',
-                           'rate_skill', 'rate_env', 'stage']
+        self.pause_list = [False, 'standard', '2x2', 'stage']
         self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
                                '53': '5', '54': '6', '55': '7', '56': '8',
                                '57': '9'}
@@ -123,19 +124,14 @@ class GameManager:
         # Initialise the score adjustment functions and data
         self.scorer = Scorer(self.hole_positions)
         self.margin = 10
-        self.score_type = 'Normal'  # 'boolean' or 'nonlin_dist_skill'
-        self.adj_type = 'static' # random_walk_neg, random_walk_pos, static, designed
+        self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
+        self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
         self.hit_type = 'Margin'
 
         # Import text information
         self.font_obj = pygame.font.SysFont("comicsansms", 20)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self.get_pause_dict()
-        
-        # Define pause transitions
-        self.pause_trans_dict = {'hit_conf': 'reward_conf',
-                                 'reward_conf': 'player_skill',
-                                 'player_skill': False}
 
         # Sets up logging
         self.wam_logger = WamLogger()
@@ -149,7 +145,7 @@ class GameManager:
 
     def get_pause_dict(self):
         pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
-        pause_list = [x.split(' |') for x in pause_list]
+        pause_list = [x.split(' | ') for x in pause_list]
         pause_dict = {x[0]: x[1] for x in pause_list}
         return pause_dict
 
@@ -171,7 +167,6 @@ class GameManager:
             for line in self.intro_txt:
                 self.write_text(line, location_y=loc_y)
                 loc_y += 40
-
 #            self.check_key_event()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -255,11 +250,17 @@ class GameManager:
                         self.wam_logger.log_end()
 
     def check_rate_in_grid(self, mouse_pos):
-        if mouse_pos:
+        print(mouse_pos)
+        if (
+            (mouse_pos[0] > self.TWO_X_TWO_LOC[0]) and
+            (mouse_pos[0] < self.TWO_X_TWO_LOC[0] + self.TWO_X_TWO_LEN) and
+            (mouse_pos[1] > self.TWO_X_TWO_LOC[1]) and
+            (mouse_pos[1] < self.TWO_X_TWO_LOC[1] + self.TWO_X_TWO_LEN)
+        ):
             return True
         else:
             return False
-                        
+
     def two_by_two_rate(self):
         """
         refactor check mouse event into two, i.e. mole hit check or 2x2
@@ -267,8 +268,10 @@ class GameManager:
         cast te confidence etc as part of the hit info into the logger
         """
         for event in pygame.event.get():
-            if (event.type == pygame.MOUSEBUTTONDOWN and
-                event.button == self.LEFT_MOUSE_BUTTON):
+            if (
+                event.type == pygame.MOUSEBUTTONDOWN and
+                event.button == self.LEFT_MOUSE_BUTTON
+            ):
                 mouse_pos = pygame.mouse.get_pos()
                 if self.check_rate_in_grid(mouse_pos):
                     self.wam_logger.log_2x2_rate(mouse_pos)
@@ -276,7 +279,7 @@ class GameManager:
                     self.pause_reason = False
 
     def pause(self):
-         while self.pause_reason:
+        while self.pause_reason:
             if self.pause_reason in ['standard', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
                     self.update()
@@ -294,44 +297,6 @@ class GameManager:
             elif self.pause_reason == '2x2':
                 self.write_text('please use 2x2 rater')
                 self.two_by_two_rate()
-#            elif self.pause_reason == 'hit_conf':
-#                self.write_text(self.pause_reason_dict[self.pause_reason],
-#                                location_y=self.SCREEN_HEIGHT/2 - 80)
-#                self.check_events_rate(('hit_conf', 'reward_conf'))
-#                #self.check_event_rate((self.pause_reason,
-#                  #                     self.pause_trans_dict[self.pause_reason]))
-#            elif self.pause_reason == 'reward_conf':
-#                self.write_text(self.pause_reason_dict[self.pause_reason],
-#                                location_y=self.SCREEN_HEIGHT/2 - 40)
-#                self.check_events_rate(('reward_conf', 'player_skill'))
-#                #self.check_event_rate((self.pause_reason,
-#                 #                      self.pause_trans_dict[self.pause_reason]))
-#            elif self.pause_reason == 'player_skill':
-#                self.write_text(self.pause_reason_dict[self.pause_reason],
-#                                location_y=self.SCREEN_HEIGHT/2)
-#                #self.check_event_rate((self.pause_reason,
-#                 #                      self.pause_trans_dict[self.pause_reason]))
-#                self.check_events_rate(('player_skill', False))
-
-    def pause_new(self):
-        """
-        HAndles pause events, needs to be abstracted into more functions
-        """
-        self.wam_logger.log_pause(self.pause_reason)
-        location_y = self.SCREEN_HEIGHT/2 - 80
-        while self.pause_reason:
-            if self.pause_reason in ['standard',
-                                     'stage',
-                                     'demo']:
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=location_y)
-                self.check_key_event()
-            elif self.pause_reason in ['hit_conf',
-                                       'reward_conf',
-                                       'player_skill']:
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=location_y)
-            location_y += 40
 
     def set_player_stage(self):
         """
@@ -406,11 +371,13 @@ class GameManager:
         that can be adjusted intra or inter game
         """
         actual_hit = False
-        binom_hit = False   
-        if ((self.mouse_x > self.current_hole_x) and
+        binom_hit = False
+        if (
+            (self.mouse_x > self.current_hole_x) and
             (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
             (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
+        ):
             if (np.random.binomial(1, 0.5, 1)[0]) > 0:
                 actual_hit, binom_hit = True, True
             else:
@@ -426,18 +393,24 @@ class GameManager:
         """
         As per the simple mole hit model, but with an added margin of error
         that can be adjusted intra or inter game
-        """                
+        """  
         actual_hit = False
         margin_hit = False
-        if ((self.mouse_x > self.current_hole_x) and
+        if (
+            (self.mouse_x > self.current_hole_x) and
             (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
             (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
+        ):
             actual_hit = True
-        if ((self.mouse_x > self.current_hole_x - self.margin) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH + self.margin) and
+        if (
+            (self.mouse_x > self.current_hole_x - self.margin) and
+            (self.mouse_x < self.current_hole_x +
+             self.MOLE_WIDTH + self.margin) and
             (self.mouse_y > self.current_hole_y - self.margin) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT + self.margin)):
+            (self.mouse_y < self.current_hole_y +
+             self.MOLE_HEIGHT + self.margin)
+        ):
             margin_hit = True
         self.result = (actual_hit, margin_hit)
 
@@ -446,10 +419,12 @@ class GameManager:
         Simplest model of mole hits, with no adjustment
         """
         actual_hit = False
-        if ((self.mouse_x > self.current_hole_x) and
+        if (
+            (self.mouse_x > self.current_hole_x) and
             (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
             (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)):
+            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
+        ):
             actual_hit = True
         self.result = (actual_hit, actual_hit)
 
@@ -501,18 +476,22 @@ class GameManager:
         else:
             pass
 
-    def check_mouse_event(self, event, num, left, mole_is_down, interval, frame_num):
+    def check_mouse_event(self, event, num, left, mole_is_down,
+                          interval, frame_num):
         """
         Checks whether a couse event has resulted in a mole hit
-        
+
         requires further abstraction
         """
-        if (event.type == pygame.MOUSEBUTTONDOWN and
-            event.button == self.LEFT_MOUSE_BUTTON):
+        if (
+            event.type == pygame.MOUSEBUTTONDOWN and
+            event.button == self.LEFT_MOUSE_BUTTON
+        ):
             self.soundEffect.play_fire()
-            if (self.check_mole_hit(pygame.mouse.get_pos(),
-                                 self.hole_positions[frame_num]) and
-                num > 0 and left == 0):
+            if (
+                self.check_mole_hit(pygame.mouse.get_pos(),
+                self.hole_positions[frame_num]) and num > 0 and left == 0
+            ):
                 num = 3
                 left = 14
                 mole_is_down = False
@@ -524,10 +503,7 @@ class GameManager:
                                                   self.adj_type)
                 self.score += score_inc
                 self.wam_logger.log_score(score_inc, self.score)
-
-                # Stop popping sound effect
                 self.soundEffect.stop_pop()
-                # Play hurt sound
                 if self.feedback:
                     self.soundEffect.play_hurt()
                 self.mole_count += 1
@@ -539,7 +515,7 @@ class GameManager:
             self.set_player_stage()
 
         return num, left, mole_is_down, interval, frame_num
-    
+
     def pop_mole(self, num, mole_is_down, interval, frame_num):
         self.screen.blit(self.background, (0, 0))
         self.score_update_check()

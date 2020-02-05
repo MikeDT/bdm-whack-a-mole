@@ -77,17 +77,17 @@ class Scorer:
         self.call_count += 1
         if adj_type == 'static':
             self.score_adj = 1
-        elif adj_type == 'random_walk':
+        elif adj_type == 'rnd_wlk':
             self.score_adj = np.random.beta(self.beta_a, self.beta_b)
-        elif adj_type == 'random_walk_pos':
+        elif adj_type == 'rnd_wlk_pos':
             self.beta_b += self.call_count*self.rw_grad
             self.score_adj = np.random.beta(self.beta_a,
                                             self.beta_b)
-        elif adj_type == 'random_walk_neg':
+        elif adj_type == 'rnd_wlk_neg':
             self.beta_a += self.call_count*self.rw_grad
             self.score_adj = np.random.beta(self.beta_a,
                                             self.beta_b)
-        elif adj_type == 'designed_trend':
+        elif adj_type == 'design':
             self.score_adj = np.random.beta(self.trend[self.call_count][0],
                                             self.trend[self.call_count][1])
 

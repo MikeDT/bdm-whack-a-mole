@@ -1,6 +1,4 @@
-stage |Stage Complete! Press "c" to continue, or "ctrl q" to quit
-standard |Game Paused! Press "c" to continue, or "ctrl q" to quit
-demo |Demo Complete! Press "c" to start the real game, or "ctrl q" to quit
-hit_conf |Please rate your confidence in making a hit between 1 (lowest) and 7 (highest)
-reward_conf |Please rate your confidence in a reward between 1 (lowest) and 7 (highest)
-player_skill |Please rate your skill in the game between 1 (lowest) and 7 (highest)
+stage | Stage Complete! Press "c" to continue, or "ctrl q" to quit
+standard | Game Paused! Press "c" to continue, or "ctrl q" to quit
+demo | Demo Complete! Press "c" to start the real game, or "ctrl q" to quit
+2x2 | Please rate your confidence in skill and the environment using the 2d grid opposite

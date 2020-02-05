@@ -112,32 +112,153 @@ class WamLogger:
                 self.logger.info('Event Logging Failure')
 
     def log_pygame_event(self, event):
+        '''
+        Logs a generic event in the game (i.e. pygame native)
+
+        Parameters
+        ----------
+        event: pygame event object
+            pygame event object
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         self._log_it(event)
 
     def log_2x2_rate(self, mouse_pos):
+        '''
+        Logs the players rating using the 2x2 grid system
+
+        Parameters
+        ----------
+        mouse_pos: 2 int tuple
+            The xy coorindates of the rating
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         self._log_it("<Event(7-Rate {xy : " + str(mouse_pos) + " })>")
 
     def log_score(self, score_inc, score):
+        '''
+        Logs the score, and the increment to the score
+
+        Parameters
+        ----------
+        score_inc: float
+            The increment to the score
+        score: float
+            The current score
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         score_str = ("score_inc: " + str(score_inc) + "," +
                      "score: " + str(score) + "})>")
         self._log_it("<Event(11-Score {" + score_str)
 
     def log_pause(self, pause_reason):
+        '''
+        Logs a pause request
+
+        Parameters
+        ----------
+        pause_reason: string
+            The reason for the pause (e.g. demo ending, stage etc.)
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         self._log_it("<Event(8-Pause {'reason': " + str(pause_reason) + " })>")
 
     def log_event_rate(self, action, event_act):
+        '''
+        Logs the rating event result
+
+        Parameters
+        ----------
+        action: string
+            The rating type (partially deprecated)
+        event_act: int
+            The rating
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         self._log_it("<Event(7-Rate {'" + action + "': " + event_act + " })>")
 
     def log_mole_event(self, xy):
+        '''
+        Logs the hit result for a given attempt
+
+        Parameters
+        ----------
+        xy: tuple
+            The x and y coordinates of a mole emerging
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         log_string = ("{'loc': (" +
                       str(xy[0]) + "," + str(xy[1]) +
                       ")})>")
         self._log_it("<Event(10-MoleUp) " + log_string)
 
     def log_hit_result(self, result, mouse_x, mouse_y, distance, relative_loc):
-        """
-        Logs the hit result based on the current mole hit criteria
-        """
+        '''
+        Logs the hit result for a given attempt
+
+        Parameters
+        ----------
+        result: tuple
+            The reported hit and actual hit results
+        mouse_x: int
+            The mouse x position
+        mouse_y: int
+            The mouse y position
+        distance: int
+            The distance from the centre of the mole
+        relative_loc: 2 int tuple
+            The relative location from mole centre for the strike
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na - logs the event via _log_it
+        '''
         log_string = ("{'pos': (" +
                       str(mouse_x) + "," +
                       str(mouse_y) + ")," +
@@ -167,10 +288,9 @@ class WamLogger:
 
         Returns
         -------
-        na
+        na - ends log
         '''
-        self.logger.info('************* HAPPY ANALYSING... ' +
-                         'LOG COMPLETE!!! ************* ')
+        self.logger.info('******* HAPPY ANALYSING...LOG COMPLETE!!! *******')
         logging.shutdown()
         self.fh.close()
         self.ch.close()
