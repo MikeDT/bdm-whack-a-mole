@@ -10,30 +10,15 @@ Attributes:
     na
 
 Todo:
-    * animate mole for toggling animation durations
+    * fix pause between moles
     * make the game constants a config read
-        * sort pause_reason text import
-        * 
-    * clean up game pause text (push to a dictionary, reason: text)
-    * make hole positions a config change
-    * create log string function, then log it
     * sort check key event
     * check mouse_event needs more abstraction
-    * build 2x2 rater
-    * make all check events link to a ting that checks whether the agent is artificial or not
-    * put all logging stuff into the logger class, just pass it the situ
+    * create agent class for check events etc.
     
     * abstract the screen functionality to make the GameManager
         standalone
-    * confidence in hit vs precision of hit?
-    * confidence in score feels like it would make more sense
-        for instant feedback (otherwise confidence is anchored to just one)
-    * confidence in target
-    * degree of luck
-    * hit but don't do properly?
-    * read the BdM papers
-    * if touch on playing screen and vice versa
-
+    
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
 
@@ -59,8 +44,9 @@ class GameManager:
         self.TWO_X_TWO_LEN = 530
         self.TWO_X_TWO_LOC = (857, 25)
         self.FPS = 60
-        self.MOLE_WIDTH = 90
-        self.MOLE_HEIGHT = 81
+        self.MOLE_WIDTH = 90  # for animations
+        self.MOLE_HEIGHT = 81 # for animations
+        self.MOLE_RADIUS = 40  # for hit calcs
         self.FONT_SIZE = 18
         self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + 100 - 26
         self.STAGE_SCORE_GAP = 4
@@ -70,7 +56,9 @@ class GameManager:
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
-        self.pause_info_file_loc = 'config\\pause_info.txt'
+        self.pause_info_file_loc = 'text\\pause_info.txt'
+        self.screen_img_file_loc = "images/bg_2x2_1424x700.png"
+        self.mole_img_file_loc = "images/mole.png"
 
         # Initialize player's score, number of missed hits and stage data
         self.feedback = True
@@ -95,17 +83,16 @@ class GameManager:
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT + 100))
         pygame.display.set_caption(self.GAME_TITLE)
-        if self.SCREEN_WIDTH == 1600:
-            self.background = pygame.image.load("images/bg 1600x1300.png")
-        else:
-            self.background = pygame.image.load("images/bg_2x2_1424x700.png")
+        self.background = pygame.image.load(self.screen_img_file_loc)
 
         # Create/Import the hole positions in background
-        self.hole_positions = self.get_hole_pos()
+        self.hole_positions = self.get_hole_pos()  # for the animation
+        self.hole_positions_centre = self.get_hole_cent()  # for the hit centre
 
         # Initialize the mole's sprite sheet (6 different states)
-        sprite_sheet = pygame.image.load("images/mole.png")
+        sprite_sheet = pygame.image.load(self.mole_img_file_loc)
         self.mole = []
+        #self.mole.append(sprite_sheet.subsurface(1, 0, 90, 81)) # no mole
         self.mole.append(sprite_sheet.subsurface(169, 0, 90, 81))
         self.mole.append(sprite_sheet.subsurface(309, 0, 90, 81))
         self.mole.append(sprite_sheet.subsurface(449, 0, 90, 81))
@@ -121,13 +108,6 @@ class GameManager:
                                '53': '5', '54': '6', '55': '7', '56': '8',
                                '57': '9'}
 
-        # Initialise the score adjustment functions and data
-        self.scorer = Scorer(self.hole_positions)
-        self.margin = 10
-        self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
-        self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
-        self.hit_type = 'Margin'
-
         # Import text information
         self.font_obj = pygame.font.SysFont("comicsansms", 20)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
@@ -136,12 +116,31 @@ class GameManager:
         # Sets up logging
         self.wam_logger = WamLogger()
 
+        # Initialise the score adjustment functions and data
+        self.scorer = Scorer(self.hole_positions)
+
+        # Set the paramters for the game
+        self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
+        self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
+        self.margin = 10  # the margin adjustment for the mole, +/-
+        self.hit_type = 'Margin'  # Standard, Margin, Binomial
+
+        # Initialise Timing
+        self.post_whack_interval = 0.1
+        self.mole_pause_interval = 1
+        self.animation_interval = 0.1
+        self.mole_down_interval = 0.1
+
     def get_hole_pos(self):
         hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
         def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
         hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
         hole_pos_lst = [[int(x) for x in sub_lst] for sub_lst in hole_pos_lst]
         return hole_pos_lst
+
+    def get_hole_cent(self):
+        return [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
+                (x, y) in self.hole_positions]
 
     def get_pause_dict(self):
         pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
@@ -295,7 +294,7 @@ class GameManager:
                     self.scorer.reset_score_adj()
                     self.check_key_event()
             elif self.pause_reason == '2x2':
-                self.write_text('please use 2x2 rater')
+                self.write_text(self.pause_reason_dict[self.pause_reason])
                 self.two_by_two_rate()
 
     def set_player_stage(self):
@@ -335,7 +334,7 @@ class GameManager:
         else:
             return 1.0
 
-    def check_mole_hit(self, mouse_pos, current_hole_position):
+    def check_mole_hit(self, mouse_pos, frame_num):
         """
         Checks whether a mole was hit, able to call a variety of methods
         dependent on the type of mole hit that is modelled for in the game at
@@ -344,8 +343,10 @@ class GameManager:
         """
         self.mouse_x = mouse_pos[0]
         self.mouse_y = mouse_pos[1]
-        self.current_hole_x = current_hole_position[0]
-        self.current_hole_y = current_hole_position[1]
+        self.current_hole_x = self.hole_positions[frame_num][0]
+        self.current_hole_y = self.hole_positions[frame_num][1]
+        self.current_hole_x = self.hole_positions_centre[frame_num][0]
+        self.current_hole_y = self.hole_positions_centre[frame_num][1]
         self.distance = ((self.mouse_x - self.current_hole_x)**2 +
                          (self.mouse_y - self.current_hole_y)**2)**0.5
         self.relative_loc = (self.mouse_x - self.current_hole_x,
@@ -355,10 +356,10 @@ class GameManager:
             self.feedback_count = 0
             self.pause_reason = '2x2'  # hit_conf
             self.pause()
-        if self.hit_type == 'Margin':
-            self.set_mole_hit_res_margin()
-        elif self.hit_type == 'Standard':
+        if self.hit_type == 'Standard':
             self.set_mole_hit_res_standard()
+        elif self.hit_type == 'Margin':
+            self.set_mole_hit_res_margin()
         elif self.hit_type == 'Binomial':
             self.set_mole_hit_res_binom()
         self.wam_logger.log_hit_result(self.result, self.mouse_x, self.mouse_y,
@@ -372,12 +373,8 @@ class GameManager:
         """
         actual_hit = False
         binom_hit = False
-        if (
-            (self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
-        ):
+        if self.distance < self.MOLE_RADIUS:
+
             if (np.random.binomial(1, 0.5, 1)[0]) > 0:
                 actual_hit, binom_hit = True, True
             else:
@@ -393,24 +390,12 @@ class GameManager:
         """
         As per the simple mole hit model, but with an added margin of error
         that can be adjusted intra or inter game
-        """  
+        """
         actual_hit = False
         margin_hit = False
-        if (
-            (self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
-        ):
+        if self.distance < self.MOLE_RADIUS:
             actual_hit = True
-        if (
-            (self.mouse_x > self.current_hole_x - self.margin) and
-            (self.mouse_x < self.current_hole_x +
-             self.MOLE_WIDTH + self.margin) and
-            (self.mouse_y > self.current_hole_y - self.margin) and
-            (self.mouse_y < self.current_hole_y +
-             self.MOLE_HEIGHT + self.margin)
-        ):
+        if self.distance < self.MOLE_RADIUS + self.margin:
             margin_hit = True
         self.result = (actual_hit, margin_hit)
 
@@ -419,12 +404,7 @@ class GameManager:
         Simplest model of mole hits, with no adjustment
         """
         actual_hit = False
-        if (
-            (self.mouse_x > self.current_hole_x) and
-            (self.mouse_x < self.current_hole_x + self.MOLE_WIDTH) and
-            (self.mouse_y > self.current_hole_y) and
-            (self.mouse_y < self.current_hole_y + self.MOLE_HEIGHT)
-        ):
+        if self.distance < self.MOLE_RADIUS:
             actual_hit = True
         self.result = (actual_hit, actual_hit)
 
@@ -476,6 +456,25 @@ class GameManager:
         else:
             pass
 
+    def mole_hit(self, num, left, mole_is_down, interval, frame_num):
+        num = 3
+        left = 14
+        mole_is_down = False
+        interval = 0
+        mouse_pos = self.get_agent_mouse_pos()
+        score_inc = self.scorer.get_score(mouse_pos,
+                                          frame_num,
+                                          self.score_type,
+                                          self.adj_type)
+        self.score += score_inc
+        self.wam_logger.log_score(score_inc, self.score)
+        self.soundEffect.stop_pop()
+        self.mole_count += 1
+        self.score_update_check()
+        if self.feedback:
+            self.soundEffect.play_hurt()
+        return num, left, mole_is_down, interval, frame_num
+
     def check_mouse_event(self, event, num, left, mole_is_down,
                           interval, frame_num):
         """
@@ -490,24 +489,10 @@ class GameManager:
             self.soundEffect.play_fire()
             if (
                 self.check_mole_hit(pygame.mouse.get_pos(),
-                self.hole_positions[frame_num]) and num > 0 and left == 0
+                                    frame_num) and  
+                num > 0 and left == 0
             ):
-                num = 3
-                left = 14
-                mole_is_down = False
-                interval = 0
-                mouse_pos = self.get_agent_mouse_pos()
-                score_inc = self.scorer.get_score(mouse_pos,
-                                                  frame_num,
-                                                  self.score_type,
-                                                  self.adj_type)
-                self.score += score_inc
-                self.wam_logger.log_score(score_inc, self.score)
-                self.soundEffect.stop_pop()
-                if self.feedback:
-                    self.soundEffect.play_hurt()
-                self.mole_count += 1
-                self.score_update_check()
+                num, left, mole_is_down, interval, frame_num = self.mole_hit(num, left, mole_is_down, interval, frame_num)
             else:
                 self.misses += 1
                 self.mole_count += 1
@@ -521,7 +506,7 @@ class GameManager:
         self.score_update_check()
         num = 0
         mole_is_down = False
-        #interval = 0.5
+        interval = 0.5
         frame_num = random.randint(0, 8)
         self.wam_logger.log_mole_event(self.hole_positions[frame_num])
         return num, mole_is_down, interval, frame_num
@@ -567,19 +552,20 @@ class GameManager:
         '''
         self.show_mole_frame(num, frame_num, left)
         self.score_update_check()
+        print(num, interval)
         if mole_is_down is False:
             num += 1
         else:
             num -= 1
-        if num == 4:  # i.e. the period of whacking
-            interval = 0.5
-        elif num == 3:
+        if num == 4:  # i.e. the period of whacking     4
+            interval = self.post_whack_interval
+        elif num == 3:                                   #3
             num -= 1
             mole_is_down = True
             self.soundEffect.play_pop()
-            interval = 0.5  # self.get_interval_by_stage(initial_interval)
+            interval = self.mole_pause_interval  # self.get_interval_by_stage(initial_interval)
         else:
-            interval = .5  # 0.1
+            interval = self.animation_interval
         cycle_time = 0
         return num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock
 
@@ -620,7 +606,7 @@ class GameManager:
                 num, left, mole_is_down, interval, frame_num = self.check_mouse_event(event, num, left, mole_is_down, interval, frame_num)
 
             # refreshes screen at the point of mole popping
-            if num > 5:
+            if num > 5:       # 5
                 self.screen.blit(self.background, (0, 0))
                 self.score_update_check()
                 num = -1
@@ -636,6 +622,5 @@ class GameManager:
             cycle_time += sec
             if cycle_time > interval:
                 num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock = self.animate_mole(num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock)
-
             # Update the display
             pygame.display.flip()
