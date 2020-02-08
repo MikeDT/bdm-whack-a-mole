@@ -18,6 +18,7 @@ Related projects:
 """
 
 import numpy as np
+import scipy.stats as stats
 
 
 class Scorer:
@@ -57,6 +58,11 @@ class Scorer:
         self.rw_grad = 1
         self.call_count = 0
         self.score_adj = 1
+
+        self.low_score_bound = 0
+        self.high_score_bound = 10
+        self.mean_score = 5
+        self.score_sd = 2
 
     def increment_iter_adj(self, adj_type):
         '''
@@ -231,3 +237,212 @@ class Scorer:
         score_skill_random_adj = self.score_rand_adjust(score_skill_adj)
         score_skill_random_adj = round(score_skill_random_adj, 2)
         return score_skill_random_adj
+
+
+class Drifting_Val:
+    """
+    Manages the drifting of a variable over time
+
+    Attributes
+    ----------
+    beta_a_start: array
+        the relative positions of each of the mole holes
+    max_score: int
+        the maximum score achievable for a hit
+
+    Methods
+    -------
+    method(variable)
+        desc
+    """
+    def __init__(self, variable, *,
+                 noise=False, noise_mean=10, noise_sd=10, noise_trunc=True,
+                 drift_type='static', gradient=1, amplitude=1,
+                 always_pos=True, low_bnd=0, high_bnd=10,
+                 drift_clip=False, clip_high_bnd=10, clip_low_bnd=0):
+
+        # Sets the noise parameters
+        self.noise = noise
+        self.noise_mean = noise_mean
+        self.noise_sd = noise_sd
+        self.low_bnd = low_bnd
+        self.high_bnd = high_bnd
+
+        # Sets the gradient and amplitude (if cyclical) of the drift, and the
+        # general conditions, e.g. whether it must be positive, is the noise
+        # truncated
+        self.call_count = 0
+        self.drift_type = drift_type
+        self.always_pos = always_pos
+        self.noise_trunc = noise_trunc
+        self.gradient = gradient
+        self.amplitude = amplitude
+
+        # Sets the dirfting clipping (i.e. so drifting cannot exceed a
+        # defined set of boundaries)
+        self.drift_clip = drift_clip
+        self.clip_high_bnd = clip_high_bnd
+        self.clip_low_bnd = clip_low_bnd
+
+        # Sets the inital value (where the first last_val is also the initial)
+        self.init_val = variable
+        self.last_val = variable
+
+    @property
+    def drift_iter(self):
+        '''
+        Creates noise for the random walk
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        self.last_val: float
+            The newly incremented value for the drifting variable
+        '''
+        if self.drift_type == 'static':
+            pass
+        else:
+            self.last_val = self.init_val + self._function + self._noise
+            self.call_count += 1
+        if self.always_pos:
+            if self.last_val > 0:
+                pass
+            else:
+                self.last_val = 0
+        if self.drift_clip:
+            if self.last_val > self.clip_high_bnd:
+                self.last_val = self.clip_high_bnd
+            elif self.last_val < self.clip_low_bnd:
+                self.last_val = self.clip_low_bnd
+        return self.last_val
+
+    @property
+    def _function(self):
+        '''
+        Creates the movement for the drifting variable
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        x: float
+            the degree of change from the initial variable setting
+        '''
+        if self.drift_type == 'static':
+            x = 0
+        elif self.drift_type == 'sin':
+            x = np.sin(self.call_count) * self.amplitude
+        elif self.drift_type == 'linear':
+            x = self.gradient * self.call_count
+        elif self.drift_type == 'linear+sin':
+            x = (np.sin(self.call_count) * self.amplitude +
+                 self.gradient * self.call_count)
+        elif self.drift_type == 'random':
+            x = (np.random.random_sample() - 0.5) * 2 * self.amplitude
+        return x
+
+    @property
+    def _noise(self):
+        '''
+        Creates noise for the random walk
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+       noise: float
+            The noise for the random walk, either a truncated or regular
+            gaussian
+        '''
+        if self.noise:
+            if self.noise_trunc:
+                noise = self._trunc_norm_sample
+            else:
+                noise = self._norm_sample
+        else:
+            noise = 0
+        return noise
+
+    @property
+    def _trunc_norm_sample(self):
+        '''
+        Creates noise for the random walk
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        x: float
+            random sample from a truncated normal distribution
+            (with mean etc. defined) at initialisation
+        '''
+        X = stats.truncnorm((self.low_bnd - self.noise_mean) / self.noise_sd,
+                            (self.high_bnd - self.noise_mean) / self.noise_sd,
+                            loc=self.noise_mean, scale=self.noise_sd)
+        x = X.rvs(1)[0]
+        return(x)
+
+    @property
+    def _norm_sample(self):
+        '''
+        Creates noise for the random walk
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        x: float
+            random sample from a normal distribution (with mean etc. defined)
+            at initialisation,
+        '''
+        x = np.random.normal(self.noise_mean, self.noise_sd)
+        return x
+
+    def reset_counter(self):
+        '''
+        Resets the call counter to 0
+
+        Parameters
+        ----------
+        self: na
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        na
+        '''
+        self.call_count = 0

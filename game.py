@@ -13,7 +13,6 @@ Todo:
     * fix pause between moles
     * make the game constants a config read
     * sort check key event
-    * check mouse_event needs more abstraction
     * create agent class for check events etc.
     
     * abstract the screen functionality to make the GameManager
@@ -45,8 +44,9 @@ class GameManager:
         self.TWO_X_TWO_LOC = (857, 25)
         self.FPS = 60
         self.MOLE_WIDTH = 90  # for animations
-        self.MOLE_HEIGHT = 81 # for animations
+        self.MOLE_HEIGHT = 81  # for animations
         self.MOLE_RADIUS = 40  # for hit calcs
+        self.MARGIN_START = 10  # the margin adjustment for a mole (can be +/-)
         self.FONT_SIZE = 18
         self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + 100 - 26
         self.STAGE_SCORE_GAP = 4
@@ -122,8 +122,8 @@ class GameManager:
         # Set the paramters for the game
         self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
         self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
-        self.margin = 10  # the margin adjustment for the mole, +/-
         self.hit_type = 'Margin'  # Standard, Margin, Binomial
+        self.margin = self.MARGIN_START
 
         # Initialise Timing
         self.post_whack_interval = 0.1
@@ -470,7 +470,6 @@ class GameManager:
         self.wam_logger.log_score(score_inc, self.score)
         self.soundEffect.stop_pop()
         self.mole_count += 1
-        self.score_update_check()
         if self.feedback:
             self.soundEffect.play_hurt()
         return num, left, mole_is_down, interval, frame_num
@@ -479,8 +478,6 @@ class GameManager:
                           interval, frame_num):
         """
         Checks whether a couse event has resulted in a mole hit
-
-        requires further abstraction
         """
         if (
             event.type == pygame.MOUSEBUTTONDOWN and
@@ -488,17 +485,15 @@ class GameManager:
         ):
             self.soundEffect.play_fire()
             if (
-                self.check_mole_hit(pygame.mouse.get_pos(),
-                                    frame_num) and  
+                self.check_mole_hit(pygame.mouse.get_pos(), frame_num) and
                 num > 0 and left == 0
             ):
                 num, left, mole_is_down, interval, frame_num = self.mole_hit(num, left, mole_is_down, interval, frame_num)
             else:
                 self.misses += 1
                 self.mole_count += 1
-                self.score_update_check()
+            self.score_update_check()
             self.set_player_stage()
-
         return num, left, mole_is_down, interval, frame_num
 
     def pop_mole(self, num, mole_is_down, interval, frame_num):
@@ -557,9 +552,9 @@ class GameManager:
             num += 1
         else:
             num -= 1
-        if num == 4:  # i.e. the period of whacking     4
+        if num == 4:
             interval = self.post_whack_interval
-        elif num == 3:                                   #3
+        elif num == 3:
             num -= 1
             mole_is_down = True
             self.soundEffect.play_pop()
