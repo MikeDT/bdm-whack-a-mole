@@ -30,7 +30,7 @@ import random
 import numpy as np
 from sound import SoundEffect
 from logger import WamLogger
-from scorer import Scorer
+from scorer import Scorer, Drifting_Val
 import re
 
 
@@ -123,7 +123,7 @@ class GameManager:
         self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
         self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
         self.hit_type = 'Margin'  # Standard, Margin, Binomial
-        self.margin = self.MARGIN_START
+        self.margin = Drifting_Val(self.MARGIN_START,drift_type='static')
 
         # Initialise Timing
         self.post_whack_interval = 0.1
@@ -395,7 +395,7 @@ class GameManager:
         margin_hit = False
         if self.distance < self.MOLE_RADIUS:
             actual_hit = True
-        if self.distance < self.MOLE_RADIUS + self.margin:
+        if self.distance < self.MOLE_RADIUS + self.margin.drift_iter:
             margin_hit = True
         self.result = (actual_hit, margin_hit)
 
@@ -462,8 +462,7 @@ class GameManager:
         mole_is_down = False
         interval = 0
         mouse_pos = self.get_agent_mouse_pos()
-        score_inc = self.scorer.get_score(mouse_pos,
-                                          frame_num,
+        score_inc = self.scorer.get_score(self.distance,
                                           self.score_type,
                                           self.adj_type)
         self.score += score_inc
