@@ -44,141 +44,22 @@ class Scorer:
         gets the score for a attempted hit, calling get_distance as required
         ad adjusting the score based upon the score_adj
     """
-    def __init__(self, hole_positions, max_score=10):
+    def __init__(self, *, min_score=0, max_score=10,
+                 skill_adjust=False, skill_type=None,
+                 rand_adjust=False, rand_type='uniform',
+                 rand_mean=5, rand_sd=1,
+                 skill_luck_rat=1.0):
+        self.min_score = min_score
         self.max_score = max_score
-        self.hole_positions = hole_positions
-        self.trend = []  # include an actual trend list
-        self.beta_a_start = 10
-        self.beta_b_start = 10
-        self.beta_a = self.beta_a_start
-        self.beta_b = self.beta_b_start
-        self.rw_grad = 1
-        self.call_count = 0
-        self.score_adj = 1
+        self.skill_adjust = skill_adjust
+        self.skill_type = skill_type
+        self.rand_adjust = rand_adjust
+        self.rand_type = rand_type
+        self.rand_mean = rand_mean
+        self.rand_sd = rand_sd
+        self.skill_luck_rat = skill_luck_rat
 
-        self.low_score_bound = 0
-        self.high_score_bound = 10
-        self.mean_score = 5
-        self.score_sd = 2
-
-#    def increment_iter_adj(self, adj_type):
-#        '''
-#        Incerments the iterative adjuster, currently the beta distribution
-#
-#        Parameters
-#        ----------
-#        self : self
-#
-#        Raises
-#        ------
-#        na
-#
-#        Returns
-#        -------
-#        na
-#        '''
-#        self.call_count += 1
-#        if adj_type == 'static':
-#            self.score_adj = 1
-#        elif adj_type == 'rnd_wlk':
-#            self.score_adj = np.random.beta(self.beta_a, self.beta_b)
-#        elif adj_type == 'rnd_wlk_pos':
-#            self.beta_b += self.call_count*self.rw_grad
-#            self.score_adj = np.random.beta(self.beta_a,
-#                                            self.beta_b)
-#        elif adj_type == 'rnd_wlk_neg':
-#            self.beta_a += self.call_count*self.rw_grad
-#            self.score_adj = np.random.beta(self.beta_a,
-#                                            self.beta_b)
-#        elif adj_type == 'design':
-#            self.score_adj = np.random.beta(self.trend[self.call_count][0],
-#                                            self.trend[self.call_count][1])
-
-#    def reset_score_adj(self, default=True, *,
-#                        beta_a=1, beta_b=1, call_count=1):
-#        '''
-#        Resets the beta distribution to its initial starting point (by default)
-#        or a defined a/b val and call count
-#
-#        Parameters
-#        ----------
-#        default: Boolean
-#            toggles whether the default is used or not
-#        beta_a: int
-#            the a value for the beta distribution
-#        beta_b: int
-#            the b value for the beta distribution
-#        call_count: int
-#            the call count (i.e. how many iterations have been performed)
-#
-#        Raises
-#        ------
-#        na
-#
-#        Returns
-#        -------
-#        na
-#        '''
-#        if default:
-#            self.beta_a = self.beta_a_start
-#            self.beta_b = self.beta_b_start
-#            self.call_count = 0
-#        else:
-#            self.beta_a = beta_a
-#            self.beta_b = beta_b
-#            self.call_count = call_count
-
-    def score_skill_adjust(self, score_raw, score_type, distance):
-        '''
-        Adjusts the score based on teh skill (i.e. euclidean distance measure)
-
-        Parameters
-        ----------
-        score_type: string
-            the score adjustment type
-
-        Raises
-        ------
-        na
-
-        Returns
-        -------
-        score: float
-            the skill adjusted score (i.e. nearer to optimal = better score)
-        '''
-        if score_type == 'lin_dist_skill':
-            score = score_raw - (min(self.max_score, 0.05*distance))
-        elif score_type == 'non_lin_dist_skill':
-            score = score_raw - (min(self.max_score, 0.05*distance**2))
-        else:
-            score = self.max_score
-        return score
-
-    def score_rand_adjust(self, score, adj_type='static'):
-        '''
-        Adjusts the score based on a random beta dist (or not at all)
-
-        Parameters
-        ----------
-        score: float
-            the score to be adjusted by luck
-        adj_type: string
-            the score adjustment type ()
-
-        Raises
-        ------
-        na
-
-        Returns
-        -------
-        score: float
-            the luck adjusted score (i.e. nearer to luckier = better score)
-        '''
-#        self.increment_iter_adj(adj_type)
-#        score = min(score * self.score_adj, 10)
-        return score
-
-    def get_score(self, distance, score_type='boolean', adj_type=None):
+    def get_score(self, distance):
         '''
         Gets the score for an attempted mole whack
 
@@ -200,12 +81,79 @@ class Scorer:
         score: float
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
-        score_raw = self.max_score
-        score_skill_adj = self.score_skill_adjust(score_raw, adj_type,
-                                                  distance)
-        score_skill_random_adj = self.score_rand_adjust(score_skill_adj)
-        score_skill_random_adj = round(score_skill_random_adj, 2)
-        return score_skill_random_adj
+        score = self.max_score
+        if self.skill_adjust:
+            score = self.skill_luck_rat * self._skill_adj(score,
+                                                          distance,
+                                                          self.skill_type)
+        if self.rand_adjust:
+            score += (1-self.skill_luck_rat) * self._rand_adj(score,
+                                                              self.rand_type)
+        score = round(score, 2)
+        return score
+
+    def _skill_adjust(self, score, distance):
+        '''
+        Adjusts the score based on teh skill (i.e. euclidean distance measure)
+
+        Parameters
+        ----------
+        score_raw: float
+            the unadulterated score
+        score_type: string
+            the score adjustment type
+        distance: float
+            the euclidean distance from the mole centre
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        score: float
+            the skill adjusted score (i.e. nearer to optimal = better score)
+        '''
+        if self.skill_type == 'linear_dist':
+            score -= min(self.max_score, 0.05*distance)
+        elif self.skill_type == 'non_linear_dist':
+            score -= min(self.max_score, 0.05*distance**2)
+        else:
+            score = self.score
+        return score
+
+    def _rand_adj(self, score):
+        '''
+        Adjusts the score based on a random beta dist (or not at all)
+
+        Parameters
+        ----------
+        score: float
+            the score to be adjusted by luck
+        adj_type: string
+            the score adjustment type ()
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        score: float
+            the luck adjusted score (i.e. nearer to luckier = better score)
+        '''
+        if self.rand_type == 'static':
+            pass
+        elif self.rand_type == 'uniform':
+            score = np.random.randint(self.min_score, self.max_score)
+        elif self.rand_type == 'normal':
+            X = stats.truncnorm((self.min_score - self.rand_mean) /
+                                self.rand_sd,
+                                (self.max_score - self.rand_mean) /
+                                self.rand_sd,
+                                loc=self.rand_mean, scale=self.rand_sd)
+            score = X.rvs(1)[0]
+        return score
 
 
 class Drifting_Val:

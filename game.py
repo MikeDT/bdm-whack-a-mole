@@ -117,7 +117,7 @@ class GameManager:
         self.wam_logger = WamLogger()
 
         # Initialise the score adjustment functions and data
-        self.scorer = Scorer(self.hole_positions)
+        self.scorer = Scorer()
 
         # Set the paramters for the game
         self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
@@ -291,7 +291,6 @@ class GameManager:
                 else:
                     self.write_text(self.pause_reason_dict[self.pause_reason],
                                     location_y=self.SCREEN_HEIGHT/2 + 40)
-                    self.scorer.reset_score_adj()
                     self.check_key_event()
             elif self.pause_reason == '2x2':
                 self.write_text(self.pause_reason_dict[self.pause_reason])
@@ -461,13 +460,10 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        mouse_pos = self.get_agent_mouse_pos()
-        score_inc = self.scorer.get_score(self.distance,
-                                          self.score_type,
-                                          self.adj_type)
+        score_inc = self.scorer.get_score(self.distance)
+        self.soundEffect.stop_pop()
         self.score += score_inc
         self.wam_logger.log_score(score_inc, self.score)
-        self.soundEffect.stop_pop()
         self.mole_count += 1
         if self.feedback:
             self.soundEffect.play_hurt()
