@@ -3,7 +3,8 @@
 scorer module
 ============
 
-This module contains the Scorer class for the pygame Whack a Mole game
+This module contains the Scorer and Drifting_Val class for the pygame
+Whack a Mole game
 
 Attributes:
     handled within the Scorer class
@@ -28,27 +29,53 @@ class Scorer:
 
     Attributes
     ----------
-    hole_positions: array
-        the relative positions of each of the mole holes
-    max_score: int
-        the maximum score achievable for a hit
+    min_score: float
+        The minimum score that can be achieved
+    max_score: float
+        The maximum score that can be achieved
+    skill_adjust: Bool
+        Whether a score adjustment for skill (based on the distance from the
+        centre) should be enacted
+    skill_type: String/None
+        The type of skill adjustment, i.e. None, linear or non linear
+    rand_adjust: Bool
+        Whether to perform a random_adjustment of the score
+    rand_type: string
+        The random adjustment type
+    rand_mean: float
+        The mean for the random adjustment (presuming it's gaussian)
+    rand_sd: float
+        The mean for the random adjustment (presuming it's gaussian)
+    skill_luck_rat: float
+        the skill to luck ratio
 
     Methods
     -------
-    iter_adj(adj_type)
-        Adjusts the score_adj variable each score check is made (to support
-        drifting, random adjustments etc.)
-    reset_score_adj(default=True, beta_a=1, beta_b=1, call_count=1)
-        resets the beta distributions that control the drift
-    get_score(mouse_pos, frame_num, score_type='boolean', adj_type='static')
-        gets the score for a attempted hit, calling get_distance as required
-        ad adjusting the score based upon the score_adj
+    get_score(distance)
+        gets the score for a given mole hit, moderated by the distance from the
+        centre of the mole
+    _skill_adjust(score, distance)
+        adjusts the score based on the users skill
+    _rand_adjust(score)
+        gives a random adjustment to the score
     """
     def __init__(self, *, min_score=0, max_score=10,
                  skill_adjust=False, skill_type=None,
                  rand_adjust=False, rand_type='uniform',
                  rand_mean=5, rand_sd=1,
                  skill_luck_rat=1.0):
+        # Assertion for the skill_luck_rat, only input deemed at risk of misuse
+        try:
+            assert skill_luck_rat <= 1.0
+        except AssertionError:
+            print('skill_luck_rat out of bounds, now set to 1.0')
+        try:
+            assert skill_luck_rat <= 1.0
+        except AssertionError:
+            print('skill_luck_rat out of bounds, now set to 0.0')
+            skill_luck_rat = 0.0
+
+        # Sets the Scorer instance parameters
         self.min_score = min_score
         self.max_score = max_score
         self.skill_adjust = skill_adjust
@@ -71,10 +98,6 @@ class Scorer:
             how scores get calculated (i.e. the skill component)
         adj_type: string
             how scores get adjusted (i.e. the luck component)
-
-        Raises
-        ------
-        na
 
         Returns
         -------
@@ -105,10 +128,6 @@ class Scorer:
         distance: float
             the euclidean distance from the mole centre
 
-        Raises
-        ------
-        na
-
         Returns
         -------
         score: float
@@ -135,13 +154,18 @@ class Scorer:
 
         Raises
         ------
-        na
+        AssertionError
+            raised if an unknown rand_type is passed
 
         Returns
         -------
         score: float
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
+        try:
+            assert self.rand_type in ['static', 'uniform', 'normal']
+        except AssertionError:
+            print('rand type not recognised in _rand_adj')
         if self.rand_type == 'static':
             pass
         elif self.rand_type == 'uniform':
@@ -162,10 +186,52 @@ class Drifting_Val:
 
     Attributes
     ----------
-    beta_a_start: array
-        the relative positions of each of the mole holes
-    max_score: int
-        the maximum score achievable for a hit
+    noise: Bool
+        whether to add noise to the drift
+    noise_mean: float
+        the mean of the gaussian noise
+    noise_sd: float
+        the standard deviation of the gaussian noise
+    noise_trunc=True
+        whether the noise should be truncated
+    drift_type: string
+        the drift type for the model, e.g. linear, static etc.
+    gradient: float
+        the graident for any linear drift
+    amplitude: float
+        the amplitude of any sinusoidal type drift
+    always_pos: Bool
+        whether the outcome must always be positive (i.e. max of 0 and val)
+    noise_low_bnd: float
+        the low boundary for the added noise
+    noise_high_bnd: float
+        the high boundary for the added noise
+    drift_clip: Bool
+        the clipping for the drifting (i.e. ensuring it stays within set
+        boundaries)
+    clip_high_bnd: float
+        the high boundary for the clipping
+    clip_low_bnd: float
+        the low boundary for the clipping
+
+    Methods
+    ----------
+    drift_iter
+        Property method, drifts the initially supplied variable in the
+        fashion determined during initialisation (or changed in flight)
+    _function
+        Property method, creates the movement for the drifting variable
+    _noise
+        Property method, creates noise for the random walk
+    _trunc_norm_sample:
+        Property method, creates a single sample from a init determined
+        truncated normal distribution
+    _norm_sample(self):
+        Creates a single sample from a init determined truncated normal
+        distribution
+    reset_counter(self):
+        '''
+        Resets the call counter to 0
 
     Methods
     -------
@@ -175,15 +241,15 @@ class Drifting_Val:
     def __init__(self, variable, *,
                  noise=False, noise_mean=10, noise_sd=10, noise_trunc=True,
                  drift_type='static', gradient=1, amplitude=1,
-                 always_pos=True, low_bnd=0, high_bnd=10,
+                 always_pos=True, noise_low_bnd=0, noise_high_bnd=10,
                  drift_clip=False, clip_high_bnd=10, clip_low_bnd=0):
 
         # Sets the noise parameters
         self.noise = noise
         self.noise_mean = noise_mean
         self.noise_sd = noise_sd
-        self.low_bnd = low_bnd
-        self.high_bnd = high_bnd
+        self.noise_low_bnd = noise_low_bnd
+        self.noise_high_bnd = noise_high_bnd
 
         # Sets the gradient and amplitude (if cyclical) of the drift, and the
         # general conditions, e.g. whether it must be positive, is the noise
@@ -208,15 +274,12 @@ class Drifting_Val:
     @property
     def drift_iter(self):
         '''
-        Creates noise for the random walk
+        Property method, drifts the initially supplied variable in the
+        fashion determined during initialisation (or changed in flight)
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
+        self: self
 
         Returns
         -------
@@ -247,11 +310,7 @@ class Drifting_Val:
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
+        self: self
 
         Returns
         -------
@@ -278,15 +337,11 @@ class Drifting_Val:
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
+        self: self
 
         Returns
         -------
-       noise: float
+        noise: float
             The noise for the random walk, either a truncated or regular
             gaussian
         '''
@@ -302,15 +357,12 @@ class Drifting_Val:
     @property
     def _trunc_norm_sample(self):
         '''
-        Creates noise for the random walk
+        Creates a single sample from a init determind truncated normal
+        distribution
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
+        self: self
 
         Returns
         -------
@@ -318,8 +370,10 @@ class Drifting_Val:
             random sample from a truncated normal distribution
             (with mean etc. defined) at initialisation
         '''
-        X = stats.truncnorm((self.low_bnd - self.noise_mean) / self.noise_sd,
-                            (self.high_bnd - self.noise_mean) / self.noise_sd,
+        X = stats.truncnorm((self.noise_low_bnd - self.noise_mean) /
+                            self.noise_sd,
+                            (self.noise_high_bnd - self.noise_mean) /
+                            self.noise_sd,
                             loc=self.noise_mean, scale=self.noise_sd)
         x = X.rvs(1)[0]
         return(x)
@@ -327,15 +381,12 @@ class Drifting_Val:
     @property
     def _norm_sample(self):
         '''
-        Creates noise for the random walk
+        Creates a single sample from a init determined truncated normal
+        distribution
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
+        self: self
 
         Returns
         -------
@@ -352,14 +403,6 @@ class Drifting_Val:
 
         Parameters
         ----------
-        self: na
-
-        Raises
-        ------
-        na
-
-        Returns
-        -------
-        na
+        self: self
         '''
         self.call_count = 0
