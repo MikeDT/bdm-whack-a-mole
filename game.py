@@ -10,6 +10,7 @@ Attributes:
     na
 
 Todo:
+    * Build the test over functionality
     * fix pause between moles
     * make the game constants a config read
     * sort check key event
@@ -35,6 +36,30 @@ import re
 
 
 class GameManager:
+    """
+    The primary class, which manages the game and the access to the relevant
+    other modules and classes
+
+    Attributes
+    ----------
+    na
+
+    Methods
+    -------
+    _get_hole_pos
+        Property method, imports the hole poositions from the file (NB they
+        reflect the image but do not dictate the image in the current
+        implementation)
+    _get_hole_centre
+        Property method, returns the hole centre positions (i.e. where the
+        middle of the mole is considered to be upon full emergence)
+    _get_pause_dict
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+    
+        '''
+    
+    """
     def __init__(self):
 
         # Define constants
@@ -86,8 +111,8 @@ class GameManager:
         self.background = pygame.image.load(self.screen_img_file_loc)
 
         # Create/Import the hole positions in background
-        self.hole_positions = self.get_hole_pos()  # for the animation
-        self.hole_positions_centre = self.get_hole_cent()  # for the hit centre
+        self.hole_positions = self._get_hole_pos  # for the animation
+        self.hole_positions_centre = self._get_hole_cent  # for the hit centre
 
         # Initialize the mole's sprite sheet (6 different states)
         sprite_sheet = pygame.image.load(self.mole_img_file_loc)
@@ -111,7 +136,7 @@ class GameManager:
         # Import text information
         self.font_obj = pygame.font.SysFont("comicsansms", 20)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
-        self.pause_reason_dict = self.get_pause_dict()
+        self.pause_reason_dict = self._get_pause_dict
 
         # Sets up logging
         self.wam_logger = WamLogger()
@@ -131,36 +156,112 @@ class GameManager:
         self.animation_interval = 0.1
         self.mole_down_interval = 0.1
 
-    def get_hole_pos(self):
-        hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
-        def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
+    @property
+    def _get_hole_pos(self):
+        '''
+        Property method, imports the hole poositions from the file
+        (NB they reflect the image but do not dictate the image in the
+        current implementation)
+
+        Parameters
+        ----------
+        self : self
+
+        Raises
+        ------
+        OSError
+            If the file cannot be found
+
+        Returns
+        -------
+        hole_pos_lst
+            A list of hole position lists
+        '''
+        try:
+            hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
+            def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
+        except OSError:
+            print("get_hole_pos function did not find the hole position file")
         hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
-        hole_pos_lst = [[int(x) for x in sub_lst] for sub_lst in hole_pos_lst]
+        hole_pos_lst = [[int(x) for x in sub_lst] for
+                        sub_lst in hole_pos_lst]
+
         return hole_pos_lst
 
-    def get_hole_cent(self):
-        return [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
-                (x, y) in self.hole_positions]
+    @property
+    def _get_hole_cent(self):
+        '''
+        Property method, returns the hole centre positions (i.e. where the
+        middle of the mole is considered to be upon full emergence)
 
-    def get_pause_dict(self):
-        pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        hole_pos_centre: list
+            list of the hole positions
+        '''
+        hole_pos_centre = [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
+                           (x, y) in self.hole_positions]
+        return hole_pos_centre
+
+    @property
+    def _get_pause_dict(self):
+        '''
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+
+        Parameters
+        ----------
+        self : self
+
+        Raises
+        ------
+        OSError
+            If the file cannot be found
+            
+        Returns
+        -------
+        pause_dict: dict
+            dictionary of pause conditions and pause text
+        '''
+        try:
+            pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
+        except OSError:
+            print("get_hole_pos function did not find the hole position file")
         pause_list = [x.split(' | ') for x in pause_list]
         pause_dict = {x[0]: x[1] for x in pause_list}
         return pause_dict
 
+    @property
     @staticmethod
-    def text_objects(text, font):
-        """
-        Sets the text objects for the gui, static method as only called once
-        """
+    def _text_objects(text, font):
+        '''
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        pause_dict: dict
+            dictionary of pause conditions and pause text
+        '''
         text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) = black
         return text_surface, text_surface.get_rect()
 
     def intro(self):
-        """
-        Sets the introduction text on the screen and provides a set of
-        instructions to the user
-        """
+        '''
+        Runs the game intro screen (basically communicates the text)
+
+        Parameters
+        ----------
+        self : self
+        '''
         while self.intro_complete is False:
             loc_y = self.SCREEN_HEIGHT/2 - 80
             for line in self.intro_txt:
@@ -361,7 +462,8 @@ class GameManager:
             self.set_mole_hit_res_margin()
         elif self.hit_type == 'Binomial':
             self.set_mole_hit_res_binom()
-        self.wam_logger.log_hit_result(self.result, self.mouse_x, self.mouse_y,
+        self.wam_logger.log_hit_result(self.result,
+                                       self.hole_positions[frame_num],
                                        self.distance, self.relative_loc)
         return self.result[0]
 

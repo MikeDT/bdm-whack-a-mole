@@ -57,16 +57,16 @@ class WamLogger:
 
         Raises
         ------
-        na
-
-        Returns
-        -------
-        na
+        OSError
+            If the file cannot be created
         '''
         self.logger.setLevel(logging.DEBUG)
-        self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/' +
-                                      'BDM-WAM ' +
-                                      self.timestamp + '.log')
+        try:
+            self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/' +
+                                          'BDM-WAM ' +
+                                          self.timestamp + '.log')
+        except OSError:
+            print('Log file could not be created')
         self.fh.setLevel(logging.DEBUG)
 
         # create console handler with a higher log level
@@ -95,10 +95,10 @@ class WamLogger:
         Raises
         ------
         na
-
-        Returns
-        -------
-        na
+            however the class does write to the logger in the event of a
+            logging failure (assumption being the logging component is
+            sufficiently robust and well documented to not require additional
+            non-naked exceptions)
         '''
         if event:
             try:
@@ -120,13 +120,10 @@ class WamLogger:
         event: pygame event object
             pygame event object
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        na - logs the event via _log_it
+        na
+            logs the event via _log_it
         '''
         self._log_it(event)
 
@@ -139,13 +136,10 @@ class WamLogger:
         mouse_pos: 2 int tuple
             The xy coorindates of the rating
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        na - logs the event via _log_it
+        na
+            logs the event via _log_it
         '''
         self._log_it("<Event(7-Rate {xy : " + str(mouse_pos) + " })>")
 
@@ -160,13 +154,10 @@ class WamLogger:
         score: float
             The current score
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        na - logs the event via _log_it
+        na
+            logs the event via _log_it
         '''
         score_str = ("score_inc: " + str(score_inc) + "," +
                      "score: " + str(score) + "})>")
@@ -181,13 +172,10 @@ class WamLogger:
         pause_reason: string
             The reason for the pause (e.g. demo ending, stage etc.)
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        na - logs the event via _log_it
+        na
+            logs the event via _log_it
         '''
         self._log_it("<Event(8-Pause {'reason': " + str(pause_reason) + " })>")
 
@@ -202,13 +190,10 @@ class WamLogger:
         event_act: int
             The rating
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        na - logs the event via _log_it
+        na
+            logs the event via _log_it
         '''
         self._log_it("<Event(7-Rate {'" + action + "': " + event_act + " })>")
 
@@ -223,18 +208,23 @@ class WamLogger:
 
         Raises
         ------
-        na
+        AssertionError
+            Checks whether the xy coordinate is indeed a length two object
 
         Returns
         -------
         na - logs the event via _log_it
         '''
+        try:
+            assert len(xy) == 2
+        except AssertionError:
+            print('Mole event xy coorindates did not contain exactly two dims')
         log_string = ("{'loc': (" +
                       str(xy[0]) + "," + str(xy[1]) +
                       ")})>")
         self._log_it("<Event(10-MoleUp) " + log_string)
 
-    def log_hit_result(self, result, mouse_x, mouse_y, distance, relative_loc):
+    def log_hit_result(self, result, xy, distance, relative_loc):
         '''
         Logs the hit result for a given attempt
 
@@ -242,10 +232,8 @@ class WamLogger:
         ----------
         result: tuple
             The reported hit and actual hit results
-        mouse_x: int
-            The mouse x position
-        mouse_y: int
-            The mouse y position
+        xy: tuple
+            The x and y coordinates of a mole emerging
         distance: int
             The distance from the centre of the mole
         relative_loc: 2 int tuple
@@ -253,15 +241,20 @@ class WamLogger:
 
         Raises
         ------
-        na
+        AssertionError
+            Checks whether the xy coordinate is indeed a length two object
 
         Returns
         -------
         na - logs the event via _log_it
         '''
+        try:
+            assert len(xy) == 2
+        except AssertionError:
+            print('Mole event xy coorindates did not contain exactly two dims')
         log_string = ("{'pos': (" +
-                      str(mouse_x) + "," +
-                      str(mouse_y) + ")," +
+                      str(xy[0]) + "," +
+                      str(xy[1]) + ")," +
                       "'distance: " + str(distance) + "," +
                       "'relative_loc: " + str(relative_loc) + "," +
                       "'window': None})>")
@@ -281,10 +274,6 @@ class WamLogger:
         Parameters
         ----------
         self : self
-
-        Raises
-        ------
-        na
 
         Returns
         -------

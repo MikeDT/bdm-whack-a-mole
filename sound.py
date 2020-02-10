@@ -59,10 +59,10 @@ class SoundEffect:
         self.level_sound = "sounds/point.wav"
         self.sound_volume = 1.0
         self.music_volume = 1.0
-        self.set_sounds()
+        self.import_sounds()
         self.play_music()
 
-    def set_sounds(self):
+    def import_sounds(self):
         '''
         Sets the sounds for the game, loading from the sounds folder
 
@@ -72,18 +72,22 @@ class SoundEffect:
 
         Raises
         ------
-        na
+        OSError
+            raised if the file imports failed
 
         Returns
         -------
         na
         '''
-        self.main_track = pygame.mixer.music.load(self.main_track_loc)
-        self.fire_sound = pygame.mixer.Sound(self.fire_sound_loc)
-        self.pop_sound = pygame.mixer.Sound(self.pop_sound)
-        self.hurt_sound = pygame.mixer.Sound(self.hurt_sound)
-        self.level_sound = pygame.mixer.Sound(self.level_sound)
-        self.fire_sound.set_volume(self.sound_volume)
+        try:
+            self.main_track = pygame.mixer.music.load(self.main_track_loc)
+            self.fire_sound = pygame.mixer.Sound(self.fire_sound_loc)
+            self.pop_sound = pygame.mixer.Sound(self.pop_sound)
+            self.hurt_sound = pygame.mixer.Sound(self.hurt_sound)
+            self.level_sound = pygame.mixer.Sound(self.level_sound)
+            self.fire_sound.set_volume(self.sound_volume)
+        except OSError:
+            print('At least one of the sound files failed to load')
 
     def play_music(self):
         '''
@@ -93,13 +97,11 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
 
         Returns
         -------
         na
+            plays the music
         '''
         pygame.mixer.music.play(-1)
 
@@ -111,13 +113,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
         na
+            stops the music
         '''
         pygame.mixer.music.play(-1)
 
@@ -129,13 +128,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        The firesound
+        na
+            plays the firesound
         '''
         self.fire_sound.play()
 
@@ -147,13 +143,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        Silence...
+        na
+            Silence...
         '''
         self.fire_sound.stop()
 
@@ -165,13 +158,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        mole pop sound
+        na
+            mole pop sound
         '''
         self.pop_sound.play()
 
@@ -183,13 +173,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        Silence...
+        na
+            Silence...
         '''
         self.pop_sound.stop()
 
@@ -201,13 +188,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        mole hit/hurt sound
+        na
+            mole hit/hurt sound
         '''
         self.hurt_sound.play()
 
@@ -219,13 +203,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        Silence...
+        na
+            Silence...
         '''
         self.hurt_sound.stop()
 
@@ -237,13 +218,10 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        Stage level up sound
+        na
+            Stage level up sound
         '''
         self.level_sound.play()
 
@@ -255,12 +233,9 @@ class SoundEffect:
         ----------
         self : self
 
-        Raises
-        ------
-        na
-
         Returns
         -------
-        Silence...
+        na
+            Silence...
         '''
         self.level_sound.stop()
