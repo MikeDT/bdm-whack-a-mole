@@ -18,8 +18,9 @@ Todo:
     * abstract the screen functionality to make the GameManager
         standalone
 Related projects:
-    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
-
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
+    
 @author: miketaylor
 """
 
@@ -80,6 +81,7 @@ class GameManager:
         self.pause_info_file_loc = 'text\\pause_info.txt'
         self.screen_img_file_loc = "images/bg_2x2_1424x700.png"
         self.mole_img_file_loc = "images/mole.png"
+        self.splash_img_file_loc = "images/Splash_Screen.png"
 
         # Initialize player's score, number of missed hits and stage data
         self.feedback = True
@@ -105,6 +107,8 @@ class GameManager:
                                                self.SCREEN_HEIGHT + 100))
         pygame.display.set_caption(self.GAME_TITLE)
         self.background = pygame.image.load(self.screen_img_file_loc)
+        self.splash_page = pygame.image.load(self.splash_img_file_loc)
+        self.screen.fill([255,255,255])
 
         # Create/Import the hole positions in background
         self.hole_positions = self._get_hole_pos  # for the animation
@@ -259,11 +263,13 @@ class GameManager:
         ----------
         self : self
         '''
+        self.screen.blit(self.splash_page, (0, 0))
+        pygame.display.update()
         while self.intro_complete is False:
             loc_y = self.SCREEN_HEIGHT/2 - 80
-            for line in self.intro_txt:
-                self.write_text(line, location_y=loc_y)
-                loc_y += 40
+#            for line in self.intro_txt:
+#                self.write_text(line, location_y=loc_y)
+#                loc_y += 40
 #            self.check_key_event()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -320,7 +326,7 @@ class GameManager:
                         pygame.quit()
                         self.wam_logger.log_end()
 
-    def check_events_rate(self, action):
+    def check_events_rate(self, action):  #<-------------------------------------------------
         """
         Monitors the game for player feedback provided via keys
         """
@@ -346,7 +352,7 @@ class GameManager:
                         pygame.quit()
                         self.wam_logger.log_end()
 
-    def check_rate_in_grid(self, mouse_pos):
+    def check_rate_in_grid(self, mouse_pos):  #<-------------------------------------------------
         if (
             (mouse_pos[0] > self.TWO_X_TWO_LOC[0]) and
             (mouse_pos[0] < self.TWO_X_TWO_LOC[0] + self.TWO_X_TWO_LEN) and
@@ -357,7 +363,7 @@ class GameManager:
         else:
             return False
 
-    def two_by_two_rate(self):
+    def two_by_two_rate(self):  #<-------------------------------------------------
         """
         refactor check mouse event into two, i.e. mole hit check or 2x2
         then take xy coordinates, only unpause if the spot is given in the grid
@@ -449,49 +455,6 @@ class GameManager:
             self.pause_reason = '2x2'
             self.pause()
 
-    def check_mole_hit(self, num, left):
-        """
-        Checks whether a mole was hit, able to call a variety of methods
-        dependent on the type of mole hit that is modelled for in the game at
-        a given point in time (e.g. standard, with additional margin, binomial
-        etc.
-        """
-        result = [False, False, False]
-        if (num > 0 and left == 0):
-            margin_hit_results = self._margin_hit_results
-            if margin_hit_results[1]:
-                if self.hit_type == 'Standard':
-                    result = margin_hit_results + [True]
-                elif self.hit_type == 'Binomial':
-                    result = margin_hit_results + self._binom_hit_result
-        return result
-
-    @property
-    def _margin_hit_results(self):
-        """
-        As per the simple mole hit model, but with an added margin of error
-        that can be adjusted intra or inter game
-        """
-        actual_hit = False
-        margin_hit = False
-        if self.distance < self.MOLE_RADIUS:
-            actual_hit = True
-        if self.distance < self.MOLE_RADIUS + self.margin.drift_iter:
-            margin_hit = True
-        return [actual_hit, margin_hit]
-
-    @property
-    def _binom_hit_result(self):
-        """
-        As per the simple mole hit model, but with an added margin of error
-        that can be adjusted intra or inter game
-        """
-        if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-            binom_result = True
-        else:
-            binom_result = False
-        return [binom_result]
-
     def score_update_check(self):
         """
         Checks whether an update should be performed
@@ -569,8 +532,8 @@ class GameManager:
                                                       frame_num)
             self.soundEffect.play_fire()
             self.check_feedback()
-            self.result = self.check_mole_hit(num, left)
-            #self.result = self.hit_checker.check_mole_hit(num, left, self.distance, self.margin.drift_iter) <------------------------------------------
+            #self.result = self.check_mole_hit(num, left)
+            self.result = self.hit_checker.check_mole_hit(num, left, self.distance, self.margin.drift_iter) # <------------------------------------------
             if self.result[2]:  # the hit feedback
                 num, left, mole_is_down, interval, frame_num = self.mole_hit(num, left, mole_is_down, interval, frame_num)
                 self.feedback_count += 1

@@ -20,6 +20,7 @@ class Hit_Checker:
         a given point in time (e.g. standard, with additional margin, binomial
         etc.
         """
+        print('checking')
         result = [False, False, False]
         if (num > 0 and left == 0):
             margin_hit_results = self._margin_hit_results(distance,
@@ -29,6 +30,7 @@ class Hit_Checker:
                     result = margin_hit_results + [True]
                 elif self.hit_type == 'Binomial':
                     result = margin_hit_results + self._binom_hit_result
+        print ('result', result)
         return result
 
     def _margin_hit_results(self, distance, margin_drift_iter):
@@ -40,7 +42,7 @@ class Hit_Checker:
         margin_hit = False
         if distance < self.MOLE_RADIUS:
             actual_hit = True
-        if distance < margin_drift_iter:
+        if distance < self.MOLE_RADIUS + margin_drift_iter:
             margin_hit = True
         return [actual_hit, margin_hit]
 
@@ -50,7 +52,7 @@ class Hit_Checker:
         As per the simple mole hit model, but with an added margin of error
         that can be adjusted intra or inter game
         """
-        if (np.random.binomial(1, 0.5, 1)[0]) > 0:
+        if (np.random.binomial(1, 0.9, 1)[0]) > 0:
             binom_result = True
         else:
             binom_result = False

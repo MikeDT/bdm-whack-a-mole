@@ -12,7 +12,8 @@ Todo:
     * na
 
 Related projects:
-    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
 
 @author: miketaylor
 """
@@ -58,7 +59,7 @@ class SoundEffect:
         self.hurt_sound = "sounds/hurt.wav"
         self.level_sound = "sounds/point.wav"
         self.sound_volume = 1.0
-        self.music_volume = 0.0
+        self.music_volume = 0.2
         self.import_sounds()
         self.play_music()
 
@@ -85,9 +86,13 @@ class SoundEffect:
             self.pop_sound = pygame.mixer.Sound(self.pop_sound)
             self.hurt_sound = pygame.mixer.Sound(self.hurt_sound)
             self.level_sound = pygame.mixer.Sound(self.level_sound)
-            self.fire_sound.set_volume(self.sound_volume)
         except OSError:
             print('At least one of the sound files failed to load')
+#        self.main_track.set_volume(self.music_volume)
+#        self.fire_sound.set_volume(self.sound_volume)
+#        self.pop_sound.set_volume(self.sound_volume)
+#        self.hurt_sound.set_volume(self.sound_volume)
+#        self.level_sound.set_volume(self.sound_volume)
 
     def play_music(self):
         '''

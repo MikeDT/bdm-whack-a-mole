@@ -25,8 +25,9 @@ Todo:
     * hit or miss, how much credit to assign
 
 Related projects:
-    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
-
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
+    
 @author: miketaylor
 """
 

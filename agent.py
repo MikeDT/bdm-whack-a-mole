@@ -35,8 +35,9 @@ Todo:
     * na
 
 Related projects:
-    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
-
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
+    
 @author: miketaylor
 """
 
