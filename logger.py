@@ -6,10 +6,10 @@ logger module
 This module contains the WamLogger class for the pygame Whack a Mole game
 
 Attributes:
-    handled within the WamLogger Class
+    na
 
 Todo:
-    * sort naked exception handling
+    * na
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)
@@ -19,7 +19,6 @@ Related projects:
 
 import logging
 from time import time
-import os
 import pygame
 
 
@@ -231,7 +230,7 @@ class WamLogger:
         Parameters
         ----------
         result: tuple
-            The reported hit and actual hit results
+            The actual hit, margin hit and reported hit results
         xy: tuple
             The x and y coordinates of a mole emerging
         distance: int
@@ -269,7 +268,7 @@ class WamLogger:
 
     def log_end(self):
         '''
-        shuts down the log file
+        shuts down the logger and log file
 
         Parameters
         ----------

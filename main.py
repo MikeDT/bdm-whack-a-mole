@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 main
 ====
@@ -10,7 +10,19 @@ Attributes:
     na
 
 Todo:
-    *na
+    * binomial for hit (flex the params)
+    * high low for both
+    * use the the normal after for noise
+    * luck and skill metadprime
+    * gaussian noise
+    * 2x2 on skilla nd luck (hgh  ghig, low low etc.)
+    * explanations
+    * shift th text
+    * change the text
+    * feedback where they hit
+    * confidence l-r
+    * luck high, skill btoom
+    * hit or miss, how much credit to assign
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole)

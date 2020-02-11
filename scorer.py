@@ -49,6 +49,11 @@ class Scorer:
     skill_luck_rat: float
         the skill to luck ratio
 
+    Raises
+    ------
+    Assertion Error
+        if the skill_luck_rat during init is not between 0 and 1
+
     Methods
     -------
     get_score(distance)

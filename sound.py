@@ -58,7 +58,7 @@ class SoundEffect:
         self.hurt_sound = "sounds/hurt.wav"
         self.level_sound = "sounds/point.wav"
         self.sound_volume = 1.0
-        self.music_volume = 1.0
+        self.music_volume = 0.0
         self.import_sounds()
         self.play_music()
 
