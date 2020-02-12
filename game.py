@@ -75,6 +75,9 @@ class GameManager:
         self.LEFT_MOUSE_BUTTON = 1
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
 
+        # Sets up logging
+        self.wam_logger = WamLogger()
+
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
@@ -127,7 +130,7 @@ class GameManager:
         self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
 
         # Initialise sound effects
-        self.soundEffect = SoundEffect()
+        self.sound_effect = SoundEffect()
         self.pause_reason = False
         self.pause_list = [False, 'standard', '2x2', 'stage']
         self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
@@ -138,9 +141,6 @@ class GameManager:
         self.font_obj = pygame.font.SysFont("comicsansms", 20)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self._get_pause_dict
-
-        # Sets up logging
-        self.wam_logger = WamLogger()
 
         # Initialise the score adjustment functions and data
         self.scorer = Scorer()
@@ -158,6 +158,20 @@ class GameManager:
         self.mole_pause_interval = 1
         self.animation_interval = 0.1
         self.mole_down_interval = 0.1
+
+        # Log all the initial conditions
+        self.log_init_conditions()
+
+    def log_init_conditions(self):
+        self.wam_logger.log_class_dict('game_manager', self.__dict__)
+        self.wam_logger.log_class_dict('sounds',
+                                       self.sound_effect.__dict__)
+        self.wam_logger.log_class_dict('margin',
+                                       self.margin.__dict__)
+        self.wam_logger.log_class_dict('hit_checker',
+                                       self.hit_checker.__dict__)
+        self.wam_logger.log_class_dict('scorer',
+                                       self.scorer.__dict__)   
 
     @property
     def _get_hole_pos(self):
@@ -375,7 +389,7 @@ class GameManager:
                 if self.check_rate_in_grid(mouse_pos):
                     self.wam_logger.log_2x2_rate(mouse_pos, self.TWO_X_TWO_LOC,
                                                  self.TWO_X_TWO_LEN)
-                    self.soundEffect.play_fire()
+                    self.sound_effect.play_fire()
                     self.pause_reason = False
                     self.last_rate = mouse_pos
 
@@ -414,7 +428,7 @@ class GameManager:
                     self.demo = False
                     self.pause()
                 else:
-                    self.soundEffect.play_stage_up()
+                    self.sound_effect.play_stage_up()
                     self.pause_reason = 'stage'
                     self.pause()
                     self.stage += 1
@@ -515,12 +529,12 @@ class GameManager:
         mole_is_down = False
         interval = 0
         score_inc = self.scorer.get_score(self.distance)
-        self.soundEffect.stop_pop()
+        self.sound_effect.stop_pop()
         self.score += score_inc
         self.wam_logger.log_score(score_inc, self.score)
         self.mole_count += 1
         if self.feedback:
-            self.soundEffect.play_hurt()
+            self.sound_effect.play_hurt()
         return num, left, mole_is_down, interval, frame_num
 
     def check_mouse_event(self, event, num, left, mole_is_down,
@@ -536,7 +550,7 @@ class GameManager:
                                               frame_num)
             self.relative_loc = self.get_relative_loc(pygame.mouse.get_pos(),
                                                       frame_num)
-            self.soundEffect.play_fire()
+            self.sound_effect.play_fire()
             self.feedback_count += 1
             self.check_feedback()
             self.result = self.hit_checker.check_mole_hit(num,
@@ -620,7 +634,7 @@ class GameManager:
         elif num == 3:
             num -= 1
             mole_is_down = True
-            self.soundEffect.play_pop()
+            self.sound_effect.play_pop()
             interval = self.mole_pause_interval  # self.get_interval_by_stage(initial_interval)
         else:
             interval = self.animation_interval

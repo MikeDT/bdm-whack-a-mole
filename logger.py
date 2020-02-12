@@ -9,18 +9,19 @@ Attributes:
     na
 
 Todo:
-    * add support for logging of initial criteria
+    * sort docstrings (e.g. class)
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
-    
+
 @author: miketaylor
 """
 
 import logging
 from time import time
 import pygame
+import csv
 
 
 class WamLogger:
@@ -42,7 +43,8 @@ class WamLogger:
     """
     def __init__(self):
         self.timestamp = str(time())
-        self.logger = logging.getLogger('BDM-WAM ' + self.timestamp)
+        self.logger = logging.getLogger('WAM Events ' + self.timestamp)
+        self.log_file_root = r'../bdm-whack-a-mole/logs/'
         if not len(self.logger.handlers):
             self.create_log_instance()
 
@@ -62,8 +64,8 @@ class WamLogger:
         '''
         self.logger.setLevel(logging.DEBUG)
         try:
-            self.fh = logging.FileHandler(r'../bdm-whack-a-mole/logs/' +
-                                          'BDM-WAM ' +
+            self.fh = logging.FileHandler(self.log_file_root +
+                                          'WAM Events ' +
                                           self.timestamp + '.log')
         except OSError:
             print('Log file could not be created')
@@ -82,6 +84,16 @@ class WamLogger:
         # add the handlers to the logger
         self.logger.addHandler(self.fh)
         self.logger.addHandler(self.ch)
+
+    def log_class_dict(self, class_name, class_dict):
+        with open(self.log_file_root + ' WAM Conditions' +
+                  self.timestamp + '.log',
+                  'a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([class_name])
+            for key, value in class_dict.items():
+                writer.writerow([key, value])
+            writer.writerow([])
 
     def _log_it(self, event=False):
         '''

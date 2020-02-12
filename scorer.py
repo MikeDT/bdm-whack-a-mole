@@ -15,15 +15,13 @@ Todo:
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
-    
+
 @author: miketaylor
 """
 
 import numpy as np
-import scipy.stats as stats
 from distributions import trunc_norm_sample as _trunc_norm_sample
 from distributions import norm_sample as _norm_sample
-
 
 
 class Scorer:
@@ -130,8 +128,9 @@ class Scorer:
     def _skill_adjust(self, score, distance):
         '''
         Adjusts the score based on the skill (i.e. euclidean distance measure)
-        
-        NB this function may be deprecated in the future based on the binomial hit checking
+
+        NB this function may be deprecated in the future based on the binomial
+        hit checking
 
         Parameters
         ----------
@@ -159,7 +158,8 @@ class Scorer:
         '''
         Adjusts the score based on a random beta dist (or not at all)
 
-        NB this function may be deprecated in the future based on the binomial hit checking
+        NB this function may be deprecated in the future based on the binomial
+        hit checking
 
         Parameters
         ----------
