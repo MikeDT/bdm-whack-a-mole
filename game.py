@@ -85,6 +85,7 @@ class GameManager:
         self.screen_img_file_loc = "images\\bg_2x2_v2_raw.png"
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
+        self.end_img_file_loc = "images\\End_Screen.png"
 
         # Initialize player's score, number of missed hits and stage data
         self.feedback = True
@@ -101,10 +102,11 @@ class GameManager:
         self.update_count = 0  # iterations since last score update
         self.update_delay = 0  # iterations per score update
         self.stage_length = 10
-        self.stages = 5
-        self.stage_pts = range(self.demo_len,
-                               self.stages*self.stage_length + self.demo_len,
-                               self.stage_length)
+        self.stages = 3
+        self.stage_pts = [i for i in range(self.demo_len,
+                                           self.stages*self.stage_length +
+                                           self.demo_len,
+                                           self.stage_length)]
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT +
@@ -112,6 +114,7 @@ class GameManager:
         pygame.display.set_caption(self.GAME_TITLE)
         self.background = pygame.image.load(self.screen_img_file_loc)
         self.splash_page = pygame.image.load(self.splash_img_file_loc)
+        self.end_page = pygame.image.load(self.end_img_file_loc)
         self.screen.fill([255, 255, 255])
 
         # Create/Import the hole positions in background
@@ -294,6 +297,12 @@ class GameManager:
                         if mods & pygame.KMOD_CTRL:
                             pygame.quit()
                             self.wam_logger.log_end()
+                            
+    def end(self):
+        self.screen.fill([255, 255, 255])
+        self.screen.blit(self.end_page, (0, 0))
+#        pygame.display.update()
+        pygame.display.flip()
 
     def write_text(self, string, colour=(0, 0, 0),
                    location_x=None, location_y=None):
@@ -397,9 +406,11 @@ class GameManager:
         while self.pause_reason:
             if self.pause_reason in ['standard', 'stage', 'demo']:
                 if self.pause_reason == 'stage':
-                    self.update()
-                    self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 40)
+                    if self.mole_count == self.stage_pts[-1]:
+                        self.end()
+                    else:
+                        self.write_text(self.pause_reason_dict[self.pause_reason],
+                                        location_y=self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
                 elif self.pause_reason == 'standard':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
@@ -419,6 +430,7 @@ class GameManager:
         Sets the game stage based upon the stage type and pause_reason
         """
         if self.stage_type == 'Standard':
+            self.update()
             if (self.mole_count) in self.stage_pts:
                 if self.demo:
                     self.misses = 0
@@ -430,8 +442,8 @@ class GameManager:
                 else:
                     self.sound_effect.play_stage_up()
                     self.pause_reason = 'stage'
-                    self.pause()
                     self.stage += 1
+                    self.pause()
 
     def get_interval_by_stage(self, initial_interval):
         """

@@ -38,7 +38,9 @@ class WamLogger:
         creates the logging text .log file
     log_it(event)
         logs an event that is passed to it
-    end_log()
+    _log_***(event)
+        preps the inputs for logs a variety of game events via the log_it function
+    log_end()
         closes down the log
     """
     def __init__(self):
@@ -86,6 +88,19 @@ class WamLogger:
         self.logger.addHandler(self.ch)
 
     def log_class_dict(self, class_name, class_dict):
+        '''
+        logs the initial conditions within the game classes
+
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        na
+            logs the event via csv
+
+        '''
         with open(self.log_file_root + ' WAM Conditions' +
                   self.timestamp + '.log',
                   'a', newline='') as file:

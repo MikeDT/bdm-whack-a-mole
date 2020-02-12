@@ -10,7 +10,7 @@ Attributes:
     na
 
 Todo:
-    * luck and skill metadprime 
+    * luck and skill metadprime
     * explanations in the word doc
     * hit or miss, how much credit to assign
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     # Run the main loop
     my_game = GameManager()
-    
+
     my_game.play_game()
 
     # Exit the game if the main loop ends
