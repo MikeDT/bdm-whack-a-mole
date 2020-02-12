@@ -16,18 +16,17 @@ Todo:
     * create agent class for check events etc.
     * abstract the screen functionality to make the GameManager standalone
     * sort all the doc strings
-    
+
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
-    
+
 @author: miketaylor
 """
 
 
 import pygame
 import random
-import numpy as np
 from sound import SoundEffect
 from logger import WamLogger
 from scorer import Scorer, Drifting_Val
@@ -62,6 +61,7 @@ class GameManager:
         # Define constants
         self.SCREEN_WIDTH = 1505
         self.SCREEN_HEIGHT = 600
+        self.COMM_BAR_HEIGHT = 100
         self.TWO_X_TWO_LEN = 480
         self.TWO_X_TWO_LOC = (915, 58)
         self.FPS = 60
@@ -70,7 +70,7 @@ class GameManager:
         self.MOLE_RADIUS = 40  # for hit calcs
         self.MARGIN_START = 10  # the margin adjustment for a mole (can be +/-)
         self.FONT_SIZE = 18
-        self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + 100 - 26
+        self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + self.COMM_BAR_HEIGHT - 26
         self.STAGE_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
@@ -104,11 +104,12 @@ class GameManager:
                                self.stage_length)
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
-                                               self.SCREEN_HEIGHT + 100))
+                                               self.SCREEN_HEIGHT +
+                                               self.COMM_BAR_HEIGHT))
         pygame.display.set_caption(self.GAME_TITLE)
         self.background = pygame.image.load(self.screen_img_file_loc)
         self.splash_page = pygame.image.load(self.splash_img_file_loc)
-        self.screen.fill([255,255,255])
+        self.screen.fill([255, 255, 255])
 
         # Create/Import the hole positions in background
         self.hole_positions = self._get_hole_pos  # for the animation
@@ -150,6 +151,7 @@ class GameManager:
         self.hit_type = 'Binomial'  # Standard, Binomial
         self.margin = Drifting_Val(self.MARGIN_START, drift_type='static')
         self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
+        self.last_rate = False
 
         # Initialise Timing
         self.post_whack_interval = 0.1
@@ -266,11 +268,6 @@ class GameManager:
         self.screen.blit(self.splash_page, (0, 0))
         pygame.display.update()
         while self.intro_complete is False:
-            loc_y = self.SCREEN_HEIGHT/2 - 80
-#            for line in self.intro_txt:
-#                self.write_text(line, location_y=loc_y)
-#                loc_y += 40
-#            self.check_key_event()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.wam_logger.log_end()
@@ -326,7 +323,7 @@ class GameManager:
                         pygame.quit()
                         self.wam_logger.log_end()
 
-    def check_events_rate(self, action):  #<-------------------------------------------------
+    def check_events_rate(self, action):
         """
         Monitors the game for player feedback provided via keys
         """
@@ -352,7 +349,7 @@ class GameManager:
                         pygame.quit()
                         self.wam_logger.log_end()
 
-    def check_rate_in_grid(self, mouse_pos):  #<-------------------------------------------------
+    def check_rate_in_grid(self, mouse_pos):
         if (
             (mouse_pos[0] > self.TWO_X_TWO_LOC[0]) and
             (mouse_pos[0] < self.TWO_X_TWO_LOC[0] + self.TWO_X_TWO_LEN) and
@@ -363,7 +360,7 @@ class GameManager:
         else:
             return False
 
-    def two_by_two_rate(self):  #<-------------------------------------------------
+    def two_by_two_rate(self):
         """
         refactor check mouse event into two, i.e. mole hit check or 2x2
         then take xy coordinates, only unpause if the spot is given in the grid
@@ -380,8 +377,7 @@ class GameManager:
                                                  self.TWO_X_TWO_LEN)
                     self.soundEffect.play_fire()
                     self.pause_reason = False
-                    self.write_text('X', (255, 0, 0),
-                                    mouse_pos[0], mouse_pos[1])
+                    self.last_rate = mouse_pos
 
     def pause(self):
         while self.pause_reason:
@@ -389,19 +385,19 @@ class GameManager:
                 if self.pause_reason == 'stage':
                     self.update()
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 10)
+                                    location_y=self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
                 elif self.pause_reason == 'standard':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 10)
+                                    location_y=self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
                 else:
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 10)
+                                    location_y=self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
             elif self.pause_reason == '2x2':
                 self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 10)
+                                location_y=self.SCREEN_HEIGHT + 10)
                 self.two_by_two_rate()
 
     def set_player_stage(self):
@@ -473,7 +469,7 @@ class GameManager:
 
     def update(self, really_update=True):
         """
-        Updates the game's stage, score, misses on the gui
+        Updates the game's stage, score, misses, previous 2x2 rating on the gui
         """
         # Update gui with player's score
         current_score_string = "SCORE: " + str(self.score)
@@ -501,6 +497,11 @@ class GameManager:
         stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
         stage_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(stage_text, stage_text_pos)
+
+        # 2x2 rating persistence
+        if self.last_rate:
+            self.write_text('X', (255, 0, 0),
+                            self.last_rate[0], self.last_rate[1])
 
     def get_agent_mouse_pos(self, human=True):
         if human:
@@ -538,9 +539,17 @@ class GameManager:
             self.soundEffect.play_fire()
             self.feedback_count += 1
             self.check_feedback()
-            self.result = self.hit_checker.check_mole_hit(num, left, self.distance, self.margin.drift_iter) # <------------------------------------------
+            self.result = self.hit_checker.check_mole_hit(num,
+                                                          left,
+                                                          self.distance,
+                                                          self.margin.drift_iter)
             if self.result[2]:  # the hit feedback
-                num, left, mole_is_down, interval, frame_num = self.mole_hit(num, left, mole_is_down, interval, frame_num)
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.mole_hit(num, left, mole_is_down,
+                                            interval, frame_num)
             else:
                 self.misses += 1
                 self.mole_count += 1
@@ -616,7 +625,9 @@ class GameManager:
         else:
             interval = self.animation_interval
         cycle_time = 0
-        return num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock
+        return (num, left, mole_is_down,
+                interval, frame_num, initial_interval,
+                cycle_time, clock)
 
     def create_moles(self):
         """
@@ -652,7 +663,16 @@ class GameManager:
                 if event.type == pygame.QUIT:
                     loop = False
                 self.check_key_event(event)
-                num, left, mole_is_down, interval, frame_num = self.check_mouse_event(event, num, left, mole_is_down, interval, frame_num)
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.check_mouse_event(event,
+                                                     num,
+                                                     left,
+                                                     mole_is_down,
+                                                     interval,
+                                                     frame_num)
 
             # refreshes screen at the point of mole popping
             if num > 5:       # 5
@@ -663,13 +683,33 @@ class GameManager:
 
             # pops the mole, if it's time
             if num == -1:
-                num, mole_is_down, interval, frame_num = self.pop_mole(num, mole_is_down, interval, frame_num)
+                (num,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.pop_mole(num,
+                                            mole_is_down,
+                                            interval,
+                                            frame_num)
 
             # drops the mole, if it's time
             mil = clock.tick(self.FPS)
             sec = mil / 1000.0
             cycle_time += sec
             if cycle_time > interval:
-                num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock = self.animate_mole(num, left, mole_is_down, interval, frame_num, initial_interval, cycle_time, clock)
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num,
+                 initial_interval,
+                 cycle_time,
+                 clock) = self.animate_mole(num,
+                                            left,
+                                            mole_is_down,
+                                            interval,
+                                            frame_num,
+                                            initial_interval,
+                                            cycle_time,
+                                            clock)
             # Update the display
             pygame.display.flip()

@@ -12,8 +12,6 @@ Attributes:
 Todo:
     * luck and skill metadprime 
     * explanations in the word doc
-    * shift the text
-    * change the text
     * hit or miss, how much credit to assign
     * log all starting paramters etc.
 

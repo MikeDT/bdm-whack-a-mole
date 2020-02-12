@@ -100,6 +100,7 @@ class Hit_Checker:
         try:
             assert type(distance) in [float, int]
             assert type(margin_drift_iter) in [float, int]
+            true_hit, margin_hit, binom_hit = False, False, False
             if (num > 0 and left == 0):
                 true_hit = self._get_true_hit_res(distance)
                 margin_hit = self._get_marg_hit_res(distance,
