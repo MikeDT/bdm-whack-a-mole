@@ -1,0 +1,268 @@
+2020-01-19 19:49:01,440 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 50, 'mod': 0, 'scancode': 0, 'window': None})>
+2020-01-19 19:49:04,259 - BDM-WAM 1579463341.3733535 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 2})>
+2020-01-19 19:49:04,259 - BDM-WAM 1579463341.3733535 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-19 19:49:04,259 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (386, 0), 'rel': (140, -221), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,309 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (658,232)})>
+2020-01-19 19:49:04,369 - BDM-WAM 1579463341.3733535 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-19 19:49:04,369 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (497, 699), 'rel': (111, 699), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,422 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (525, 674), 'rel': (28, -25), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,473 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'scancode': 46, 'window': None})>
+2020-01-19 19:49:04,473 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (580, 536), 'rel': (51, -132), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,475 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (583, 524), 'rel': (1, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,491 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (588, 478), 'rel': (5, -46), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,508 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (589, 446), 'rel': (1, -32), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,525 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (587, 411), 'rel': (-2, -35), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,542 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (585, 386), 'rel': (-2, -25), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,559 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (583, 376), 'rel': (-2, -10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,576 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (583, 375), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,628 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (583, 374), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,647 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (582, 353), 'rel': (-1, -21), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,664 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (593, 295), 'rel': (11, -54), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,681 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (602, 253), 'rel': (9, -42), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,698 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (602, 251), 'rel': (0, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,816 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (604, 251), 'rel': (2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,833 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (614, 251), 'rel': (10, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,850 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (637, 253), 'rel': (23, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,867 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (673, 259), 'rel': (33, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,884 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (688, 259), 'rel': (15, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,900 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (690, 259), 'rel': (2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,917 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (694, 259), 'rel': (4, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:04,934 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (695, 259), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:05,037 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (696, 262), 'rel': (1, 3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:05,054 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (702, 279), 'rel': (6, 17), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:05,071 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (707, 291), 'rel': (5, 12), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:05,088 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (707, 292), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:05,139 - BDM-WAM 1579463341.3733535 - INFO - <Event(5-MouseButtonDown {'pos': (707, 292), 'button': 1, 'window': None})>
+2020-01-19 19:49:05,139 - BDM-WAM 1579463341.3733535 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2020-01-19 19:49:05,665 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'hit_conf': 3 })>
+2020-01-19 19:49:05,862 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'reward_conf': 3 })>
+2020-01-19 19:49:06,037 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'player_skill': 3 })>
+2020-01-19 19:49:06,037 - BDM-WAM 1579463341.3733535 - INFO - <Event(9.1-TrueHit {'pos': (707,292),'distance: 77.46612162745726,'relative_loc: (49, 60),'window': None})>
+2020-01-19 19:49:06,047 - BDM-WAM 1579463341.3733535 - INFO - <Event(11-Score {score_inc: 3,score: 3})>
+2020-01-19 19:49:06,174 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 51, 'mod': 0, 'scancode': 4, 'window': None})>
+2020-01-19 19:49:06,351 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (95,43)})>
+2020-01-19 19:49:06,401 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (691, 326), 'rel': (-16, 35), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,405 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (690, 327), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,465 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (679, 342), 'rel': (-11, 15), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,469 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (678, 343), 'rel': (-1, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,532 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (673, 347), 'rel': (-5, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,539 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (673, 348), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,551 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (670, 350), 'rel': (-3, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,568 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (661, 354), 'rel': (-9, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,585 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (659, 356), 'rel': (-2, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,602 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (657, 358), 'rel': (-2, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,618 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (641, 365), 'rel': (-16, 7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,635 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (622, 373), 'rel': (-19, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,652 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (590, 381), 'rel': (-32, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,669 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (519, 379), 'rel': (-71, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,685 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (434, 367), 'rel': (-85, -12), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,702 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (270, 314), 'rel': (-164, -53), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,719 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (144, 263), 'rel': (-126, -51), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,736 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (83, 227), 'rel': (-61, -36), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,753 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (53, 206), 'rel': (-30, -21), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,770 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (41, 190), 'rel': (-12, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,787 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (35, 179), 'rel': (-6, -11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,804 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (33, 171), 'rel': (-2, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,821 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (30, 158), 'rel': (-3, -13), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,838 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (29, 151), 'rel': (-1, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,855 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (28, 150), 'rel': (-1, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,941 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (28, 149), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,958 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (96, 121), 'rel': (68, -28), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,975 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (161, 103), 'rel': (65, -18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:06,992 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (207, 98), 'rel': (46, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,009 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (244, 94), 'rel': (37, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,026 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (245, 94), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,145 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (244, 94), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,162 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (235, 95), 'rel': (-9, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,180 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (205, 94), 'rel': (-30, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,196 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (191, 94), 'rel': (-14, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,214 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (186, 95), 'rel': (-5, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,234 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (184, 95), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,284 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (183, 95), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,317 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (178, 96), 'rel': (-5, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,334 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (170, 98), 'rel': (-8, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,351 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (161, 100), 'rel': (-9, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,367 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (151, 101), 'rel': (-10, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,385 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (115, 110), 'rel': (-34, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,401 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (86, 118), 'rel': (-29, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,419 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (84, 118), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:07,469 - BDM-WAM 1579463341.3733535 - INFO - <Event(5-MouseButtonDown {'pos': (84, 118), 'button': 1, 'window': None})>
+2020-01-19 19:49:07,470 - BDM-WAM 1579463341.3733535 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2020-01-19 19:49:07,979 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'hit_conf': 3 })>
+2020-01-19 19:49:08,169 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'reward_conf': 3 })>
+2020-01-19 19:49:08,381 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'player_skill': 3 })>
+2020-01-19 19:49:08,382 - BDM-WAM 1579463341.3733535 - INFO - <Event(9.4-TrueMiss {'pos': (84,118),'distance: 75.8023746329889,'relative_loc: (-11, 75),'window': None})>
+2020-01-19 19:49:08,497 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 51, 'mod': 0, 'scancode': 4, 'window': None})>
+2020-01-19 19:49:08,577 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2020-01-19 19:49:08,579 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (153, 139), 'rel': (52, 29), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,596 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (164, 147), 'rel': (11, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,613 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (167, 149), 'rel': (3, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,687 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (187, 155), 'rel': (20, 6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,787 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (189, 159), 'rel': (2, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,805 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (191, 168), 'rel': (2, 9), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,822 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (194, 187), 'rel': (3, 19), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,839 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (197, 203), 'rel': (3, 16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,856 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (200, 214), 'rel': (3, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,873 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (202, 224), 'rel': (2, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,890 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (205, 234), 'rel': (3, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,907 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (207, 240), 'rel': (2, 6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,923 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (207, 241), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,975 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (210, 243), 'rel': (3, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:08,991 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (223, 248), 'rel': (13, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,009 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (245, 255), 'rel': (22, 7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,026 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (267, 260), 'rel': (22, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,044 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (310, 270), 'rel': (43, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,061 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (368, 281), 'rel': (58, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,078 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (416, 290), 'rel': (48, 9), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,095 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (460, 302), 'rel': (44, 12), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,112 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (650, 392), 'rel': (190, 90), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,129 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (789, 467), 'rel': (139, 75), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,146 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (848, 514), 'rel': (59, 47), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,163 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (858, 525), 'rel': (10, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,231 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (858, 526), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,248 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (855, 526), 'rel': (-2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,266 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (847, 525), 'rel': (-8, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,282 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (840, 522), 'rel': (-7, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,300 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (827, 516), 'rel': (-13, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,317 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (793, 493), 'rel': (-34, -23), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,333 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (752, 455), 'rel': (-41, -38), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,351 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (710, 409), 'rel': (-32, -35), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,368 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (689, 389), 'rel': (-21, -20), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,386 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (681, 384), 'rel': (-8, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,403 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (676, 380), 'rel': (-5, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,419 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (675, 380), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:09,587 - BDM-WAM 1579463341.3733535 - INFO - <Event(5-MouseButtonDown {'pos': (675, 380), 'button': 1, 'window': None})>
+2020-01-19 19:49:09,587 - BDM-WAM 1579463341.3733535 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2020-01-19 19:49:09,903 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'hit_conf': 3 })>
+2020-01-19 19:49:10,075 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'reward_conf': 3 })>
+2020-01-19 19:49:10,250 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'player_skill': 3 })>
+2020-01-19 19:49:10,250 - BDM-WAM 1579463341.3733535 - INFO - <Event(9.1-TrueHit {'pos': (675,380),'distance: 41.43669871020132,'relative_loc: (39, 14),'window': None})>
+2020-01-19 19:49:10,251 - BDM-WAM 1579463341.3733535 - INFO - <Event(11-Score {score_inc: 5,score: 8})>
+2020-01-19 19:49:10,434 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 51, 'mod': 0, 'scancode': 4, 'window': None})>
+2020-01-19 19:49:10,537 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (179,169)})>
+2020-01-19 19:49:10,590 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (675, 384), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,740 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (670, 390), 'rel': (-5, 6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,757 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (662, 399), 'rel': (-8, 9), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,774 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (652, 413), 'rel': (-10, 14), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,791 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (642, 428), 'rel': (-10, 15), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,808 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (636, 437), 'rel': (-5, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,825 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (635, 440), 'rel': (-1, 3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,842 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (635, 441), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,911 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (626, 444), 'rel': (-9, 3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,928 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (598, 450), 'rel': (-28, 6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,945 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (555, 450), 'rel': (-43, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,962 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (513, 441), 'rel': (-42, -9), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,979 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (492, 431), 'rel': (-21, -10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:10,996 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (481, 423), 'rel': (-11, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,014 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (460, 405), 'rel': (-21, -18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,031 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (460, 404), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,047 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (458, 397), 'rel': (-2, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,064 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (452, 379), 'rel': (-6, -18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,081 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (441, 358), 'rel': (-11, -21), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,098 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (418, 321), 'rel': (-23, -37), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,115 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (404, 305), 'rel': (-14, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,200 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (396, 298), 'rel': (-8, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,219 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (349, 274), 'rel': (-47, -24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,235 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (291, 242), 'rel': (-58, -32), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,252 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (256, 220), 'rel': (-35, -22), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,268 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (242, 215), 'rel': (-11, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,322 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (240, 214), 'rel': (-2, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,338 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (233, 213), 'rel': (-7, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,354 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (226, 213), 'rel': (-7, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,371 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (225, 213), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:11,488 - BDM-WAM 1579463341.3733535 - INFO - <Event(5-MouseButtonDown {'pos': (225, 213), 'button': 1, 'window': None})>
+2020-01-19 19:49:11,488 - BDM-WAM 1579463341.3733535 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2020-01-19 19:49:11,738 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'hit_conf': 3 })>
+2020-01-19 19:49:11,915 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'reward_conf': 3 })>
+2020-01-19 19:49:12,080 - BDM-WAM 1579463341.3733535 - INFO - <Event(7-Rate {'player_skill': 3 })>
+2020-01-19 19:49:12,080 - BDM-WAM 1579463341.3733535 - INFO - <Event(9.1-TrueHit {'pos': (225,213),'distance: 63.655321851358195,'relative_loc: (46, 44),'window': None})>
+2020-01-19 19:49:12,080 - BDM-WAM 1579463341.3733535 - INFO - <Event(11-Score {score_inc: 3,score: 11})>
+2020-01-19 19:49:12,205 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 51, 'mod': 0, 'scancode': 4, 'window': None})>
+2020-01-19 19:49:12,296 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (179,169)})>
+2020-01-19 19:49:12,298 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (248, 208), 'rel': (23, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,359 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (288, 201), 'rel': (40, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,361 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (289, 201), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,414 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (476, 300), 'rel': (187, 99), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,417 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (487, 310), 'rel': (11, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,462 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (621, 419), 'rel': (134, 109), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,464 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (621, 420), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,481 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (624, 422), 'rel': (3, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,498 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (627, 426), 'rel': (3, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,515 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (632, 433), 'rel': (5, 7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,532 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (653, 461), 'rel': (21, 28), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,549 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (725, 517), 'rel': (72, 56), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,566 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (791, 564), 'rel': (66, 47), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,584 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (855, 604), 'rel': (56, 35), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,600 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (910, 639), 'rel': (55, 35), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,617 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (956, 665), 'rel': (46, 26), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,634 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (988, 686), 'rel': (32, 21), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,651 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (1001, 692), 'rel': (13, 6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,805 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (972, 660), 'rel': (-29, -32), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,821 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (883, 585), 'rel': (-89, -75), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,838 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (792, 505), 'rel': (-91, -80), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,855 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (726, 455), 'rel': (-66, -50), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:12,872 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (722, 439), 'rel': (-4, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,042 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (720, 436), 'rel': (-2, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,060 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (692, 417), 'rel': (-28, -19), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,077 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (621, 389), 'rel': (-71, -28), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,094 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (518, 357), 'rel': (-103, -32), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,111 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (398, 315), 'rel': (-120, -42), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,128 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (312, 274), 'rel': (-86, -41), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,145 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (260, 245), 'rel': (-52, -29), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,162 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (253, 239), 'rel': (-7, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,331 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (255, 239), 'rel': (2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,348 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (300, 236), 'rel': (45, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,365 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (333, 238), 'rel': (33, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,382 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (349, 241), 'rel': (16, 3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,398 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (385, 251), 'rel': (36, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,416 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (445, 275), 'rel': (60, 24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,464 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (561, 361), 'rel': (116, 86), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,482 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (604, 403), 'rel': (43, 42), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,529 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (642, 441), 'rel': (38, 38), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,620 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2020-01-19 19:49:13,656 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (640, 443), 'rel': (-2, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,705 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (638, 445), 'rel': (-2, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:13,756 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (638, 446), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:14,832 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:14,947 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:14,977 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (658,232)})>
+2020-01-19 19:49:15,879 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:16,100 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:16,271 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:16,360 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (95,43)})>
+2020-01-19 19:49:16,478 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:16,875 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (647, 457), 'rel': (9, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,892 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (692, 515), 'rel': (45, 58), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,910 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (662, 533), 'rel': (-30, 18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,926 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (657, 530), 'rel': (-5, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,943 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (671, 544), 'rel': (14, 14), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,960 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (671, 545), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,977 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (655, 525), 'rel': (-16, -20), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:16,994 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (652, 523), 'rel': (-3, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:17,011 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (655, 525), 'rel': (3, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:17,028 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (656, 529), 'rel': (1, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:17,045 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (652, 524), 'rel': (-4, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:17,062 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (646, 517), 'rel': (-6, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:17,711 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2020-01-19 19:49:17,838 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:17,934 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:18,357 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:18,989 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:19,070 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2020-01-19 19:49:19,214 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:19,491 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:20,444 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (404,479)})>
+2020-01-19 19:49:20,996 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:21,147 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:21,788 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2020-01-19 19:49:22,285 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:22,456 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-19 19:49:23,156 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2020-01-19 19:49:23,468 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:23,638 - BDM-WAM 1579463341.3733535 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:23,861 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-19 19:49:23,963 - BDM-WAM 1579463341.3733535 - INFO - <Event(3-KeyUp {'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-19 19:49:24,493 - BDM-WAM 1579463341.3733535 - INFO - <Event(10-MoleUp) {'loc': (95,43)})>
+2020-01-19 19:49:24,589 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (722, 220), 'rel': (76, -297), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:24,647 - BDM-WAM 1579463341.3733535 - INFO - <Event(4-MouseMotion {'pos': (1423, 0), 'rel': (701, -220), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-19 19:49:25,856 - BDM-WAM 1579463341.3733535 - INFO - <Event(12-Quit {})>

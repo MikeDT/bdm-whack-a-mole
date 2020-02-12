@@ -1,120 +1,314 @@
+# -*- coding: utf-8 -*-
+"""
+main
+====
+
+Primary module, contains the majority of the game code for the
+Whack a Mole game
+
+Attributes:
+    na
+
+Todo:
+    * fix pause between moles
+    * make the game constants a config read (and write to a log)
+    * sort check key event
+    * create agent class for check events etc.
+    * abstract the screen functionality to make the GameManager standalone
+    * sort all the doc strings
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
+
+@author: miketaylor
+"""
+
+
 import pygame
 import random
-import numpy as np
-from pygame import *
 from sound import SoundEffect
-from debug import Debugger
 from logger import WamLogger
+from scorer import Scorer, Drifting_Val
+from hit_checker import Hit_Checker
+import re
 
 
 class GameManager:
+    """
+    The primary class, which manages the game and the access to the relevant
+    other modules and classes
+
+    Attributes
+    ----------
+    na
+
+    Methods
+    -------
+    _get_hole_pos
+        Property method, imports the hole poositions from the file (NB they
+        reflect the image but do not dictate the image in the current
+        implementation)
+    _get_hole_centre
+        Property method, returns the hole centre positions (i.e. where the
+        middle of the mole is considered to be upon full emergence)
+    _get_pause_dict
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+    """
     def __init__(self):
+
         # Define constants
-        self.feedback = True
-        self.SCREEN_WIDTH = 800
+        self.SCREEN_WIDTH = 1505
         self.SCREEN_HEIGHT = 600
+        self.COMM_BAR_HEIGHT = 100
+        self.TWO_X_TWO_LEN = 480
+        self.TWO_X_TWO_LOC = (915, 58)
         self.FPS = 60
-        self.MOLE_WIDTH = 90
-        self.MOLE_HEIGHT = 81
+        self.MOLE_WIDTH = 90  # for animations
+        self.MOLE_HEIGHT = 81  # for animations
+        self.MOLE_RADIUS = 40  # for hit calcs
+        self.MARGIN_START = 10  # the margin adjustment for a mole (can be +/-)
         self.FONT_SIZE = 18
-        self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + 100 - 26
+        self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + self.COMM_BAR_HEIGHT - 26
         self.STAGE_SCORE_GAP = 4
         self.LEFT_MOUSE_BUTTON = 1
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
+
+        # Sets up logging
         self.wam_logger = WamLogger()
+
+        # Define file locations
+        self.intro_txt_file_loc = 'text\\intro.txt'
+        self.hole_pos_file_loc = 'config\\hole_positions.txt'
+        self.pause_info_file_loc = 'text\\pause_info.txt'
+        self.screen_img_file_loc = "images\\bg_2x2_v2_raw.png"
+        self.mole_img_file_loc = "images\\mole.png"
+        self.splash_img_file_loc = "images\\Splash_Screen.png"
+        self.end_img_file_loc = "images\\End_Screen.png"
+
+        # Initialize player's score, number of missed hits and stage data
+        self.feedback = True
         self.intro_complete = False
-        self.stage_time_change = False
-        # Initialize player's score, number of missed hits and stage
+        self.stage_time_change = True
+        self.demo_len = 5
+        self.stage, self.demo = 'Demo', True
+        self.stage_type = 'Standard'  # Standard or Attempts
         self.score = 0
         self.misses = 0
-        self.stage = 1
-        self.stage_type = 'Standard'  # Standard or Attempts
-        self.feedback_count = 0 
-        self.feedback_limit = 2
+        self.mole_count = 0  # moles hit in stage
+        self.feedback_count = 0  # iterations since last player feedback
+        self.feedback_limit = 1  # iterations per player feedback
+        self.update_count = 0  # iterations since last score update
+        self.update_delay = 0  # iterations per score update
+        self.stage_length = 10
+        self.stages = 3
+        self.stage_pts = [i for i in range(self.demo_len,
+                                           self.stages*self.stage_length +
+                                           self.demo_len,
+                                           self.stage_length)]
         # Initialize screen
-        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, 
-                                               self.SCREEN_HEIGHT + 100))
+        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
+                                               self.SCREEN_HEIGHT +
+                                               self.COMM_BAR_HEIGHT))
         pygame.display.set_caption(self.GAME_TITLE)
-        self.background = pygame.image.load("images/bg.png")
-        # Font object for displaying text
-        self.font_obj = pygame.font.SysFont("comicsansms", 20)
-        # Initialize the mole's sprite sheet
-        # 6 different states
-        sprite_sheet = pygame.image.load("images/mole.png")
+        self.background = pygame.image.load(self.screen_img_file_loc)
+        self.splash_page = pygame.image.load(self.splash_img_file_loc)
+        self.end_page = pygame.image.load(self.end_img_file_loc)
+        self.screen.fill([255, 255, 255])
+
+        # Create/Import the hole positions in background
+        self.hole_positions = self._get_hole_pos  # for the animation
+        self.hole_positions_centre = self._get_hole_cent  # for the hit centre
+
+        # Initialize the mole's sprite sheet (6 different states)
+        sprite_sheet = pygame.image.load(self.mole_img_file_loc)
         self.mole = []
+#        self.mole.append(sprite_sheet.subsurface(1, 0, 90, 81))  # no mole
         self.mole.append(sprite_sheet.subsurface(169, 0, 90, 81))
         self.mole.append(sprite_sheet.subsurface(309, 0, 90, 81))
         self.mole.append(sprite_sheet.subsurface(449, 0, 90, 81))
         self.mole.append(sprite_sheet.subsurface(575, 0, 116, 81))
         self.mole.append(sprite_sheet.subsurface(717, 0, 116, 81))
         self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
-        # Positions of the holes in background
-        self.hole_positions = []
-        self.hole_positions.append((381, 295))
-        self.hole_positions.append((119, 366))
-        self.hole_positions.append((179, 169))
-        self.hole_positions.append((404, 479))
-        self.hole_positions.append((636, 366))
-        self.hole_positions.append((658, 232))
-        self.hole_positions.append((464, 119))
-        self.hole_positions.append((95, 43))
-        self.hole_positions.append((603, 11))
-        # Init debugger
-        self.debugger = Debugger("debug")
-        # Sound effects
-        self.soundEffect = SoundEffect()
-        self.paused = False
-        self.pause_list = [False, 'standard', 'rate_conf', 'rate_skill', 'rate_env']
 
+        # Initialise sound effects
+        self.sound_effect = SoundEffect()
+        self.pause_reason = False
+        self.pause_list = [False, 'standard', '2x2', 'stage']
+        self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
+                               '53': '5', '54': '6', '55': '7', '56': '8',
+                               '57': '9'}
+
+        # Import text information
+        self.font_obj = pygame.font.SysFont("comicsansms", 20)
+        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
+        self.pause_reason_dict = self._get_pause_dict
+
+        # Initialise the score adjustment functions and data
+        self.scorer = Scorer()
+
+        # Set the paramters for the game
+        self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
+        self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
+        self.hit_type = 'Binomial'  # Standard, Binomial
+        self.margin = Drifting_Val(self.MARGIN_START, drift_type='static')
+        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
+        self.last_rate = False
+
+        # Initialise Timing
+        self.post_whack_interval = 0.1
+        self.mole_pause_interval = 1
+        self.animation_interval = 0.1
+        self.mole_down_interval = 0.1
+
+        # Log all the initial conditions
+        self.log_init_conditions()
+
+    def log_init_conditions(self):
+        self.wam_logger.log_class_dict('game_manager', self.__dict__)
+        self.wam_logger.log_class_dict('sounds',
+                                       self.sound_effect.__dict__)
+        self.wam_logger.log_class_dict('margin',
+                                       self.margin.__dict__)
+        self.wam_logger.log_class_dict('hit_checker',
+                                       self.hit_checker.__dict__)
+        self.wam_logger.log_class_dict('scorer',
+                                       self.scorer.__dict__)   
+
+    @property
+    def _get_hole_pos(self):
+        '''
+        Property method, imports the hole poositions from the file
+        (NB they reflect the image but do not dictate the image in the
+        current implementation)
+
+        Parameters
+        ----------
+        self : self
+
+        Raises
+        ------
+        OSError
+            If the file cannot be found
+
+        Returns
+        -------
+        hole_pos_lst
+            A list of hole position lists
+        '''
+        try:
+            hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
+            def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
+        except OSError:
+            print("get_hole_pos function did not find the hole position file")
+        hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
+        hole_pos_lst = [[int(x) for x in sub_lst] for
+                        sub_lst in hole_pos_lst]
+
+        return hole_pos_lst
+
+    @property
+    def _get_hole_cent(self):
+        '''
+        Property method, returns the hole centre positions (i.e. where the
+        middle of the mole is considered to be upon full emergence)
+
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        hole_pos_centre: list
+            list of the hole positions
+        '''
+        hole_pos_centre = [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
+                           (x, y) in self.hole_positions]
+        return hole_pos_centre
+
+    @property
+    def _get_pause_dict(self):
+        '''
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+
+        Parameters
+        ----------
+        self : self
+
+        Raises
+        ------
+        OSError
+            If the file cannot be found
+
+        Returns
+        -------
+        pause_dict: dict
+            dictionary of pause conditions and pause text
+        '''
+        try:
+            pause_list = open(self.pause_info_file_loc, 'r').read().split('\n')
+        except OSError:
+            print("get_hole_pos function did not find the hole position file")
+        pause_list = [x.split(' | ') for x in pause_list]
+        pause_dict = {x[0]: x[1] for x in pause_list}
+        return pause_dict
+
+    @property
     @staticmethod
-    def text_objects(text, font):
-        text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) = black
+    def _text_objects(text, font):
+        '''
+        Property method, imports a text file and creates a dictionary for the
+        text displayed under given game pause conditions
+
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        pause_dict: dict
+            dictionary of pause conditions and pause text
+        '''
+        text_surface = font.render(text, True, (0, 0, 0))  # (0,0,0) = black
         return text_surface, text_surface.get_rect()
 
-#    def write_message(self, message, loc_x, loc_y):
-#        text = self.font_obj.render(message, True, (255, 255, 255))
-#        text_pos = text.get_rect()
-#        text_pos.centerx = loc_x
-#        text_pos.centery = loc_y
-#        self.screen.blit(text, text_pos)
-#        pygame.display.update()
-
     def intro(self):
-        while self.intro_complete is False:
-            self.write_text('Welcome to the Brain Decision Modelling Lab' + 
-                            'Whack-A-Mole Game!',
-                            location_y= self.SCREEN_HEIGHT/2 - 80)
-            self.write_text('Using the touch screen your task is to whack ' +
-                            '(touch on screen) as many moles as possible',
-                            location_y= self.SCREEN_HEIGHT / 2 - 40)
-            self.write_text('You will score points for each mole you hit, ' +
-                            'the more accurate the more points',
-                            location_y= self.SCREEN_HEIGHT / 2)
-            self.write_text("But sometimes the environment doesn't behave...",
-                            location_y= self.SCREEN_HEIGHT / 2 + 40)
-            self.write_text('... and you will score more or less than you ' 
-                            'deserve',
-                            location_y= self.SCREEN_HEIGHT / 2 + 80)
-            self.write_text("To continue press 'c', to quit press 'q'",
-                            location_y= self.SCREEN_HEIGHT / 2 + 120)
-            self.write_text("If you need to pause while playing press 'p'",
-                            location_y= self.SCREEN_HEIGHT / 2 + 180)
+        '''
+        Runs the game intro screen (basically communicates the text)
 
+        Parameters
+        ----------
+        self : self
+        '''
+        self.screen.blit(self.splash_page, (0, 0))
+        pygame.display.update()
+        while self.intro_complete is False:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.wam_logger.log_end()
                     pygame.quit()
-                    quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_c:
                         self.intro_complete = True
                     elif event.key == pygame.K_q:
-                        self.wam_logger.log_end()
-                        pygame.quit()
-                        quit()
+                        mods = pygame.key.get_mods()
+                        if mods & pygame.KMOD_CTRL:
+                            pygame.quit()
+                            self.wam_logger.log_end()
+                            
+    def end(self):
+        self.screen.fill([255, 255, 255])
+        self.screen.blit(self.end_page, (0, 0))
+#        pygame.display.update()
+        pygame.display.flip()
 
-    def write_text(self, string, colour = (255, 255, 255),
-                   location_x = None, location_y = None):
+    def write_text(self, string, colour=(0, 0, 0),
+                   location_x=None, location_y=None):
+        """
+        Writes text to the screen, defaulting to the centre
+        """
         if location_x is None:
             location_x = self.background.get_rect().centerx
         if location_y is None:
@@ -125,87 +319,143 @@ class GameManager:
         text_pos.centery = location_y
         self.screen.blit(text, text_pos)
         pygame.display.update()
-    
-    def rate(self,action): 
+
+    def check_key_event(self, event=False):
+        """
+        Monitors the game for events
+        """
+        if event:
+            event_list = [] + [event]
+        else:
+            event_list = pygame.event.get()
+        for event in event_list:
+            self.current_event = event
+            if self.current_event.type == pygame.QUIT:
+                self.loop = False
+                self.wam_logger.log_end()
+                pygame.quit()
+            if self.current_event.type == pygame.KEYDOWN:
+                if self.current_event.key == pygame.K_c:
+                    self.pause_reason = False
+                elif self.current_event.key == pygame.K_p:
+                    self.pause_reason = 'standard'
+                    self.pause()
+                elif self.current_event.key == pygame.K_q:
+                    mods = pygame.key.get_mods()
+                    if mods & pygame.KMOD_CTRL:
+                        pygame.quit()
+                        self.wam_logger.log_end()
+
+    def check_events_rate(self, action):
+        """
+        Monitors the game for player feedback provided via keys
+        """
         for event in pygame.event.get():
+            self.curr_event = event
             if event.type == pygame.QUIT:
                 self.wam_logger.log_end()
                 pygame.quit()
-                quit()
             if event.type == pygame.KEYDOWN:
-                if event.key in [pygame.K_1, 
-                                 pygame.K_2, 
-                                 pygame.K_3, 
-                                 pygame.K_4, 
-                                 pygame.K_5, 
-                                 pygame.K_6, 
+                if event.key in [pygame.K_1,
+                                 pygame.K_2,
+                                 pygame.K_3,
+                                 pygame.K_4,
+                                 pygame.K_5,
+                                 pygame.K_6,
                                  pygame.K_7]:
-                    self.wam_logger.log_it("<Event(7-Rate {'" +
-                                           "': " + action[0] +
-                                           str(event.key) + " })>")
-                    self.paused = action[1]    
+                    event_act = self.event_key_dict[str(event.key)]
+                    self.wam_logger.log_event_rate(action[0], event_act)
+                    self.pause_reason = action[1]
                 elif event.key == pygame.K_q:
-                    self.wam_logger.log_end()
-                    pygame.quit()
-                    quit()
-        
-    def pause(self):
-        self.wam_logger.log_it("<Event(8-Pause {'reason': " + 
-                               str(self.pause) + " })>")
-        while self.paused != False:
-            if self.paused == 'pause':
-                self.write_text('Game Paused! Press "c" to continue, or "q" ' +
-                                'to quit')
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.wam_logger.log_end()
+                    mods = pygame.key.get_mods()
+                    if mods & pygame.KMOD_CTRL:
                         pygame.quit()
-                        quit()
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_c:
-                            self.intro_complete = True
-                        elif event.key == pygame.K_q:
-                            self.wam_logger.log_end()
-                            pygame.quit()
-                            quit()
+                        self.wam_logger.log_end()
 
-            elif self.paused == 'hit_conf':
-                self.write_text('Please rate your confidence in a hit between 1 (lowest) and 7 (highest)',
-                                location_y = self.SCREEN_HEIGHT/2 - 80)
-                self.rate(('hit_conf','reward_conf'))
-            elif self.paused == 'reward_conf':
-                self.write_text('Please rate your confidence in a reward between 1 (lowest) and 7 (highest)',
-                                location_y = self.SCREEN_HEIGHT/2 - 40)
-                self.rate(('reward_conf','player_skill'))                 
-            elif self.paused == 'player_skill': 
-                self.write_text('Please rate your skill in the game between 1 (lowest) and 7 (highest)',
-                                location_y = self.SCREEN_HEIGHT/2)
-                self.rate(('player_skill',False))    
+    def check_rate_in_grid(self, mouse_pos):
+        if (
+            (mouse_pos[0] > self.TWO_X_TWO_LOC[0]) and
+            (mouse_pos[0] < self.TWO_X_TWO_LOC[0] + self.TWO_X_TWO_LEN) and
+            (mouse_pos[1] > self.TWO_X_TWO_LOC[1]) and
+            (mouse_pos[1] < self.TWO_X_TWO_LOC[1] + self.TWO_X_TWO_LEN)
+        ):
+            return True
+        else:
+            return False
 
-                
-    # Calculate the player stage according to his current score &
-    # the STAGE_SCORE_GAP constant
-    def get_player_stage(self):
+    def two_by_two_rate(self):
+        """
+        refactor check mouse event into two, i.e. mole hit check or 2x2
+        then take xy coordinates, only unpause if the spot is given in the grid
+        cast te confidence etc as part of the hit info into the logger
+        """
+        for event in pygame.event.get():
+            if (
+                event.type == pygame.MOUSEBUTTONDOWN and
+                event.button == self.LEFT_MOUSE_BUTTON
+            ):
+                mouse_pos = pygame.mouse.get_pos()
+                if self.check_rate_in_grid(mouse_pos):
+                    self.wam_logger.log_2x2_rate(mouse_pos, self.TWO_X_TWO_LOC,
+                                                 self.TWO_X_TWO_LEN)
+                    self.sound_effect.play_fire()
+                    self.pause_reason = False
+                    self.last_rate = mouse_pos
+
+    def pause(self):
+        while self.pause_reason:
+            if self.pause_reason in ['standard', 'stage', 'demo']:
+                if self.pause_reason == 'stage':
+                    if self.mole_count == self.stage_pts[-1]:
+                        self.end()
+                    else:
+                        self.write_text(self.pause_reason_dict[self.pause_reason],
+                                        location_y=self.SCREEN_HEIGHT + 40)
+                    self.check_key_event()
+                elif self.pause_reason == 'standard':
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    location_y=self.SCREEN_HEIGHT + 40)
+                    self.check_key_event()
+                else:
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    location_y=self.SCREEN_HEIGHT + 40)
+                    self.check_key_event()
+            elif self.pause_reason == '2x2':
+                self.write_text(self.pause_reason_dict[self.pause_reason],
+                                location_y=self.SCREEN_HEIGHT + 10)
+                self.two_by_two_rate()
+
+    def set_player_stage(self):
+        """
+        Sets the game stage based upon the stage type and pause_reason
+        """
         if self.stage_type == 'Standard':
-            new_stage = 1 + int(self.score / self.STAGE_SCORE_GAP)
-            if new_stage != self.stage:
-                # if player get a new stage play this sound
-                self.soundEffect.play_stage_up()
-                self.paused = 'hit_conf'
-                self.pause(pause_reason = 'feedback')
-            return 1 + int(self.score / self.STAGE_SCORE_GAP)
-        elif self.stage_type == 'Time':
-            if (self.misses + self.score) % 25 == 0:
-                return 1 + self.stage
-            else:
-                return self.stage
+            self.update()
+            if (self.mole_count) in self.stage_pts:
+                if self.demo:
+                    self.misses = 0
+                    self.score = 0
+                    self.stage = 1
+                    self.pause_reason = 'demo'
+                    self.demo = False
+                    self.pause()
+                else:
+                    self.sound_effect.play_stage_up()
+                    self.pause_reason = 'stage'
+                    self.stage += 1
+                    self.pause()
 
-
-    # Get the new duration between the time the mole pop up and down the holes
-    # It's in inverse ratio to the player's current stage
     def get_interval_by_stage(self, initial_interval):
+        """
+        Gets the game interval (i.e. the time between mole pop ups from holes)
+        period by stage
+        """
+        if self.stage == 'Demo':
+            stage = 1
+        else:
+            stage = self.stage
         if self.stage_time_change:
-            new_interval = initial_interval - self.stage * 0.15
+            new_interval = initial_interval - stage * 0.15
             if new_interval > 0:
                 return new_interval
             else:
@@ -213,50 +463,41 @@ class GameManager:
         else:
             return 1.0
 
-    # Check whether the mouse click hit the mole or not
-    def is_mole_hit(self, mouse_position, current_hole_position):
-        mouse_x = mouse_position[0]
-        mouse_y = mouse_position[1]
-        current_hole_x = current_hole_position[0]
-        current_hole_y = current_hole_position[1]
-        self.feedback_count +=1
+    def get_distance(self, xy, frame_num):
+        current_hole_x = self.hole_positions_centre[frame_num][0]
+        current_hole_y = self.hole_positions_centre[frame_num][1]
+        distance = ((xy[0] - current_hole_x)**2 +
+                    (xy[1] - current_hole_y)**2)**0.5
+        return distance
+
+    def get_relative_loc(self, xy, frame_num):
+        current_hole_x = self.hole_positions_centre[frame_num][0]
+        current_hole_y = self.hole_positions_centre[frame_num][1]
+        relative_loc = (xy[0] - current_hole_x, xy[1] - current_hole_y)
+        return relative_loc
+
+    def check_feedback(self):
         if self.feedback_count == self.feedback_limit:
             self.feedback_count = 0
-            self.paused = 'hit_conf'
+            self.pause_reason = '2x2'
             self.pause()
-            if ((mouse_x > current_hole_x) and
-                    (mouse_x < current_hole_x + self.MOLE_WIDTH) and
-                    (mouse_y > current_hole_y) and
-                    (mouse_y < current_hole_y + self.MOLE_HEIGHT)):
-                    if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                        self.wam_logger.log_it("<Event(9.1-True Hit {'pos': (" +
-                                               str(mouse_x) + "," + 
-                                               str(mouse_y) +
-                                               "), 'window': None})>")
-                        return True
-                    else:
-                        self.wam_logger.log_it("<Event(9.2-Fake Miss {'pos': (" +
-                                               str(mouse_x)
-                                               + "," + str(mouse_y) + 
-                                               "), 'window': None})>")
-                        return False
-            else:
-                if (np.random.binomial(1, 0.5, 1)[0]) > 0:
-                    self.wam_logger.log_it("<Event(9.3-Fake Hit {'pos': (" + 
-                                           str(mouse_x) +
-                                           "," + str(mouse_y) +
-                                           "), 'window': None})>")
-                    return True
-                self.wam_logger.log_it("<Event(9.4-True Miss {'pos': (" +
-                                       str(mouse_x) + "," + 
-                                       str(mouse_y) + "), 'window': None})>")
-                return False
 
+    def score_update_check(self):
+        """
+        Checks whether an update should be performed
+        """
+        if self.demo:
+            self.update()
+        elif self.update_count == self.update_delay:
+            self.update()
+        else:
+            self.update_count += 1
 
-
-    # Update the game states, re-calculate the player's score, misses, stage
-    def update(self):
-        # Update the player's score
+    def update(self, really_update=True):
+        """
+        Updates the game's stage, score, misses, previous 2x2 rating on the gui
+        """
+        # Update gui with player's score
         current_score_string = "SCORE: " + str(self.score)
         score_text = self.font_obj.render(current_score_string,
                                           True, (1, 1, 1))
@@ -264,7 +505,8 @@ class GameManager:
         score_text_pos.centerx = self.background.get_rect().centerx
         score_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(score_text, score_text_pos)
-        # Update the player's misses
+
+        # Update gui with player's misses
         current_misses_string = "MISSES: " + str(self.misses)
         misses_text = self.font_obj.render(current_misses_string,
                                            True, (1, 1, 1))
@@ -272,7 +514,8 @@ class GameManager:
         misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
         misses_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(misses_text, misses_text_pos)
-        # Update the player's stage
+
+        # Update gui with player's stage
         current_stage_string = "STAGE: " + str(self.stage)
         stage_text = self.font_obj.render(current_stage_string,
                                           True, (1, 1, 1))
@@ -281,95 +524,218 @@ class GameManager:
         stage_text_pos.centery = self.FONT_TOP_MARGIN
         self.screen.blit(stage_text, stage_text_pos)
 
-    # Start the game's main loop
-    # Contains some logic for handling animations, mole hit events, etc..
-    def start(self):
+        # 2x2 rating persistence
+        if self.last_rate:
+            self.write_text('X', (255, 0, 0),
+                            self.last_rate[0], self.last_rate[1])
+
+    def get_agent_mouse_pos(self, human=True):
+        if human:
+            pygame.mouse.get_pos()
+        else:
+            pass
+
+    def mole_hit(self, num, left, mole_is_down, interval, frame_num):
+        num = 3
+        left = 14
+        mole_is_down = False
+        interval = 0
+        score_inc = self.scorer.get_score(self.distance)
+        self.sound_effect.stop_pop()
+        self.score += score_inc
+        self.wam_logger.log_score(score_inc, self.score)
+        self.mole_count += 1
+        if self.feedback:
+            self.sound_effect.play_hurt()
+        return num, left, mole_is_down, interval, frame_num
+
+    def check_mouse_event(self, event, num, left, mole_is_down,
+                          interval, frame_num):
+        """
+        Checks whether a couse event has resulted in a mole hit
+        """
+        if (
+            event.type == pygame.MOUSEBUTTONDOWN and
+            event.button == self.LEFT_MOUSE_BUTTON
+        ):
+            self.distance = self.get_distance(pygame.mouse.get_pos(),
+                                              frame_num)
+            self.relative_loc = self.get_relative_loc(pygame.mouse.get_pos(),
+                                                      frame_num)
+            self.sound_effect.play_fire()
+            self.feedback_count += 1
+            self.check_feedback()
+            self.result = self.hit_checker.check_mole_hit(num,
+                                                          left,
+                                                          self.distance,
+                                                          self.margin.drift_iter)
+            if self.result[2]:  # the hit feedback
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.mole_hit(num, left, mole_is_down,
+                                            interval, frame_num)
+            else:
+                self.misses += 1
+                self.mole_count += 1
+            self.wam_logger.log_hit_result(self.result,
+                                           self.hole_positions[frame_num],
+                                           self.distance, self.relative_loc)
+            self.score_update_check()
+            self.set_player_stage()
+        return num, left, mole_is_down, interval, frame_num
+
+    def pop_mole(self, num, mole_is_down, interval, frame_num):
+        self.screen.blit(self.background, (0, 0))
+        self.score_update_check()
+        num = 0
+        mole_is_down = False
+        interval = 0.5
+        frame_num = random.randint(0, 8)
+        self.wam_logger.log_mole_event(self.hole_positions[frame_num])
+        return num, mole_is_down, interval, frame_num
+
+    def show_mole_frame(self, num, frame_num, left):
+        '''
+        Shows the specific mole animation frame at a given hole position
+
+        Parameters
+        ----------
+        tbd : to be reworked
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        tbd : to be reworked
+        '''
+        pic = self.mole[num]
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(pic,
+                         (self.hole_positions[frame_num][0] - left,
+                          self.hole_positions[frame_num][1]))
+
+    def animate_mole(self, num, left, mole_is_down, interval,
+                     frame_num, initial_interval, cycle_time, clock):
+        '''
+        Animates/governs the mole popping/whacking/dropping sequence
+
+        Parameters
+        ----------
+        tbd : to be reworked
+
+        Raises
+        ------
+        na
+
+        Returns
+        -------
+        tbd : to be reworked
+        '''
+        self.show_mole_frame(num, frame_num, left)
+        self.score_update_check()
+        if mole_is_down is False:
+            num += 1
+        else:
+            num -= 1
+        if num == 4:
+            interval = self.post_whack_interval
+        elif num == 3:
+            num -= 1
+            mole_is_down = True
+            self.sound_effect.play_pop()
+            interval = self.mole_pause_interval  # self.get_interval_by_stage(initial_interval)
+        else:
+            interval = self.animation_interval
+        cycle_time = 0
+        return (num, left, mole_is_down,
+                interval, frame_num, initial_interval,
+                cycle_time, clock)
+
+    def create_moles(self):
+        """
+        Creates a set of moles
+        """
+        for i in range(len(self.mole)):
+            self.mole[i].set_colorkey((0, 0, 0))
+            self.mole[i] = self.mole[i].convert_alpha()
+
+    def play_game(self):
+        """
+        Play the whack a mole game
+        """
+        # Time control variables
         cycle_time = 0
         num = -1
         loop = True
-        is_down = False
+        mole_is_down = False
         interval = 0.1
         initial_interval = 1
         frame_num = 0
         left = 0
-        # Time control variables
         clock = pygame.time.Clock()
-
-        for i in range(len(self.mole)):
-            self.mole[i].set_colorkey((0, 0, 0))
-            self.mole[i] = self.mole[i].convert_alpha()
+        self.create_moles()
         while loop:
+
+            # log game events, and check whether key or mouse
+            # events have occurred (and react appropriately)
             for event in pygame.event.get():
-                self.wam_logger.log_it(event)
+                self.wam_logger.log_pygame_event(event)
                 if self.intro_complete is False:
                     self.intro()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_p:
-                        self.paused = 'pause'
-                        self.pause()
-                    if event.key == pygame.K_q:
-                        pygame.quit()
-                        quit()
                 if event.type == pygame.QUIT:
                     loop = False
-                if (event.type == pygame.MOUSEBUTTONDOWN and
-                    event.button == self.LEFT_MOUSE_BUTTON):
-                    self.soundEffect.play_fire()
-                    if (self.is_mole_hit(pygame.mouse.get_pos(),
-                                        self.hole_positions[frame_num]) and
-                                        num > 0 and left == 0):
-                        num = 3
-                        left = 14
-                        is_down = False
-                        interval = 0
-                        self.score += 1  
-                        self.stage = self.get_player_stage()
-                        # Stop popping sound effect
-                        self.soundEffect.stop_pop()
-                        # Play hurt sound
-                        if self.feedback:
-                           self.soundEffect.play_hurt()
-                        self.update()
-                    else:
-                        self.misses += 1
-                        self.update()
+                self.check_key_event(event)
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.check_mouse_event(event,
+                                                     num,
+                                                     left,
+                                                     mole_is_down,
+                                                     interval,
+                                                     frame_num)
 
-            if num > 5:
+            # refreshes screen at the point of mole popping
+            if num > 5:       # 5
                 self.screen.blit(self.background, (0, 0))
-                self.update()
+                self.score_update_check()
                 num = -1
                 left = 0
 
+            # pops the mole, if it's time
             if num == -1:
-                self.screen.blit(self.background, (0, 0))
-                self.update()
-                num = 0
-                is_down = False
-                interval = 0.5
-                frame_num = random.randint(0, 8)
+                (num,
+                 mole_is_down,
+                 interval,
+                 frame_num) = self.pop_mole(num,
+                                            mole_is_down,
+                                            interval,
+                                            frame_num)
 
+            # drops the mole, if it's time
             mil = clock.tick(self.FPS)
             sec = mil / 1000.0
             cycle_time += sec
             if cycle_time > interval:
-                pic = self.mole[num]
-                self.screen.blit(self.background, (0, 0))
-                self.screen.blit(pic,(self.hole_positions[frame_num][0] - left,
-                                      self.hole_positions[frame_num][1]))
-                self.update()
-                if is_down is False:
-                    num += 1
-                else:
-                    num -= 1
-                if num == 4:
-                    interval = 0.3
-                elif num == 3:
-                    num -= 1
-                    is_down = True
-                    self.soundEffect.play_pop()
-                    interval = self.get_interval_by_stage(initial_interval)  
-                else:
-                    interval = 0.1
-                cycle_time = 0
+                (num,
+                 left,
+                 mole_is_down,
+                 interval,
+                 frame_num,
+                 initial_interval,
+                 cycle_time,
+                 clock) = self.animate_mole(num,
+                                            left,
+                                            mole_is_down,
+                                            interval,
+                                            frame_num,
+                                            initial_interval,
+                                            cycle_time,
+                                            clock)
             # Update the display
             pygame.display.flip()

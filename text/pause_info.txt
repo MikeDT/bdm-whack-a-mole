@@ -1,0 +1,4 @@
+stage | Stage Complete! Press "c" to continue, or "ctrl q" to quit
+standard | Game Paused! Press "c" to continue, or "ctrl q" to quit
+demo | Demo Complete! Press "c" to start the real game, or "ctrl q" to quit
+2x2 | Please rate your confidence in skill and the environment using the 2d grid opposite

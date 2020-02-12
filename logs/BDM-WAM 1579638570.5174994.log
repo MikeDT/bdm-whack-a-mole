@@ -1,0 +1,370 @@
+2020-01-21 20:29:30,633 - BDM-WAM 1579638570.5174994 - INFO - <Event(17-VideoExpose {})>
+2020-01-21 20:29:31,513 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,514 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 20:29:31,514 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,514 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (494, 699), 'rel': (495, 700), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,514 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,565 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2020-01-21 20:29:31,608 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (603, 371), 'rel': (5, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,608 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,645 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 99, 'mod': 0, 'scancode': 46, 'window': None})>
+2020-01-21 20:29:31,646 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,646 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (603, 370), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,647 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,718 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (601, 370), 'rel': (-2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,719 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,734 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (589, 368), 'rel': (-12, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,734 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,752 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (577, 365), 'rel': (-12, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,752 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,768 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (571, 363), 'rel': (-6, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,768 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,830 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (505, 322), 'rel': (-66, -41), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,830 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,835 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (495, 314), 'rel': (-10, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,835 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,850 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (467, 290), 'rel': (-28, -24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,850 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,867 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (456, 282), 'rel': (-11, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,867 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,885 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (452, 279), 'rel': (-4, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,885 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:31,900 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (452, 278), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:31,900 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,138 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (449, 282), 'rel': (-3, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,138 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,155 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (445, 293), 'rel': (-4, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,155 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,174 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (442, 298), 'rel': (-3, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,174 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,189 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (442, 300), 'rel': (0, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,189 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,206 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 301), 'rel': (-1, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,206 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,225 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 303), 'rel': (0, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,225 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,241 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 305), 'rel': (0, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,241 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,259 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 309), 'rel': (0, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,259 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,275 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 312), 'rel': (0, 3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,276 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,293 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 317), 'rel': (0, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,293 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,309 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 321), 'rel': (0, 4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,309 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,326 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 322), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:32,326 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,410 - BDM-WAM 1579638570.5174994 - INFO - <Event(5-MouseButtonDown {'pos': (441, 322), 'button': 1, 'window': None})>
+2020-01-21 20:29:32,410 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:32,410 - BDM-WAM 1579638570.5174994 - INFO - <Event(8-Pause {'reason': hit_conf })>
+2020-01-21 20:29:32,794 - BDM-WAM 1579638570.5174994 - INFO - <Event(7-Rate {'hit_conf': 2 })>
+2020-01-21 20:29:32,970 - BDM-WAM 1579638570.5174994 - INFO - <Event(7-Rate {'reward_conf': 2 })>
+2020-01-21 20:29:33,140 - BDM-WAM 1579638570.5174994 - INFO - <Event(7-Rate {'player_skill': 2 })>
+2020-01-21 20:29:33,140 - BDM-WAM 1579638570.5174994 - INFO - <Event(9.1-TrueHit {'pos': (441,322),'distance: 65.79513659838392,'relative_loc: (60, 27),'window': None})>
+2020-01-21 20:29:33,141 - BDM-WAM 1579638570.5174994 - INFO - <Event(11-Score {score_inc: 4,score: 4})>
+2020-01-21 20:29:33,283 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 50, 'mod': 0, 'scancode': 3, 'window': None})>
+2020-01-21 20:29:33,283 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,283 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (455, 320), 'rel': (14, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,283 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,303 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (502, 328), 'rel': (47, 8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,304 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,317 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (510, 330), 'rel': (8, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,317 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,332 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (516, 331), 'rel': (5, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,332 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,350 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (517, 332), 'rel': (1, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,351 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,400 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (518, 332), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,400 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,418 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (520, 332), 'rel': (2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,419 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,483 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (532, 332), 'rel': (11, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,484 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,502 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (536, 332), 'rel': (4, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,502 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,645 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (404,479)})>
+2020-01-21 20:29:33,664 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (534, 332), 'rel': (-2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,664 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,682 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (533, 332), 'rel': (-1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,682 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,700 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (531, 333), 'rel': (-2, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,700 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,720 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (528, 334), 'rel': (-3, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,721 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,733 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (527, 335), 'rel': (-1, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,733 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,750 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (525, 336), 'rel': (-2, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,751 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,766 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (523, 338), 'rel': (-2, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,767 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:33,783 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (522, 339), 'rel': (-1, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:33,783 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:34,207 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (610, 254), 'rel': (88, -85), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:34,207 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:34,226 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (676, 210), 'rel': (66, -44), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:34,226 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:34,243 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (682, 210), 'rel': (6, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:34,243 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:34,838 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:34,839 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:34,923 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:34,923 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:35,126 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-21 20:29:35,126 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:35,610 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2020-01-21 20:29:35,863 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-21 20:29:35,863 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:36,443 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:36,443 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:36,562 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:36,563 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:37,540 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2020-01-21 20:29:37,727 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:37,727 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:37,830 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:37,830 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:37,898 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:37,899 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,001 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,001 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,054 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,054 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,155 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,156 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,209 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,209 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,312 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,312 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,347 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': 'p', 'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,348 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:38,448 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 112, 'mod': 0, 'scancode': 25, 'window': None})>
+2020-01-21 20:29:38,448 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,212 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (686, 208), 'rel': (4, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,212 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,216 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (732, 195), 'rel': (41, -11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,216 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,230 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1052, 135), 'rel': (320, -60), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,230 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,255 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1423, 64), 'rel': (371, -71), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,255 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,460 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (179,169)})>
+2020-01-21 20:29:39,949 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:39,950 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,950 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1354, 6), 'rel': (-69, -58), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,950 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,965 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1225, 72), 'rel': (-111, 56), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,965 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,982 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1132, 118), 'rel': (-93, 46), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,983 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:39,999 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1086, 142), 'rel': (-46, 24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:39,999 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,046 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1083, 143), 'rel': (-3, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,047 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,099 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1085, 142), 'rel': (2, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,099 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,159 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1109, 134), 'rel': (24, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,159 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,163 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1111, 133), 'rel': (1, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,164 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,179 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1120, 131), 'rel': (9, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,179 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,196 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1141, 124), 'rel': (21, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,196 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,213 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1168, 110), 'rel': (27, -14), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,214 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,231 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1208, 85), 'rel': (40, -25), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,231 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,247 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1237, 64), 'rel': (29, -21), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,247 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,265 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1260, 49), 'rel': (23, -15), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,265 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,281 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1269, 43), 'rel': (9, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,282 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,298 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1270, 42), 'rel': (1, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,298 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,314 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1270, 41), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,314 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,331 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1272, 41), 'rel': (2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,331 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,348 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1279, 37), 'rel': (7, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,348 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,365 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1290, 31), 'rel': (11, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,365 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,382 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1307, 23), 'rel': (17, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,383 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,399 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1340, 10), 'rel': (33, -13), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:40,400 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,417 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 20:29:40,417 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:40,870 - BDM-WAM 1579638570.5174994 - INFO - <Event(12-Quit {})>
+2020-01-21 20:29:40,870 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,158 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:41,158 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,158 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1348, 10), 'rel': (3, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,159 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,177 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1337, 17), 'rel': (-11, 7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,177 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,195 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1320, 28), 'rel': (-17, 11), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,195 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,212 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1294, 47), 'rel': (-26, 19), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,212 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,262 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1201, 115), 'rel': (-88, 66), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,263 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,265 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1195, 120), 'rel': (-6, 5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,265 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,281 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1172, 139), 'rel': (-23, 19), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,281 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,298 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1149, 159), 'rel': (-23, 20), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,299 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,315 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1122, 183), 'rel': (-27, 24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,315 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,370 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (780, 393), 'rel': (-342, 210), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,371 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,403 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2020-01-21 20:29:41,407 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (545, 507), 'rel': (-215, 106), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,407 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,422 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (528, 517), 'rel': (-17, 10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,422 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,440 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (528, 518), 'rel': (0, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,440 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,593 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (529, 518), 'rel': (1, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,593 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,610 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (541, 517), 'rel': (12, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,611 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,627 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (558, 517), 'rel': (17, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,627 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,644 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (571, 514), 'rel': (13, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,644 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,663 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (586, 510), 'rel': (15, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,663 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,678 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (602, 504), 'rel': (16, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,678 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,695 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (610, 499), 'rel': (8, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,695 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:41,712 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (614, 497), 'rel': (4, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:41,712 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:42,396 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': '', 'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-21 20:29:42,396 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:42,515 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (614, 496), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:42,515 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:42,532 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (616, 495), 'rel': (2, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:42,533 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:42,549 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (616, 494), 'rel': (0, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:42,549 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:42,959 - BDM-WAM 1579638570.5174994 - INFO - <Event(2-KeyDown {'unicode': '\x11', 'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-21 20:29:42,959 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,131 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 113, 'mod': 64, 'scancode': 16, 'window': None})>
+2020-01-21 20:29:43,132 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,289 - BDM-WAM 1579638570.5174994 - INFO - <Event(3-KeyUp {'key': 306, 'mod': 0, 'scancode': 29, 'window': None})>
+2020-01-21 20:29:43,290 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,290 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (503, 478), 'rel': (-113, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,291 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,325 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (658,232)})>
+2020-01-21 20:29:43,326 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (469, 472), 'rel': (-31, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,327 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,343 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (468, 471), 'rel': (-1, -1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,343 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,394 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (466, 471), 'rel': (-2, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,394 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,411 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (461, 472), 'rel': (-5, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,411 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,428 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (455, 473), 'rel': (-6, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,428 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,446 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (448, 474), 'rel': (-7, 1), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,446 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,463 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (441, 474), 'rel': (-7, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,463 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,480 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (435, 474), 'rel': (-6, 0), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,480 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,497 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (379, 457), 'rel': (-56, -17), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,497 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,516 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (185, 395), 'rel': (-194, -62), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,516 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,532 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (57, 349), 'rel': (-128, -46), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,532 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,559 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (0, 320), 'rel': (-45, -24), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:43,559 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:43,920 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 2})>
+2020-01-21 20:29:43,921 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,281 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (179,169)})>
+2020-01-21 20:29:45,683 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 6})>
+2020-01-21 20:29:45,683 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,872 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:45,872 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,873 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (545, 699), 'rel': (545, 379), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:45,873 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,894 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:45,895 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,898 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (624, 661), 'rel': (79, -38), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:45,898 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,909 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (702, 623), 'rel': (36, -18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:45,909 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,994 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 20:29:45,994 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,996 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:45,997 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:45,999 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1039, 321), 'rel': (314, -290), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:45,999 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,003 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1045, 305), 'rel': (5, -13), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,003 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,019 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1055, 280), 'rel': (10, -25), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,019 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,036 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1070, 249), 'rel': (13, -28), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,036 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,053 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1088, 210), 'rel': (18, -39), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,053 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,072 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1102, 173), 'rel': (14, -37), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,073 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,088 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1129, 128), 'rel': (20, -34), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,089 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,105 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1132, 110), 'rel': (3, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,105 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,122 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1134, 94), 'rel': (2, -16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,122 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,139 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1137, 77), 'rel': (3, -17), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,139 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,157 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1139, 64), 'rel': (2, -13), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,157 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,173 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1142, 54), 'rel': (3, -10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,173 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,190 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1142, 44), 'rel': (0, -10), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,191 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,207 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1142, 40), 'rel': (0, -4), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,207 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,224 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1143, 37), 'rel': (1, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,224 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,246 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1144, 35), 'rel': (1, -2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,246 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,276 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1148, 30), 'rel': (4, -5), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,276 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,293 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1155, 23), 'rel': (7, -7), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,294 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,315 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1163, 17), 'rel': (8, -6), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,315 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,329 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1169, 14), 'rel': (6, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,329 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,345 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1174, 11), 'rel': (5, -3), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,345 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,366 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1183, 3), 'rel': (9, -8), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:46,366 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:46,380 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 20:29:46,381 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,231 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2020-01-21 20:29:47,544 - BDM-WAM 1579638570.5174994 - INFO - <Event(12-Quit {})>
+2020-01-21 20:29:47,544 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,701 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 1, 'state': 1})>
+2020-01-21 20:29:47,701 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,702 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1418, 16), 'rel': (234, 14), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:47,702 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,704 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1418, 18), 'rel': (0, 2), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:47,704 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,721 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1421, 36), 'rel': (3, 18), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:47,721 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,737 - BDM-WAM 1579638570.5174994 - INFO - <Event(4-MouseMotion {'pos': (1423, 52), 'rel': (2, 16), 'buttons': (0, 0, 0), 'window': None})>
+2020-01-21 20:29:47,737 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:47,754 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 1})>
+2020-01-21 20:29:47,754 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure
+2020-01-21 20:29:49,147 - BDM-WAM 1579638570.5174994 - INFO - <Event(10-MoleUp) {'loc': (119,366)})>
+2020-01-21 20:29:49,532 - BDM-WAM 1579638570.5174994 - INFO - <Event(1-ActiveEvent {'gain': 0, 'state': 2})>
+2020-01-21 20:29:49,534 - BDM-WAM 1579638570.5174994 - INFO - Event Logging Failure

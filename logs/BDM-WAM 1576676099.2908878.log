@@ -1,0 +1,23 @@
+2019-12-18 13:34:59,487 - BDM-WAM 1576676099.2908878 - INFO - <Event(17-VideoExpose {})>
+2019-12-18 13:35:00,371 - BDM-WAM 1576676099.2908878 - INFO - <Event(1-ActiveEvent {'state': 1, 'gain': 0})>
+2019-12-18 13:35:00,372 - BDM-WAM 1576676099.2908878 - INFO - <Event(4-MouseMotion {'window': None, 'rel': (381, 325), 'buttons': (0, 0, 0), 'pos': (380, 324)})>
+2019-12-18 13:35:00,452 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (658,232)})>
+2019-12-18 13:35:00,514 - BDM-WAM 1576676099.2908878 - INFO - <Event(3-KeyUp {'scancode': 46, 'window': None, 'mod': 0, 'key': 99})>
+2019-12-18 13:35:01,127 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2019-12-18 13:35:02,156 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2019-12-18 13:35:03,278 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2019-12-18 13:35:04,289 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (119,366)})>
+2019-12-18 13:35:05,338 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (381,295)})>
+2019-12-18 13:35:06,393 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (464,119)})>
+2019-12-18 13:35:07,454 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (636,366)})>
+2019-12-18 13:35:08,542 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (603,11)})>
+2019-12-18 13:35:09,317 - BDM-WAM 1576676099.2908878 - INFO - <Event(2-KeyDown {'scancode': 46, 'mod': 0, 'unicode': 'c', 'window': None, 'key': 99})>
+2019-12-18 13:35:09,408 - BDM-WAM 1576676099.2908878 - INFO - <Event(3-KeyUp {'scancode': 46, 'window': None, 'mod': 0, 'key': 99})>
+2019-12-18 13:35:09,571 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (658,232)})>
+2019-12-18 13:35:10,443 - BDM-WAM 1576676099.2908878 - INFO - <Event(2-KeyDown {'scancode': 42, 'mod': 0, 'unicode': '', 'window': None, 'key': 304})>
+2019-12-18 13:35:10,549 - BDM-WAM 1576676099.2908878 - INFO - <Event(2-KeyDown {'scancode': 16, 'mod': 1, 'unicode': 'Q', 'window': None, 'key': 113})>
+2019-12-18 13:35:10,597 - BDM-WAM 1576676099.2908878 - INFO - <Event(10-MoleUp) {'loc': (119,366)})>
+2019-12-18 13:35:10,666 - BDM-WAM 1576676099.2908878 - INFO - <Event(3-KeyUp {'scancode': 42, 'window': None, 'mod': 0, 'key': 304})>
+2019-12-18 13:35:10,699 - BDM-WAM 1576676099.2908878 - INFO - <Event(3-KeyUp {'scancode': 16, 'window': None, 'mod': 0, 'key': 113})>
+2019-12-18 13:35:11,112 - BDM-WAM 1576676099.2908878 - INFO - <Event(2-KeyDown {'scancode': 29, 'mod': 0, 'unicode': '', 'window': None, 'key': 306})>
+2019-12-18 13:35:11,270 - BDM-WAM 1576676099.2908878 - INFO - <Event(2-KeyDown {'scancode': 16, 'mod': 64, 'unicode': '\x11', 'window': None, 'key': 113})>
