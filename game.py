@@ -10,13 +10,13 @@ Attributes:
     na
 
 Todo:
-    * Build the test over functionality
     * fix pause between moles
-    * make the game constants a config read
+    * make the game constants a config read (and write to a log)
     * sort check key event
     * create agent class for check events etc.
-    * abstract the screen functionality to make the GameManager
-        standalone
+    * abstract the screen functionality to make the GameManager standalone
+    * sort all the doc strings
+    
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
@@ -79,9 +79,9 @@ class GameManager:
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
         self.pause_info_file_loc = 'text\\pause_info.txt'
-        self.screen_img_file_loc = "images/bg_2x2_1424x700.png"
-        self.mole_img_file_loc = "images/mole.png"
-        self.splash_img_file_loc = "images/Splash_Screen.png"
+        self.screen_img_file_loc = "images\\bg_2x2_v2_raw.png"
+        self.mole_img_file_loc = "images\\mole.png"
+        self.splash_img_file_loc = "images\\Splash_Screen.png"
 
         # Initialize player's score, number of missed hits and stage data
         self.feedback = True
@@ -252,7 +252,7 @@ class GameManager:
         pause_dict: dict
             dictionary of pause conditions and pause text
         '''
-        text_surface = font.render(text, True, (50, 50, 50))  # (0,0,0) = black
+        text_surface = font.render(text, True, (0, 0, 0))  # (0,0,0) = black
         return text_surface, text_surface.get_rect()
 
     def intro(self):
@@ -284,7 +284,7 @@ class GameManager:
                             pygame.quit()
                             self.wam_logger.log_end()
 
-    def write_text(self, string, colour=(255, 255, 255),
+    def write_text(self, string, colour=(0, 0, 0),
                    location_x=None, location_y=None):
         """
         Writes text to the screen, defaulting to the centre
@@ -380,6 +380,8 @@ class GameManager:
                                                  self.TWO_X_TWO_LEN)
                     self.soundEffect.play_fire()
                     self.pause_reason = False
+                    self.write_text('X', (255, 0, 0),
+                                    mouse_pos[0], mouse_pos[1])
 
     def pause(self):
         while self.pause_reason:
@@ -387,17 +389,19 @@ class GameManager:
                 if self.pause_reason == 'stage':
                     self.update()
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT/2 + 40)
+                                    location_y=self.SCREEN_HEIGHT + 10)
                     self.check_key_event()
                 elif self.pause_reason == 'standard':
-                    self.write_text(self.pause_reason_dict[self.pause_reason])
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    location_y=self.SCREEN_HEIGHT + 10)
                     self.check_key_event()
                 else:
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT/2 + 40)
+                                    location_y=self.SCREEN_HEIGHT + 10)
                     self.check_key_event()
             elif self.pause_reason == '2x2':
-                self.write_text(self.pause_reason_dict[self.pause_reason])
+                self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    location_y=self.SCREEN_HEIGHT + 10)
                 self.two_by_two_rate()
 
     def set_player_stage(self):

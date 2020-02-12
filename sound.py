@@ -9,7 +9,7 @@ Attributes:
     handled within the SoundEffect class
 
 Todo:
-    * na
+    * sort out volumes
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole

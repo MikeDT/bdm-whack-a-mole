@@ -10,8 +10,7 @@ Attributes:
     handled within the Scorer class
 
 Todo:
-    * integrate drifter calss with the score rand adjust drift
-    (as it's agnostic to the drift need)
+    * na
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
@@ -22,6 +21,9 @@ Related projects:
 
 import numpy as np
 import scipy.stats as stats
+from distributions import trunc_norm_sample as _trunc_norm_sample
+from distributions import norm_sample as _norm_sample
+
 
 
 class Scorer:
@@ -92,6 +94,10 @@ class Scorer:
         self.rand_sd = rand_sd
         self.skill_luck_rat = skill_luck_rat
 
+        # Adds the distribution methods
+        self._norm_sample = _norm_sample
+        self._trunc_norm_sample = _trunc_norm_sample
+
     def get_score(self, distance):
         '''
         Gets the score for an attempted mole whack
@@ -123,7 +129,9 @@ class Scorer:
 
     def _skill_adjust(self, score, distance):
         '''
-        Adjusts the score based on teh skill (i.e. euclidean distance measure)
+        Adjusts the score based on the skill (i.e. euclidean distance measure)
+        
+        NB this function may be deprecated in the future based on the binomial hit checking
 
         Parameters
         ----------
@@ -151,6 +159,8 @@ class Scorer:
         '''
         Adjusts the score based on a random beta dist (or not at all)
 
+        NB this function may be deprecated in the future based on the binomial hit checking
+
         Parameters
         ----------
         score: float
@@ -177,11 +187,8 @@ class Scorer:
         elif self.rand_type == 'uniform':
             score = np.random.randint(self.min_score, self.max_score)
         elif self.rand_type == 'normal':
-            X = stats.truncnorm((self.min_score - self.rand_mean) /
-                                self.rand_sd,
-                                (self.max_score - self.rand_mean) /
-                                self.rand_sd,
-                                loc=self.rand_mean, scale=self.rand_sd)
+            X = self._trunc_norm_sample(self.rand_mean, self.rand_sd,
+                                        self.min_score, self.max_score)
             score = X.rvs(1)[0]
         return score
 
@@ -277,6 +284,10 @@ class Drifting_Val:
         self.init_val = variable
         self.last_val = variable
 
+        # External distribution functions
+        self._norm_sample = _norm_sample
+        self._trunc_norm_sample = _trunc_norm_sample
+
     @property
     def drift_iter(self):
         '''
@@ -353,55 +364,16 @@ class Drifting_Val:
         '''
         if self.noise:
             if self.noise_trunc:
-                noise = self._trunc_norm_sample
+                noise = self._trunc_norm_sample(self.noise_mean,
+                                                self.noise_sd,
+                                                self.noise_low_bnd,
+                                                self.noise_high_bnd)
             else:
-                noise = self._norm_sample
+                noise = self._norm_sample(self.noise_mean,
+                                          self.noise_sd)
         else:
             noise = 0
         return noise
-
-    @property
-    def _trunc_norm_sample(self):
-        '''
-        Creates a single sample from a init determind truncated normal
-        distribution
-
-        Parameters
-        ----------
-        self: self
-
-        Returns
-        -------
-        x: float
-            random sample from a truncated normal distribution
-            (with mean etc. defined) at initialisation
-        '''
-        X = stats.truncnorm((self.noise_low_bnd - self.noise_mean) /
-                            self.noise_sd,
-                            (self.noise_high_bnd - self.noise_mean) /
-                            self.noise_sd,
-                            loc=self.noise_mean, scale=self.noise_sd)
-        x = X.rvs(1)[0]
-        return(x)
-
-    @property
-    def _norm_sample(self):
-        '''
-        Creates a single sample from a init determined truncated normal
-        distribution
-
-        Parameters
-        ----------
-        self: self
-
-        Returns
-        -------
-        x: float
-            random sample from a normal distribution (with mean etc. defined)
-            at initialisation,
-        '''
-        x = np.random.normal(self.noise_mean, self.noise_sd)
-        return x
 
     def reset_counter(self):
         '''

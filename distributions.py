@@ -34,7 +34,7 @@ def trunc_norm_sample(mean, sd, low_bnd, high_bnd):
                         (high_bnd - mean) / sd,
                         loc=mean, scale=sd)
     x = X.rvs(1)[0]
-    return(x)
+    return x
 
 
 def norm_sample(mean, sd):

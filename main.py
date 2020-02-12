@@ -10,16 +10,10 @@ Attributes:
     na
 
 Todo:
-    * high low for both
-    * use the the normal after for noise
-    * luck and skill metadprime
-    * 2x2 on skilla nd luck (hgh  ghig, low low etc.)
-    * explanations
-    * shift th text
+    * luck and skill metadprime 
+    * explanations in the word doc
+    * shift the text
     * change the text
-    * feedback where they hit
-    * confidence l-r
-    * luck high, skill btoom
     * hit or miss, how much credit to assign
     * log all starting paramters etc.
 

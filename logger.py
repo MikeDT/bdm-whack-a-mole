@@ -9,7 +9,7 @@ Attributes:
     na
 
 Todo:
-    * na
+    * add support for logging of initial criteria
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
