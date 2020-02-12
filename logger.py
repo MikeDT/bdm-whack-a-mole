@@ -127,7 +127,7 @@ class WamLogger:
         '''
         self._log_it(event)
 
-    def log_2x2_rate(self, mouse_pos):
+    def log_2x2_rate(self, mouse_pos, TWO_X_TWO_LOC, TWO_X_TWO_LEN):
         '''
         Logs the players rating using the 2x2 grid system
 
@@ -141,7 +141,9 @@ class WamLogger:
         na
             logs the event via _log_it
         '''
-        self._log_it("<Event(7-Rate {xy : " + str(mouse_pos) + " })>")
+        x = (mouse_pos[0] - TWO_X_TWO_LOC[0]) / TWO_X_TWO_LEN
+        y = (mouse_pos[1] - TWO_X_TWO_LOC[1]) / TWO_X_TWO_LEN
+        self._log_it("<Event(7-Rate {xy : " + str((x, y)) + " })>")
 
     def log_score(self, score_inc, score):
         '''

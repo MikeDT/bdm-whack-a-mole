@@ -10,11 +10,9 @@ Attributes:
     na
 
 Todo:
-    * binomial for hit (flex the params)
     * high low for both
     * use the the normal after for noise
     * luck and skill metadprime
-    * gaussian noise
     * 2x2 on skilla nd luck (hgh  ghig, low low etc.)
     * explanations
     * shift th text
@@ -23,11 +21,12 @@ Todo:
     * confidence l-r
     * luck high, skill btoom
     * hit or miss, how much credit to assign
+    * log all starting paramters etc.
 
 Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
-    
+
 @author: miketaylor
 """
 

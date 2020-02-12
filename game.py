@@ -60,10 +60,10 @@ class GameManager:
     def __init__(self):
 
         # Define constants
-        self.SCREEN_WIDTH = 1424
+        self.SCREEN_WIDTH = 1505
         self.SCREEN_HEIGHT = 600
-        self.TWO_X_TWO_LEN = 530
-        self.TWO_X_TWO_LOC = (857, 25)
+        self.TWO_X_TWO_LEN = 480
+        self.TWO_X_TWO_LOC = (915, 58)
         self.FPS = 60
         self.MOLE_WIDTH = 90  # for animations
         self.MOLE_HEIGHT = 81  # for animations
@@ -147,7 +147,7 @@ class GameManager:
         # Set the paramters for the game
         self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
         self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
-        self.hit_type = 'Standard'  # Standard, Binomial
+        self.hit_type = 'Binomial'  # Standard, Binomial
         self.margin = Drifting_Val(self.MARGIN_START, drift_type='static')
         self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
 
@@ -376,7 +376,8 @@ class GameManager:
             ):
                 mouse_pos = pygame.mouse.get_pos()
                 if self.check_rate_in_grid(mouse_pos):
-                    self.wam_logger.log_2x2_rate(mouse_pos)
+                    self.wam_logger.log_2x2_rate(mouse_pos, self.TWO_X_TWO_LOC,
+                                                 self.TWO_X_TWO_LEN)
                     self.soundEffect.play_fire()
                     self.pause_reason = False
 
@@ -531,12 +532,11 @@ class GameManager:
             self.relative_loc = self.get_relative_loc(pygame.mouse.get_pos(),
                                                       frame_num)
             self.soundEffect.play_fire()
+            self.feedback_count += 1
             self.check_feedback()
-            #self.result = self.check_mole_hit(num, left)
             self.result = self.hit_checker.check_mole_hit(num, left, self.distance, self.margin.drift_iter) # <------------------------------------------
             if self.result[2]:  # the hit feedback
                 num, left, mole_is_down, interval, frame_num = self.mole_hit(num, left, mole_is_down, interval, frame_num)
-                self.feedback_count += 1
             else:
                 self.misses += 1
                 self.mole_count += 1
