@@ -21,7 +21,7 @@ Related projects:
 @author: miketaylor
 """
 
-from game import GameManager
+from wam.game import GameManager
 import pygame
 
 if __name__ == "__main__":

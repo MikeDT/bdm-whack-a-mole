@@ -20,8 +20,8 @@ Related projects:
 """
 
 import numpy as np
-from distributions import trunc_norm_sample as _trunc_norm_sample
-from distributions import norm_sample as _norm_sample
+from wam.distributions import trunc_norm_sample as _trunc_norm_sample
+from wam.distributions import norm_sample as _norm_sample
 
 
 class Scorer:
@@ -117,15 +117,14 @@ class Scorer:
         score = self.max_score
         if self.skill_adjust:
             score = self.skill_luck_rat * self._skill_adj(score,
-                                                          distance,
-                                                          self.skill_type)
+                                                          distance)
         if self.rand_adjust:
             score += (1-self.skill_luck_rat) * self._rand_adj(score,
                                                               self.rand_type)
         score = round(score, 2)
         return score
 
-    def _skill_adjust(self, score, distance):
+    def _skill_adj(self, score, distance):
         '''
         Adjusts the score based on the skill (i.e. euclidean distance measure)
 
@@ -151,7 +150,7 @@ class Scorer:
         elif self.skill_type == 'non_linear_dist':
             score -= min(self.max_score, 0.05*distance**2)
         else:
-            score = self.score
+            score = self.max_score
         return score
 
     def _rand_adj(self, score):

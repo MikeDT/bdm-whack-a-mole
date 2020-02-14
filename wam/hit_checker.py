@@ -19,7 +19,7 @@ Related projects:
 """
 
 import numpy as np
-from distributions import trunc_norm_sample as _trunc_norm_sample
+from wam.distributions import trunc_norm_sample as _trunc_norm_sample
 
 
 class Hit_Checker:
@@ -134,7 +134,7 @@ class Hit_Checker:
             radius and distance
         '''
         true_hit = False
-        if distance < self.MOLE_RADIUS:
+        if distance <= self.MOLE_RADIUS:
             true_hit = True
         else:
             true_hit = False

@@ -27,10 +27,10 @@ Related projects:
 
 import pygame
 import random
-from sound import SoundEffect
-from logger import WamLogger
-from scorer import Scorer, Drifting_Val
-from hit_checker import Hit_Checker
+from wam.sound import SoundEffect
+from wam.logger import WamLogger
+from wam.scorer import Scorer, Drifting_Val
+from wam.hit_checker import Hit_Checker
 import re
 
 
