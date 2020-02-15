@@ -146,7 +146,7 @@ class GameManager:
         self.pause_reason_dict = self._get_pause_dict
 
         # Initialise the score adjustment functions and data
-        self.scorer = Scorer()
+        self.scorer = Scorer(self.MOLE_RADIUS)
 
         # Set the paramters for the game
         self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
@@ -398,7 +398,7 @@ class GameManager:
                 if self.check_rate_in_grid(mouse_pos):
                     self.wam_logger.log_2x2_rate(mouse_pos, self.TWO_X_TWO_LOC,
                                                  self.TWO_X_TWO_LEN)
-                    self.sound_effect.play_fire()
+                    self.sound_effect.play_select()
                     self.pause_reason = False
                     self.last_rate = mouse_pos
 
@@ -540,7 +540,8 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        score_inc = self.scorer.get_score(self.distance)
+        score_inc = self.scorer.get_score(self.margin.drift_iter,
+                                          self.distance)
         self.sound_effect.stop_pop()
         self.score += score_inc
         self.wam_logger.log_score(score_inc, self.score)

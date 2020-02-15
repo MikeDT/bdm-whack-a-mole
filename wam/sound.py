@@ -52,15 +52,20 @@ class SoundEffect:
     stop_****()
         stops the **** sound
     """
-    def __init__(self):
-        self.main_track_loc = "sounds/themesong.wav"
-        self.fire_sound_loc = "sounds/fire.wav"
-        self.pop_sound = "sounds/pop.wav"
-        self.hurt_sound = "sounds/hurt.wav"
-        self.level_sound = "sounds/point.wav"
-        self.sound_volume = 1.0
-        self.music_volume = 0.2
+    def __init__(self,):
+        self.main_track_loc = ".//sounds/themesong.wav"
+        self.fire_sound_loc = ".//sounds/fire.wav"
+        self.pop_sound_loc = ".//sounds/pop.wav"
+        self.hurt_sound_loc = ".//sounds/hurt.wav"
+        self.select_sound_loc = ".//sounds/select.wav"
+        self.level_sound_loc = ".//sounds/point.wav"
+        self.fire_vol = 1.0
+        self.pop_vol = 0.8
+        self.hurt_vol = 0.3
+        self.level_vol = 0.7
+        self.music_vol = 0.05
         self.import_sounds()
+        self.set_volume()
         self.play_music()
 
     def import_sounds(self):
@@ -83,16 +88,35 @@ class SoundEffect:
         try:
             self.main_track = pygame.mixer.music.load(self.main_track_loc)
             self.fire_sound = pygame.mixer.Sound(self.fire_sound_loc)
-            self.pop_sound = pygame.mixer.Sound(self.pop_sound)
-            self.hurt_sound = pygame.mixer.Sound(self.hurt_sound)
-            self.level_sound = pygame.mixer.Sound(self.level_sound)
+            self.pop_sound = pygame.mixer.Sound(self.pop_sound_loc)
+            self.hurt_sound = pygame.mixer.Sound(self.hurt_sound_loc)
+            self.level_sound = pygame.mixer.Sound(self.level_sound_loc)
+            self.select_sound = pygame.mixer.Sound(self.select_sound_loc)
         except OSError:
             print('At least one of the sound files failed to load')
-#        self.main_track.set_volume(self.music_volume)
-#        self.fire_sound.set_volume(self.sound_volume)
-#        self.pop_sound.set_volume(self.sound_volume)
-#        self.hurt_sound.set_volume(self.sound_volume)
-#        self.level_sound.set_volume(self.sound_volume)
+
+    def set_volume(self):
+        '''
+        Sets the volume for the game
+
+        Parameters
+        ----------
+        self : self
+
+        Raises
+        ------
+        OSError
+            raised if the file imports failed
+
+        Returns
+        -------
+        na
+        '''
+        pygame.mixer.music.set_volume(self.music_vol)
+        self.fire_sound.set_volume(self.fire_vol)
+        self.pop_sound.set_volume(self.pop_vol)
+        self.hurt_sound.set_volume(self.hurt_vol)
+        self.level_sound.set_volume(self.level_vol)
 
     def play_music(self):
         '''
@@ -139,6 +163,21 @@ class SoundEffect:
             plays the firesound
         '''
         self.fire_sound.play()
+        
+    def play_select(self):
+        '''
+        Plays the 'fire' sound when you attempt to hit a mole
+
+        Parameters
+        ----------
+        self : self
+
+        Returns
+        -------
+        na
+            plays the firesound
+        '''
+        self.select_sound.play()
 
     def stop_fire(self):
         '''

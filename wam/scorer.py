@@ -65,9 +65,9 @@ class Scorer:
     _rand_adjust(score)
         gives a random adjustment to the score
     """
-    def __init__(self, *, min_score=0, max_score=10,
-                 skill_adjust=False, skill_type=None,
-                 rand_adjust=False, rand_type='uniform',
+    def __init__(self, MOLE_RADIUS, *, min_score=0, max_score=10,
+                 adjust=False, skill_type='linear_dist',
+                 rand_type='uniform',
                  rand_mean=5, rand_sd=1,
                  skill_luck_rat=1.0):
         # Assertion for the skill_luck_rat, only input deemed at risk of misuse
@@ -82,11 +82,11 @@ class Scorer:
             skill_luck_rat = 0.0
 
         # Sets the Scorer instance parameters
+        self.MOLE_RADIUS = MOLE_RADIUS
         self.min_score = min_score
         self.max_score = max_score
-        self.skill_adjust = skill_adjust
+        self.adjust = adjust
         self.skill_type = skill_type
-        self.rand_adjust = rand_adjust
         self.rand_type = rand_type
         self.rand_mean = rand_mean
         self.rand_sd = rand_sd
@@ -96,7 +96,7 @@ class Scorer:
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
 
-    def get_score(self, distance):
+    def get_score(self, distance, margin_drift_iter):
         '''
         Gets the score for an attempted mole whack
 
@@ -114,17 +114,16 @@ class Scorer:
         score: float
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
-        score = self.max_score
-        if self.skill_adjust:
+        score = self.max_score  
+        if self.adjust:
             score = self.skill_luck_rat * self._skill_adj(score,
-                                                          distance)
-        if self.rand_adjust:
-            score += (1-self.skill_luck_rat) * self._rand_adj(score,
-                                                              self.rand_type)
+                                                          distance,
+                                                          margin_drift_iter)
+            score += (1-self.skill_luck_rat) * self._rand_adj(score)
         score = round(score, 2)
         return score
 
-    def _skill_adj(self, score, distance):
+    def _skill_adj(self, score, distance, margin_drift_iter):
         '''
         Adjusts the score based on the skill (i.e. euclidean distance measure)
 
@@ -139,18 +138,23 @@ class Scorer:
             the score adjustment type
         distance: float
             the euclidean distance from the mole centre
+        margin_drift_iter: float
+            the additional (typically drifted) margin that is added to the mole
 
         Returns
         -------
         score: float
             the skill adjusted score (i.e. nearer to optimal = better score)
         '''
+        precision = 1.0
         if self.skill_type == 'linear_dist':
-            score -= min(self.max_score, 0.05*distance)
+            precision = 1 - distance/(self.MOLE_RADIUS +
+                                      margin_drift_iter)
         elif self.skill_type == 'non_linear_dist':
-            score -= min(self.max_score, 0.05*distance**2)
-        else:
-            score = self.max_score
+            precision = 1 - distance/(self.MOLE_RADIUS +
+                                      margin_drift_iter)
+            precision = precision**2
+        score = precision*score
         return score
 
     def _rand_adj(self, score):
@@ -178,17 +182,15 @@ class Scorer:
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
         try:
-            assert self.rand_type in ['static', 'uniform', 'normal']
+            assert self.rand_type in ['uniform', 'normal']
         except AssertionError:
             print('rand type not recognised in _rand_adj')
-        if self.rand_type == 'static':
-            pass
-        elif self.rand_type == 'uniform':
+        if self.rand_type == 'uniform':
             score = np.random.randint(self.min_score, self.max_score)
         elif self.rand_type == 'normal':
-            X = self._trunc_norm_sample(self.rand_mean, self.rand_sd,
+            x = self._trunc_norm_sample(self.rand_mean, self.rand_sd,
                                         self.min_score, self.max_score)
-            score = X.rvs(1)[0]
+            score = x
         return score
 
 
