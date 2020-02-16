@@ -39,14 +39,18 @@ class WamLogger:
     log_it(event)
         logs an event that is passed to it
     _log_***(event)
-        preps the inputs for logs a variety of game events via the log_it function
+        preps the inputs for logs a variety of game events via the log_it
+        function
     log_end()
         closes down the log
     """
-    def __init__(self):
-        self.timestamp = str(time())
-        self.logger = logging.getLogger('WAM Events ' + self.timestamp)
-        self.log_file_root = r'../bdm-whack-a-mole/logs/'
+    def __init__(self, usr_timestamp=False):
+        if usr_timestamp is False:
+            self.timestamp = str(time())
+        else:
+            self.usr_timestamp = usr_timestamp
+        self.logger = logging.getLogger('WAM_Events_' + self.usr_timestamp)
+        self.log_file_root = '../bdm-whack-a-mole/logs/'
         if not len(self.logger.handlers):
             self.create_log_instance()
 
@@ -67,8 +71,8 @@ class WamLogger:
         self.logger.setLevel(logging.DEBUG)
         try:
             self.fh = logging.FileHandler(self.log_file_root +
-                                          'WAM Events ' +
-                                          self.timestamp + '.log')
+                                          'WAM_Events_' +
+                                          self.usr_timestamp + '.log')
         except OSError:
             print('Log file could not be created')
         self.fh.setLevel(logging.DEBUG)
@@ -101,8 +105,8 @@ class WamLogger:
             logs the event via csv
 
         '''
-        with open(self.log_file_root + ' WAM Conditions' +
-                  self.timestamp + '.log',
+        with open(self.log_file_root + 'WAM_Conditions_' +
+                  self.usr_timestamp + '.log',
                   'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([class_name])

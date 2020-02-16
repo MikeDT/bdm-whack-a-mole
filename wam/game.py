@@ -56,7 +56,7 @@ class GameManager:
         Property method, imports a text file and creates a dictionary for the
         text displayed under given game pause conditions
     """
-    def __init__(self):
+    def __init__(self, usr_timestamp=False):
 
         # Define constants
         self.SCREEN_WIDTH = 1505
@@ -76,7 +76,7 @@ class GameManager:
         self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
 
         # Sets up logging
-        self.wam_logger = WamLogger()
+        self.wam_logger = WamLogger(usr_timestamp)
 
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'

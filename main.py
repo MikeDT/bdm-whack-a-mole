@@ -1,38 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-main
-====
+Created on Fri Jan 10 18:05:19 2020
 
-Typical main.py functionality, initiates the pygame game and mixer,
-starts the GameManager and spins up the game
-
-Attributes:
-    na
-
-Todo:
-    * luck and skill metadprime
-    * explanations in the word doc
-    * hit or miss, how much credit to assign
-
-Related projects:
-    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
-    which is under MIT license
-
-@author: miketaylor
+@author: DZLR3
 """
 
-from wam.game import GameManager
-import pygame
+from PyQt5 import QtWidgets
+from QT_GUI import QT_GUI
 
 if __name__ == "__main__":
-    # Initialize the game
-    pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
-    pygame.init()
-
-    # Run the main loop
-    my_game = GameManager()
-
-    my_game.play_game()
-
-    # Exit the game if the main loop ends
-    pygame.quit()
+    app = QtWidgets.QApplication([])
+    wizard = QT_GUI()
+    wizard.setWindowTitle('BDM WAM PyQT Wrapper')
+    wizard.show()
+    app.exec_()

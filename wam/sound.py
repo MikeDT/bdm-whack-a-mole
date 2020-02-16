@@ -53,17 +53,17 @@ class SoundEffect:
         stops the **** sound
     """
     def __init__(self,):
-        self.main_track_loc = ".//sounds/themesong.wav"
-        self.fire_sound_loc = ".//sounds/fire.wav"
-        self.pop_sound_loc = ".//sounds/pop.wav"
-        self.hurt_sound_loc = ".//sounds/hurt.wav"
-        self.select_sound_loc = ".//sounds/select.wav"
-        self.level_sound_loc = ".//sounds/point.wav"
+        self.main_track_loc = "sounds//themesong.wav"
+        self.fire_sound_loc = "sounds//fire.wav"
+        self.pop_sound_loc = "sounds//pop.wav"
+        self.hurt_sound_loc = "sounds//hurt.wav"
+        self.select_sound_loc = "sounds//select.wav"
+        self.level_sound_loc = "sounds//point.wav"
         self.fire_vol = 1.0
         self.pop_vol = 0.8
         self.hurt_vol = 0.3
         self.level_vol = 0.7
-        self.music_vol = 0.05
+        self.music_vol = 0.15
         self.import_sounds()
         self.set_volume()
         self.play_music()
