@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jan 10 18:05:19 2020
+main
+====
+
+Typical main.py functionality, initiates the pyqt wrapper to support
+demographic info collection
+
+Attributes:
+    na
+
+Todo:
+    * na
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
 
 @author: DZLR3
 """

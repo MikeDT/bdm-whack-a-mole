@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec 27 13:23:25 2019
+main
+====
+
+Typical GUI screen, adapted from prior pyqt work
+
+Attributes:
+    na
+
+Todo:
+    * clean up docstrings (ideally to sphinx format, but to numpy/scipy
+    minimally)
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
 
 @author: DZLR3
 """
