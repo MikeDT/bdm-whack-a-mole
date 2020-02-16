@@ -15,7 +15,10 @@ Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
 
-@author: miketaylor
+NB All sounds/music etc is fully licensed under createive commons and hence is
+not in breach of any copyright
+
+@author: DZLR3
 """
 
 import pygame

@@ -18,7 +18,7 @@ Related projects:
     Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
     which is under MIT license
 
-@author: miketaylor
+@author: DZLR3
 """
 
 from game import GameManager

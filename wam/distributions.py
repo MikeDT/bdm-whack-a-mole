@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb 12 08:46:56 2020
+main
+====
 
-@author: miketaylor
+Simple distribution samples for random events in game
+
+Attributes:
+    na
+
+Todo:
+    * na
+
+Related projects:
+    Adapted from initial toy project https://github.com/sonlexqt/whack-a-mole
+    which is under MIT license
+
+@author: DZLR3
 """
 import scipy.stats as stats
 import numpy as np
