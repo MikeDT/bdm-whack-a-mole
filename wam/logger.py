@@ -46,7 +46,7 @@ class WamLogger:
     """
     def __init__(self, usr_timestamp=False):
         if usr_timestamp is False:
-            self.timestamp = str(time())
+            self.usr_timestamp = str(time())
         else:
             self.usr_timestamp = usr_timestamp
         self.logger = logging.getLogger('WAM_Events_' + self.usr_timestamp)

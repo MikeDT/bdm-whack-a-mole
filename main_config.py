@@ -20,12 +20,11 @@ Related projects:
 """
 
 from PyQt5 import QtWidgets
-#from QT_GUI import QT_GUI
-from QT import QT_GUI
+from QT_Config import QT_Config
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-    wizard = QT_GUI()
-    wizard.setWindowTitle('BDM Whack A Mole')
+    wizard = QT_Config()
+    wizard.setWindowTitle('BDM Whack A Mole Configuration Handler')
     wizard.show()
     app.exec_()

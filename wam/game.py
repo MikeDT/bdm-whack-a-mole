@@ -32,6 +32,7 @@ from wam.logger import WamLogger
 from wam.scorer import Scorer, Drifting_Val
 from wam.hit_checker import Hit_Checker
 import re
+import pickle
 
 
 class GameManager:
@@ -58,26 +59,6 @@ class GameManager:
     """
     def __init__(self, usr_timestamp=False):
 
-        # Define constants
-        self.SCREEN_WIDTH = 1505
-        self.SCREEN_HEIGHT = 600
-        self.COMM_BAR_HEIGHT = 100
-        self.TWO_X_TWO_LEN = 480
-        self.TWO_X_TWO_LOC = (915, 58)
-        self.FPS = 60
-        self.MOLE_WIDTH = 90  # for animations
-        self.MOLE_HEIGHT = 81  # for animations
-        self.MOLE_RADIUS = 40  # for hit calcs
-        self.MARGIN_START = 10  # the margin adjustment for a mole (can be +/-)
-        self.FONT_SIZE = 18
-        self.FONT_TOP_MARGIN = self.SCREEN_HEIGHT + self.COMM_BAR_HEIGHT - 26
-        self.STAGE_SCORE_GAP = 4
-        self.LEFT_MOUSE_BUTTON = 1
-        self.GAME_TITLE = "BDM Whack-A-Mole Experiment"
-
-        # Sets up logging
-        self.wam_logger = WamLogger(usr_timestamp)
-
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
@@ -86,27 +67,76 @@ class GameManager:
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
+        self.mg_file_config_loc = 'config\\master_dict.pkl'
+        master_dict = pickle.load(open(self.mg_file_config_loc, 'rb'))
+        import_dict = master_dict['main_game']
+
+        # Define constants
+        self.CONDITION_SET = import_dict['CONDITION SET']
+        self.SCREEN_WIDTH = import_dict['SCREEN_WIDTH']
+        self.SCREEN_HEIGHT = import_dict['SCREEN_HEIGHT']
+        self.COMM_BAR_HEIGHT = import_dict['COMM_BAR_HEIGHT']
+        self.TWO_X_TWO_LEN = import_dict['TWO_X_TWO_LEN']
+        self.TWO_X_TWO_LOC = import_dict['TWO_X_TWO_LOC']
+        self.FPS = import_dict['FPS']
+        self.MOLE_WIDTH = import_dict['MOLE_WIDTH']  # for animations
+        self.MOLE_HEIGHT = import_dict['MOLE_HEIGHT']  # for animations
+        self.MOLE_RADIUS = import_dict['MOLE_RADIUS']  # for hit calcs
+        self.MARGIN_START = import_dict['MARGIN_START']  # the margin adjustment for a mole (can be +/-)
+        self.FONT_SIZE = import_dict['FONT_SIZE']
+        self.FONT_TOP_MARGIN = (import_dict['SCREEN_HEIGHT'] +
+                                import_dict['COMM_BAR_HEIGHT'] - 26)
+        self.STAGE_SCORE_GAP = import_dict['STAGE_SCORE_GAP']
+        self.LEFT_MOUSE_BUTTON = import_dict['LEFT_MOUSE_BUTTON']
+        self.GAME_TITLE = import_dict['GAME_TITLE']
 
         # Initialize player's score, number of missed hits and stage data
-        self.feedback = True
-        self.intro_complete = False
-        self.stage_time_change = True
-        self.demo_len = 5
-        self.stage, self.demo = 'Demo', True
-        self.stage_type = 'Standard'  # Standard or Attempts
-        self.score = 0
-        self.misses = 0
-        self.mole_count = 0  # moles hit in stage
-        self.feedback_count = 0  # iterations since last player feedback
-        self.feedback_limit = 1  # iterations per player feedback
-        self.update_count = 0  # iterations since last score update
-        self.update_delay = 0  # iterations per score update
-        self.stage_length = 10
-        self.stages = 3
+        self.FEEDBACK = import_dict['FEEDBACK']
+        self.intro_complete = import_dict['intro_complete']
+        self.stage_time_change = import_dict['stage_time_change']
+        self.demo_len = import_dict['demo_len']
+        self.stage, self.demo = import_dict['stage'], import_dict['demo']
+        self.stage_type = import_dict['stage_type']  # Standard or Attempts
+        self.score = import_dict['score']
+        self.misses = import_dict['misses']
+        self.mole_count = import_dict['mole_count']  # moles hit in stage
+        self.feedback_count = import_dict['feedback_count']  # iterations since last player feedback
+        self.feedback_limit = import_dict['feedback_limit']  # iterations per player feedback
+        self.update_count = import_dict['update_count']  # iterations since last score update
+        self.update_delay = import_dict['update_delay']  # iterations per score update
+        self.stage_length = import_dict['stage_length']
+        self.stages = import_dict['stages']
         self.stage_pts = [i for i in range(self.demo_len,
                                            self.stages*self.stage_length +
                                            self.demo_len,
                                            self.stage_length)]
+
+        # Initialise Timing
+        self.post_whack_interval = import_dict['post_whack_interval']
+        self.mole_pause_interval = import_dict['mole_pause_interval']
+        self.animation_interval = import_dict['animation_interval']
+        self.mole_down_interval = import_dict['mole_down_interval']
+
+        # Set the paramters for the game
+        self.score_type = import_dict['score_type']  # lin_dist_skill or nonlin_dist_skill
+        self.adj_type = import_dict['adj_type']  # rnd_wlk_neg, rnd_wlk_pos, static, design
+        self.hit_type = import_dict['hit_type']  # Standard, Binomial
+        self.last_rate = False
+
+        # Initialise the score adjustment functions and data
+        self.scorer = Scorer(self.MOLE_RADIUS)
+        self.margin = Drifting_Val(self.MARGIN_START,
+                                   drift_type=import_dict['drift_type'])
+        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
+
+        # Initialise sound effects
+        self.sound_effect = SoundEffect()
+
+        # Import text information
+        self.font_obj = pygame.font.SysFont("comicsansms", 20)
+        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
+        self.pause_reason_dict = self._get_pause_dict
+
         # Initialize screen
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT +
@@ -121,6 +151,14 @@ class GameManager:
         self.hole_positions = self._get_hole_pos  # for the animation
         self.hole_positions_centre = self._get_hole_cent  # for the hit centre
 
+        # Set up keyboard linkages
+        self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
+                               '53': '5', '54': '6', '55': '7', '56': '8',
+                               '57': '9'}
+        # Setup pause conditions
+        self.pause_reason = False
+        self.pause_list = [False, 'standard', '2x2', 'stage']
+
         # Initialize the mole's sprite sheet (6 different states)
         sprite_sheet = pygame.image.load(self.mole_img_file_loc)
         self.mole = []
@@ -132,37 +170,8 @@ class GameManager:
         self.mole.append(sprite_sheet.subsurface(717, 0, 116, 81))
         self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
 
-        # Initialise sound effects
-        self.sound_effect = SoundEffect()
-        self.pause_reason = False
-        self.pause_list = [False, 'standard', '2x2', 'stage']
-        self.event_key_dict = {'49': '1', '50': '2', '51': '3', '52': '4',
-                               '53': '5', '54': '6', '55': '7', '56': '8',
-                               '57': '9'}
-
-        # Import text information
-        self.font_obj = pygame.font.SysFont("comicsansms", 20)
-        self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
-        self.pause_reason_dict = self._get_pause_dict
-
-        # Initialise the score adjustment functions and data
-        self.scorer = Scorer(self.MOLE_RADIUS)
-
-        # Set the paramters for the game
-        self.score_type = 'Normal'  # lin_dist_skill or nonlin_dist_skill
-        self.adj_type = 'static'  # rnd_wlk_neg, rnd_wlk_pos, static, design
-        self.hit_type = 'Binomial'  # Standard, Binomial
-        self.margin = Drifting_Val(self.MARGIN_START, drift_type='static')
-        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
-        self.last_rate = False
-
-        # Initialise Timing
-        self.post_whack_interval = 0.1
-        self.mole_pause_interval = 1
-        self.animation_interval = 0.1
-        self.mole_down_interval = 0.1
-
-        # Log all the initial conditions
+        # Sets up logging and log all the initial conditions
+        self.wam_logger = WamLogger(usr_timestamp)
         self.log_init_conditions()
 
     def log_init_conditions(self):
@@ -225,6 +234,7 @@ class GameManager:
         '''
         hole_pos_centre = [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
                            (x, y) in self.hole_positions]
+        print (hole_pos_centre)
         return hole_pos_centre
 
     @property
@@ -546,7 +556,7 @@ class GameManager:
         self.score += score_inc
         self.wam_logger.log_score(score_inc, self.score)
         self.mole_count += 1
-        if self.feedback:
+        if self.FEEDBACK:
             self.sound_effect.play_hurt()
         return num, left, mole_is_down, interval, frame_num
 
