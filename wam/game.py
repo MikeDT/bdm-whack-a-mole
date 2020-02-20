@@ -67,12 +67,13 @@ class GameManager:
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
-        self.mg_file_config_loc = 'config\\master_dict.pkl'
-        master_dict = pickle.load(open(self.mg_file_config_loc, 'rb'))
+        self.file_config_loc = 'config\\44.pkl'
+
+        master_dict = self.get_config_dict
+        self.CONDITION_SET = master_dict['conditions_meta']['cond_set_name']
         import_dict = master_dict['main_game']
 
         # Define constants
-        self.CONDITION_SET = import_dict['CONDITION SET']
         self.SCREEN_WIDTH = import_dict['SCREEN_WIDTH']
         self.SCREEN_HEIGHT = import_dict['SCREEN_HEIGHT']
         self.COMM_BAR_HEIGHT = import_dict['COMM_BAR_HEIGHT']
@@ -87,22 +88,18 @@ class GameManager:
         self.FONT_TOP_MARGIN = (import_dict['SCREEN_HEIGHT'] +
                                 import_dict['COMM_BAR_HEIGHT'] - 26)
         self.STAGE_SCORE_GAP = import_dict['STAGE_SCORE_GAP']
-        self.LEFT_MOUSE_BUTTON = import_dict['LEFT_MOUSE_BUTTON']
-        self.GAME_TITLE = import_dict['GAME_TITLE']
 
         # Initialize player's score, number of missed hits and stage data
         self.FEEDBACK = import_dict['FEEDBACK']
-        self.intro_complete = import_dict['intro_complete']
         self.stage_time_change = import_dict['stage_time_change']
         self.demo_len = import_dict['demo_len']
-        self.stage, self.demo = import_dict['stage'], import_dict['demo']
+        self.demo = import_dict['demo']
+        if self.demo:
+            self.stage = 'Demo'
+        else:
+            self.stage = 1
         self.stage_type = import_dict['stage_type']  # Standard or Attempts
-        self.score = import_dict['score']
-        self.misses = import_dict['misses']
-        self.mole_count = import_dict['mole_count']  # moles hit in stage
-        self.feedback_count = import_dict['feedback_count']  # iterations since last player feedback
         self.feedback_limit = import_dict['feedback_limit']  # iterations per player feedback
-        self.update_count = import_dict['update_count']  # iterations since last score update
         self.update_delay = import_dict['update_delay']  # iterations per score update
         self.stage_length = import_dict['stage_length']
         self.stages = import_dict['stages']
@@ -121,7 +118,15 @@ class GameManager:
         self.score_type = import_dict['score_type']  # lin_dist_skill or nonlin_dist_skill
         self.adj_type = import_dict['adj_type']  # rnd_wlk_neg, rnd_wlk_pos, static, design
         self.hit_type = import_dict['hit_type']  # Standard, Binomial
+        
+        # Set game starting paramters
+        self.score = 0
+        self.misses = 0
+        self.mole_count = 0  # moles hit in stage
+        self.feedback_count = 0  # iterations since last player feedback
+        self.update_count = 0  # iterations since last score update
         self.last_rate = False
+        self.intro_complete = False
 
         # Initialise the score adjustment functions and data
         self.scorer = Scorer(self.MOLE_RADIUS)
@@ -137,7 +142,9 @@ class GameManager:
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self._get_pause_dict
 
-        # Initialize screen
+        # Initialize screen and inputs
+        self.GAME_TITLE = 'BDM Whack A Mole'
+        self.LEFT_MOUSE_BUTTON = 1
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,
                                                self.SCREEN_HEIGHT +
                                                self.COMM_BAR_HEIGHT))
@@ -173,6 +180,11 @@ class GameManager:
         # Sets up logging and log all the initial conditions
         self.wam_logger = WamLogger(usr_timestamp)
         self.log_init_conditions()
+
+    @property
+    def get_config_dict(self):
+        master_dict = pickle.load(open(self.file_config_loc, 'rb'))
+        return master_dict
 
     def log_init_conditions(self):
         self.wam_logger.log_class_dict('game_manager', self.__dict__)

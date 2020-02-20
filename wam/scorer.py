@@ -252,42 +252,44 @@ class Drifting_Val:
     method(variable)
         desc
     """
-    def __init__(self, variable, *,
-                 noise=False, noise_mean=10, noise_sd=10, noise_trunc=True,
-                 drift_type='static', gradient=1, amplitude=1,
+    def __init__(self, variable, *, config_dict=None,
+                 drift_type='static', noise=False, noise_mean=10, noise_sd=10,
+                 noise_trunc=True, gradient=1, amplitude=1,
                  always_pos=True, noise_low_bnd=0, noise_high_bnd=10,
                  drift_clip=False, clip_high_bnd=10, clip_low_bnd=0):
 
-        # Sets the noise parameters
-        self.noise = noise
-        self.noise_mean = noise_mean
-        self.noise_sd = noise_sd
-        self.noise_low_bnd = noise_low_bnd
-        self.noise_high_bnd = noise_high_bnd
-
-        # Sets the gradient and amplitude (if cyclical) of the drift, and the
-        # general conditions, e.g. whether it must be positive, is the noise
-        # truncated
-        self.call_count = 0
-        self.drift_type = drift_type
-        self.always_pos = always_pos
-        self.noise_trunc = noise_trunc
-        self.gradient = gradient
-        self.amplitude = amplitude
-
-        # Sets the dirfting clipping (i.e. so drifting cannot exceed a
-        # defined set of boundaries)
-        self.drift_clip = drift_clip
-        self.clip_high_bnd = clip_high_bnd
-        self.clip_low_bnd = clip_low_bnd
-
-        # Sets the inital value (where the first last_val is also the initial)
+        # Sets the inital value
         self.init_val = variable
         self.last_val = variable
 
         # External distribution functions
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
+
+        # Load either by input vals or config_dict (if present)
+        if config_dict is None:
+            # Sets the noise parameters
+            self.noise = noise
+            self.noise_mean = noise_mean
+            self.noise_sd = noise_sd
+            self.noise_low_bnd = noise_low_bnd
+            self.noise_high_bnd = noise_high_bnd
+
+            # Sets the gradient and amplitude (if cyclical) of the drift, and
+            # the general conditions, e.g. whether it must be positive, is the
+            # noise truncated
+            self.call_count = 0
+            self.drift_type = drift_type
+            self.always_pos = always_pos
+            self.noise_trunc = noise_trunc
+            self.gradient = gradient
+            self.amplitude = amplitude
+
+            # Sets the dirfting clipping (i.e. so drifting cannot exceed a
+            # defined set of boundaries)
+            self.drift_clip = drift_clip
+            self.clip_high_bnd = clip_high_bnd
+            self.clip_low_bnd = clip_low_bnd
 
     @property
     def drift_iter(self):

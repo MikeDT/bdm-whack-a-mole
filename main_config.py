@@ -8,7 +8,7 @@ demographic info collection
 
 Attributes:
     na
-
+C:\\Users\\miketaylor\\Documents\\GitHub\\bdm-whack-a-mole\\bdm-whack-a-mole\\config
 Todo:
     * na
 
@@ -20,7 +20,7 @@ Related projects:
 """
 
 from PyQt5 import QtWidgets
-from QT_Config import QT_Config
+from QT import QT_Config
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

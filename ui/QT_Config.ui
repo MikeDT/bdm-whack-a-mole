@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="next_btn">
     <property name="geometry">
      <rect>
-      <x>830</x>
+      <x>963</x>
       <y>830</y>
       <width>131</width>
       <height>31</height>
@@ -35,7 +35,7 @@
    <widget class="QPushButton" name="back_btn">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>820</x>
       <y>830</y>
       <width>131</width>
       <height>31</height>
@@ -71,7 +71,7 @@
      <enum>Qt::DefaultContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -113,12 +113,12 @@
        <string>Load Condition Set (Full File Path)</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_42">
+     <widget class="QLineEdit" name="cond_set_file_path">
       <property name="geometry">
        <rect>
         <x>340</x>
         <y>69</y>
-        <width>391</width>
+        <width>601</width>
         <height>31</height>
        </rect>
       </property>
@@ -136,10 +136,10 @@
        <string>Condition Set Notes</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="load_btn">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>950</x>
         <y>70</y>
         <width>131</width>
         <height>31</height>
@@ -149,13 +149,13 @@
        <string>Load</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QTextEdit" name="cond_set_notes">
       <property name="geometry">
        <rect>
         <x>340</x>
         <y>180</y>
         <width>741</width>
-        <height>591</height>
+        <height>521</height>
        </rect>
       </property>
      </widget>
@@ -169,10 +169,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition Creator</string>
+       <string>Username of Creator</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_43">
+     <widget class="QLineEdit" name="cond_set_user">
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -182,933 +182,795 @@
        </rect>
       </property>
      </widget>
+     <widget class="QLineEdit" name="save_folder_path">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>745</y>
+        <width>601</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_btn">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>745</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_48">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>750</y>
+        <width>321</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save File Folder (cond_set_name is filename)</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="main_game_1">
+    <widget class="QWidget" name="main_game">
      <attribute name="title">
-      <string>Main Game 1</string>
+      <string>Main Game</string>
      </attribute>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>26</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_2">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>20</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_4">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>100</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>106</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_6">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>178</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_10">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>184</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>266</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_8">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>260</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>347</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_10">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>340</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_9">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>654</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>500</y>
+        <y>487</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_5">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>494</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_11">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>734</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Width</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>741</y>
+        <x>630</x>
+        <y>564</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Margin Start</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>420</y>
+        <y>446</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Frames Per Second</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>578</y>
+        <y>524</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_3">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>414</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_7">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>572</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Height</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>660</y>
+        <x>630</x>
+        <y>525</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_44">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>340</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_45">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>572</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Radius</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_46">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>420</y>
+        <x>630</x>
+        <y>409</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_46">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>734</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_47">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>260</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Stage Time Change</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_47">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>741</y>
+        <x>630</x>
+        <y>334</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_48">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>494</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_48">
-      <property name="geometry">
-       <rect>
-        <x>580</x>
-        <y>266</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
+       <string>Feedback Limit</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_49">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>106</y>
+        <x>627</x>
+        <y>48</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_49">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>20</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_50">
-      <property name="geometry">
-       <rect>
-        <x>580</x>
-        <y>26</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
+       <string>Stage Score Gap</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_51">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>578</y>
+        <x>631</x>
+        <y>215</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_50">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>178</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Include Demo</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_52">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>347</y>
+        <x>630</x>
+        <y>374</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_53">
-      <property name="geometry">
-       <rect>
-        <x>580</x>
-        <y>184</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
+       <string>Feedback</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_54">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>500</y>
+        <x>627</x>
+        <y>90</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_51">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>414</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_52">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>654</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_53">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>100</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Stages</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_55">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>660</y>
+        <x>630</x>
+        <y>173</y>
         <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stage Type</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_76">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>292</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Update Delay</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_77">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>133</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stage Length</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="fps">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>440</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="mole_height">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>521</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="mole_width">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>480</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="margin_start">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>559</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="mole_radius">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>521</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="feedback">
+      <property name="geometry">
+       <rect>
+        <x>831</x>
+        <y>374</y>
+        <width>21</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string/>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="main_game_2">
-     <attribute name="title">
-      <string>Main Game 2</string>
-     </attribute>
-     <widget class="QLineEdit" name="cond_set_name_54">
+     <widget class="QSpinBox" name="stage_length">
       <property name="geometry">
        <rect>
-        <x>823</x>
-        <y>97</y>
-        <width>161</width>
-        <height>31</height>
+        <x>830</x>
+        <y>130</y>
+        <width>159</width>
+        <height>25</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_55">
+     <widget class="QSpinBox" name="stages">
       <property name="geometry">
        <rect>
-        <x>823</x>
-        <y>569</y>
-        <width>161</width>
-        <height>31</height>
+        <x>830</x>
+        <y>88</y>
+        <width>159</width>
+        <height>25</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="stage_score_gap">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>47</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="stage_time_change">
+      <property name="geometry">
+       <rect>
+        <x>831</x>
+        <y>411</y>
+        <width>21</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="demo_2">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>214</y>
+        <width>21</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="update_delay">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>290</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="feedback_limit">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>330</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_53">
+      <property name="geometry">
+       <rect>
+        <x>178</x>
+        <y>0</y>
+        <width>101</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Main Screen</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_56">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>738</y>
-        <width>161</width>
-        <height>16</height>
+        <x>170</x>
+        <y>400</y>
+        <width>101</width>
+        <height>34</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_56">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>175</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Animations</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_57">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>497</y>
-        <width>161</width>
-        <height>16</height>
+        <x>730</x>
+        <y>477</y>
+        <width>201</width>
+        <height>34</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_57">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>731</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_58">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>491</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_59">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>491</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Hits and Scoring</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_58">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>344</y>
-        <width>161</width>
-        <height>16</height>
+        <x>740</x>
+        <y>0</y>
+        <width>101</width>
+        <height>34</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Stage Set Up</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_60">
+     <widget class="QComboBox" name="stage_type">
       <property name="geometry">
        <rect>
-        <x>823</x>
-        <y>257</y>
+        <x>830</x>
+        <y>171</y>
         <width>161</width>
-        <height>31</height>
+        <height>22</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_59">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>575</y>
+        <x>20</x>
+        <y>566</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_61">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>175</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_62">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>257</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Post Whack Interval</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_60">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>575</y>
+        <x>20</x>
+        <y>644</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_63">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>651</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Animation Interval</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_61">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>263</y>
+        <x>20</x>
+        <y>607</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_64">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>731</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Pause Interval</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_62">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>657</y>
+        <x>20</x>
+        <y>683</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_65">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>569</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Mole Down Interval</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_63">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>181</y>
+        <x>630</x>
+        <y>603</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_66">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>17</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Drift Type</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_64">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>23</y>
+        <x>630</x>
+        <y>644</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_67">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>411</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Hit Type</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_65">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>738</y>
+        <x>630</x>
+        <y>679</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_68">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>651</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Adjustment Type</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_66">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>657</y>
+        <x>630</x>
+        <y>719</y>
         <width>161</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Score Type</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_67">
+     <widget class="QDoubleSpinBox" name="post_whack_interval">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>103</y>
+        <x>270</x>
+        <y>560</y>
         <width>161</width>
-        <height>16</height>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="mole_pause_interval">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>600</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="animation_interval">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>640</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="mole_down_interval">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>680</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="adj_type">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>680</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="score_type">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>720</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="hit_type">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>640</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="drift_type">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>600</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_78">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>251</y>
+        <width>161</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Demo Length</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_68">
+     <widget class="QSpinBox" name="demo_len">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>103</y>
-        <width>161</width>
-        <height>16</height>
+        <x>830</x>
+        <y>249</y>
+        <width>159</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_79">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>248</y>
+        <width>185</width>
+        <height>37</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>2x2 Rating Grid Origin (y)</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_69">
+     <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>23</y>
-        <width>161</width>
-        <height>16</height>
+        <x>21</x>
+        <y>41</y>
+        <width>185</width>
+        <height>34</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Screen Width</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_69">
+     <widget class="QLabel" name="label_50">
       <property name="geometry">
        <rect>
-        <x>263</x>
-        <y>337</y>
-        <width>161</width>
+        <x>21</x>
+        <y>290</y>
+        <width>185</width>
+        <height>33</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Font Size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>80</y>
+        <width>185</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Screen Height</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>122</y>
+        <width>185</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Comm Bar Height</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>206</y>
+        <width>185</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>2x2 Rating Grid Origin (x)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>164</y>
+        <width>185</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>2x2 Rating Grid Length</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="screen_height">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>90</y>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_70">
+     <widget class="QLineEdit" name="comm_bar_height">
       <property name="geometry">
        <rect>
-        <x>23</x>
-        <y>263</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_71">
-      <property name="geometry">
-       <rect>
-        <x>23</x>
-        <y>417</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_70">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>337</y>
-        <width>161</width>
+        <x>270</x>
+        <y>130</y>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_71">
+     <widget class="QLineEdit" name="twobytwo_len">
       <property name="geometry">
        <rect>
-        <x>823</x>
-        <y>411</y>
-        <width>161</width>
+        <x>270</x>
+        <y>170</y>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_72">
+     <widget class="QLineEdit" name="twobytwo_x">
       <property name="geometry">
        <rect>
-        <x>583</x>
-        <y>344</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_73">
-      <property name="geometry">
-       <rect>
-        <x>23</x>
-        <y>181</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_74">
-      <property name="geometry">
-       <rect>
-        <x>583</x>
-        <y>417</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_75">
-      <property name="geometry">
-       <rect>
-        <x>23</x>
-        <y>497</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_72">
-      <property name="geometry">
-       <rect>
-        <x>263</x>
-        <y>17</y>
-        <width>161</width>
+        <x>270</x>
+        <y>207</y>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_73">
+     <widget class="QLineEdit" name="twobytwo_y">
       <property name="geometry">
        <rect>
-        <x>263</x>
-        <y>97</y>
-        <width>161</width>
+        <x>270</x>
+        <y>245</y>
+        <width>141</width>
         <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="screen_width">
+      <property name="geometry">
+       <rect>
+        <x>271</x>
+        <y>50</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="font_size">
+      <property name="geometry">
+       <rect>
+        <x>268</x>
+        <y>290</y>
+        <width>141</width>
+        <height>25</height>
        </rect>
       </property>
      </widget>
@@ -1117,80 +979,17 @@
      <attribute name="title">
       <string>Scorer</string>
      </attribute>
-     <widget class="QLineEdit" name="cond_set_name_12">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>572</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_13">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>340</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
         <x>20</x>
         <y>420</y>
-        <width>161</width>
+        <width>211</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_14">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>734</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_15">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>260</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_16">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>494</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_16">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>741</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
+       <string>Random Standard Deviation</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_17">
@@ -1203,7 +1002,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Random Type</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_7">
@@ -1216,17 +1015,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_17">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>20</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Maximum Score</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -1239,30 +1028,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_18">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>578</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_18">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>178</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Minimum Score</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_19">
@@ -1275,7 +1041,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Random Mean</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_20">
@@ -1288,7 +1054,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Adjust Score</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_21">
@@ -1301,50 +1067,109 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Skill to Luck Ratio</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_19">
+     <widget class="QSlider" name="skill_luck_rat">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>414</y>
-        <width>161</width>
-        <height>31</height>
+        <x>200</x>
+        <y>490</y>
+        <width>160</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rand_sd">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>420</y>
+        <width>111</width>
+        <height>22</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_20">
+     <widget class="QComboBox" name="random_type">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>654</y>
-        <width>161</width>
-        <height>31</height>
+        <x>220</x>
+        <y>270</y>
+        <width>66</width>
+        <height>22</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="cond_set_name_21">
+     <widget class="QCheckBox" name="adjust">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>220</x>
+        <y>190</y>
+        <width>72</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="max_score">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
         <y>100</y>
-        <width>161</width>
-        <height>31</height>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="min_score">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>20</y>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rand_mean">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>340</y>
+        <width>111</width>
+        <height>22</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_22">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>660</y>
+        <x>180</x>
+        <y>460</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Skill</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>460</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Luck</string>
       </property>
      </widget>
     </widget>
@@ -1352,19 +1177,6 @@
      <attribute name="title">
       <string>Hit Checker</string>
      </attribute>
-     <widget class="QLabel" name="label_32">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>660</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_26">
       <property name="geometry">
        <rect>
@@ -1375,80 +1187,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_30">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>654</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_22">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>572</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_25">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>260</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_28">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>578</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_28">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>178</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_31">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>100</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_23">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>340</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Luck Mean</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_25">
@@ -1461,30 +1200,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_31">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>500</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_27">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>20</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Luck Low Bound</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_29">
@@ -1497,20 +1213,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_24">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>741</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Condition </string>
+       <string>Luck High Bound</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_30">
@@ -1523,7 +1226,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Luck Standard Deviation</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_23">
@@ -1536,37 +1239,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_24">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>734</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_26">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>494</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_29">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>414</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Difficulty Factor</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_27">
@@ -1579,7 +1252,67 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Hit Type</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="hit_type_2">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>20</y>
+        <width>66</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="diff_fact">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>420</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="luck_high_bnd">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>350</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="luck_low_bnd">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>270</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="luck_sd">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>180</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="luck_mean">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>100</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -1587,80 +1320,30 @@
      <attribute name="title">
       <string>Margin Drifter</string>
      </attribute>
-     <widget class="QLineEdit" name="cond_set_name_32">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>572</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_33">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>340</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_33">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>420</y>
+        <y>563</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_34">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>734</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_35">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>260</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_36">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>494</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Amplitude</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_34">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>741</y>
+        <y>700</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Clip Drifting Value</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_35">
@@ -1673,7 +1356,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Noise Standard Deviation</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_36">
@@ -1686,17 +1369,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_37">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>20</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Noise</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_37">
@@ -1709,43 +1382,33 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Drift Type</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_38">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>578</y>
+        <y>350</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_38">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>178</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Noise Low Bound</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_39">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>347</y>
+        <y>490</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Gradient</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_40">
@@ -1758,63 +1421,214 @@
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Noise Mean</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_41">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>500</y>
+        <y>643</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_39">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>414</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_40">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>654</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="cond_set_name_41">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>100</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
+       <string>Always Positive</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_42">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>660</y>
+        <y>432</y>
         <width>161</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Condition </string>
+       <string>Noise High Bound</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_67">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>740</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clip High Bound</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_68">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>740</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clip Low Bound</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="drift_type_2">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>66</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="noise">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>100</y>
+        <width>72</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="noise_mean">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>180</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="noise_sd">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>260</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_69">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>306</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Noise Truncated</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="noise_2">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>300</y>
+        <width>72</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="noise_low_bnd">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>340</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="noise_high_bnd">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>430</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="gradient">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>490</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="amplitude">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>560</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="always_pos">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>640</y>
+        <width>72</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="drift_clip">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>700</y>
+        <width>72</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="clip_high_bnd">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>730</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="clip_low_bnd">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>740</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -1824,29 +1638,15 @@
      <rect>
       <x>10</x>
       <y>812</y>
-      <width>671</width>
+      <width>801</width>
       <height>51</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="save_btn">
-    <property name="geometry">
-     <rect>
-      <x>970</x>
-      <y>830</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Save and Exit</string>
-    </property>
-   </widget>
+   <zorder>tabs</zorder>
+   <zorder>next_btn</zorder>
+   <zorder>back_btn</zorder>
+   <zorder>error_textbox</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
