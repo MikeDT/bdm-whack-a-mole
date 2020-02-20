@@ -285,20 +285,14 @@ class WamLogger:
             assert len(xy) == 2
         except AssertionError:
             print('Mole event xy coorindates did not contain exactly two dims')
-        log_string = ("{'pos': (" +
+        log_string = ("{result: " + str(result) + ',' +
+                      "pos: (" +
                       str(xy[0]) + "," +
                       str(xy[1]) + ")," +
                       "'distance: " + str(distance) + "," +
                       "'relative_loc: " + str(relative_loc) + "," +
                       "'window': None})>")
-        if result == (True, True):
-            self._log_it("<Event(9.1-TrueHit " + log_string)
-        elif result == (False, True):
-            self._log_it("<Event(9.2-FakeMiss " + log_string)
-        elif result == (True, False):
-            self._log_it("<Event(9.3-FakeHit " + log_string)
-        else:
-            self._log_it("<Event(9.4-TrueMiss " + log_string)
+        self._log_it("<Event(9 Hit Attempt " + log_string)
 
     def log_end(self):
         '''

@@ -114,7 +114,7 @@ class Scorer:
         score: float
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
-        score = self.max_score  
+        score = self.max_score
         if self.adjust:
             score = self.skill_luck_rat * self._skill_adj(score,
                                                           distance,

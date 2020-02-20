@@ -20,7 +20,6 @@ Related projects:
 """
 
 from PyQt5 import QtWidgets
-#from QT_GUI import QT_GUI
 from QT import QT_GUI
 
 if __name__ == "__main__":
