@@ -92,9 +92,8 @@ class QT_Config(QT_Basic):
         QT_Basic.__init__(self, 'ui\\QT_Config.ui', *args, **kwargs)
         # Import the QT designer UI and name the window
         self.setWindowTitle('BDM Whack-A-Mole')
-        self.file_config_loc = 'config\\Test2.pkl'
+        self.file_config_loc = 'config\\Default.pkl'
         self.save_dict = {}
-
 
         # Connect the buttons and tabs to the relevant functions
         self.window.back_btn.clicked.connect(self.back_button_clicked)
@@ -244,7 +243,7 @@ class QT_Config(QT_Basic):
                      '.pkl')
         with open(file_path, 'wb') as f:
             pickle.dump(self.save_dict, f)
-            self.window.error_textbox.setText('File Saved Succesfully')
+            self.window.error_textbox.setText('File - ' + file_path + ' Saved Succesfully')
 
     def fill_condition_meta_dict(self):
         tmp = {'cond_set_name': (self.window.cond_set_name.text()),

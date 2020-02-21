@@ -29,7 +29,8 @@ import pygame
 import random
 from wam.sound import SoundEffect
 from wam.logger import WamLogger
-from wam.scorer import Scorer, Drifting_Val
+from wam.scorer import Scorer
+from wam.drifter import Drifting_Val
 from wam.hit_checker import Hit_Checker
 import re
 import pickle
@@ -67,7 +68,7 @@ class GameManager:
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
-        self.file_config_loc = 'config\\Test2.pkl'
+        self.file_config_loc = 'config\\Default.pkl'
 
         master_dict = self.get_config_dict
         self.CONDITION_SET = master_dict['conditions_meta']['cond_set_name']

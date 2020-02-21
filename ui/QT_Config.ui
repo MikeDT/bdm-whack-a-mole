@@ -71,7 +71,7 @@
      <enum>Qt::DefaultContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -215,7 +215,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Save File Folder (cond_set_name is filename)</string>
+       <string>Save File Folder</string>
       </property>
      </widget>
     </widget>
@@ -891,7 +891,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>NB this only sets the basic considerations i.e. how big</string>
+        <string>NB this only sets the basic considerations i.e. how big the mole's </string>
        </property>
       </widget>
       <widget class="QLabel" name="label_75">
@@ -904,7 +904,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>the mole's radius is and how big the error margin is</string>
+        <string>and how big the error margin is</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_80">
