@@ -67,7 +67,7 @@ class GameManager:
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
-        self.file_config_loc = 'config\\44.pkl'
+        self.file_config_loc = 'config\\Test2.pkl'
 
         master_dict = self.get_config_dict
         self.CONDITION_SET = master_dict['conditions_meta']['cond_set_name']
@@ -113,11 +113,6 @@ class GameManager:
         self.mole_pause_interval = import_dict['mole_pause_interval']
         self.animation_interval = import_dict['animation_interval']
         self.mole_down_interval = import_dict['mole_down_interval']
-
-        # Set the paramters for the game
-        self.score_type = import_dict['score_type']  # lin_dist_skill or nonlin_dist_skill
-        self.adj_type = import_dict['adj_type']  # rnd_wlk_neg, rnd_wlk_pos, static, design
-        self.hit_type = import_dict['hit_type']  # Standard, Binomial
         
         # Set game starting paramters
         self.score = 0
@@ -129,10 +124,9 @@ class GameManager:
         self.intro_complete = False
 
         # Initialise the score adjustment functions and data
-        self.scorer = Scorer(self.MOLE_RADIUS)
-        self.margin = Drifting_Val(self.MARGIN_START,
-                                   drift_type=import_dict['drift_type'])
-        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, self.hit_type)
+        self.scorer = Scorer(self.MOLE_RADIUS, config_dict=master_dict['scorer'])
+        self.margin = Drifting_Val(self.MARGIN_START, config_dict=master_dict['margin_drifter'])
+        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, config_dict=master_dict['hit_checker'])
 
         # Initialise sound effects
         self.sound_effect = SoundEffect()

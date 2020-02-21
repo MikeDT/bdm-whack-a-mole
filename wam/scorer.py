@@ -69,28 +69,40 @@ class Scorer:
                  adjust=False, skill_type='linear_dist',
                  rand_type='uniform',
                  rand_mean=5, rand_sd=1,
-                 skill_luck_rat=1.0):
+                 skill_luck_rat=1.0,
+                 config_dict=None):
+        self.MOLE_RADIUS = MOLE_RADIUS
+        if type(config_dict) is dict:
+            # Sets the Scorer instance parameters
+            self.min_score = config_dict['min_score']
+            self.max_score = config_dict['max_score']
+            self.adjust = config_dict['adjust']
+            self.skill_type = config_dict['skill_type']
+            self.rand_type = config_dict['rand_type']
+            self.rand_mean = config_dict['rand_mean']
+            self.rand_sd = config_dict['rand_sd']
+            self.skill_luck_rat = config_dict['skill_luck_rat']            
+        else:
+            # Sets the Scorer instance parameters
+            self.min_score = min_score
+            self.max_score = max_score
+            self.adjust = adjust
+            self.skill_type = skill_type
+            self.rand_type = rand_type
+            self.rand_mean = rand_mean
+            self.rand_sd = rand_sd
+            self.skill_luck_rat = skill_luck_rat            
+
         # Assertion for the skill_luck_rat, only input deemed at risk of misuse
         try:
-            assert skill_luck_rat <= 1.0
+            assert self.skill_luck_rat <= 1.0
         except AssertionError:
             print('skill_luck_rat out of bounds, now set to 1.0')
         try:
-            assert skill_luck_rat <= 1.0
+            assert self.skill_luck_rat <= 1.0
         except AssertionError:
             print('skill_luck_rat out of bounds, now set to 0.0')
-            skill_luck_rat = 0.0
-
-        # Sets the Scorer instance parameters
-        self.MOLE_RADIUS = MOLE_RADIUS
-        self.min_score = min_score
-        self.max_score = max_score
-        self.adjust = adjust
-        self.skill_type = skill_type
-        self.rand_type = rand_type
-        self.rand_mean = rand_mean
-        self.rand_sd = rand_sd
-        self.skill_luck_rat = skill_luck_rat
+            self.skill_luck_rat = 0.0
 
         # Adds the distribution methods
         self._norm_sample = _norm_sample
@@ -106,8 +118,6 @@ class Scorer:
             the distance from the centre of the mole
         score_type: string
             how scores get calculated (i.e. the skill component)
-        adj_type: string
-            how scores get adjusted (i.e. the luck component)
 
         Returns
         -------
@@ -206,7 +216,7 @@ class Drifting_Val:
         the mean of the gaussian noise
     noise_sd: float
         the standard deviation of the gaussian noise
-    noise_trunc=True
+    noise_truncated=True
         whether the noise should be truncated
     drift_type: string
         the drift type for the model, e.g. linear, static etc.
@@ -254,20 +264,43 @@ class Drifting_Val:
     """
     def __init__(self, variable, *, config_dict=None,
                  drift_type='static', noise=False, noise_mean=10, noise_sd=10,
-                 noise_trunc=True, gradient=1, amplitude=1,
+                 noise_truncated=True, gradient=1, amplitude=1,
                  always_pos=True, noise_low_bnd=0, noise_high_bnd=10,
                  drift_clip=False, clip_high_bnd=10, clip_low_bnd=0):
 
         # Sets the inital value
         self.init_val = variable
         self.last_val = variable
+        self.call_count = 0
 
         # External distribution functions
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
 
         # Load either by input vals or config_dict (if present)
-        if config_dict is None:
+        if type(config_dict) is dict:
+            self.noise = config_dict['noise']
+            self.noise_mean = config_dict['noise_mean']
+            self.noise_sd = config_dict['noise_sd']
+            self.noise_low_bnd = config_dict['noise_low_bnd']
+            self.noise_high_bnd = config_dict['noise_high_bnd']
+
+            # Sets the gradient and amplitude (if cyclical) of the drift, and
+            # the general conditions, e.g. whether it must be positive, is the
+            # noise truncated
+            self.drift_type = config_dict['drift_type']
+            self.always_pos = config_dict['always_pos']
+            self.noise_truncated = config_dict['noise_truncated']
+            self.gradient = config_dict['gradient']
+            self.amplitude = config_dict['amplitude']
+
+            # Sets the dirfting clipping (i.e. so drifting cannot exceed a
+            # defined set of boundaries)
+            self.drift_clip = config_dict['drift_clip']
+            self.clip_high_bnd = config_dict['clip_high_bnd']
+            self.clip_low_bnd = config_dict['clip_low_bnd']
+
+        else:
             # Sets the noise parameters
             self.noise = noise
             self.noise_mean = noise_mean
@@ -278,10 +311,9 @@ class Drifting_Val:
             # Sets the gradient and amplitude (if cyclical) of the drift, and
             # the general conditions, e.g. whether it must be positive, is the
             # noise truncated
-            self.call_count = 0
             self.drift_type = drift_type
             self.always_pos = always_pos
-            self.noise_trunc = noise_trunc
+            self.noise_truncated = noise_truncated
             self.gradient = gradient
             self.amplitude = amplitude
 
@@ -366,7 +398,7 @@ class Drifting_Val:
             gaussian
         '''
         if self.noise:
-            if self.noise_trunc:
+            if self.noise_truncated:
                 noise = self._trunc_norm_sample(self.noise_mean,
                                                 self.noise_sd,
                                                 self.noise_low_bnd,

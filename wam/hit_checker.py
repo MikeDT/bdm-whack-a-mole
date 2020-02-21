@@ -57,16 +57,24 @@ class Hit_Checker:
         checks whether a hit happen when binomial an error margin
     """
 
-    def __init__(self, MOLE_RADIUS, hit_type, luck_mean=0,
+    def __init__(self, MOLE_RADIUS, hit_type='Standard', luck_mean=0,
                  luck_sd=0.05, luck_low_bnd=-0.1, luck_high_bnd=0.1,
-                 diff_fact=1):
+                 diff_fact=1, config_dict=None):
         self.MOLE_RADIUS = MOLE_RADIUS
-        self.hit_type = hit_type
-        self.luck_mean = luck_mean
-        self.luck_sd = luck_sd
-        self.luck_low_bnd = luck_low_bnd
-        self.luck_high_bnd = luck_high_bnd
-        self.diff_fact = diff_fact
+        if type(config_dict) == dict:
+            self.hit_type = config_dict['hit_type']
+            self.luck_mean = config_dict['luck_mean']
+            self.luck_sd = config_dict['luck_sd']
+            self.luck_low_bnd = config_dict['luck_low_bnd']
+            self.luck_high_bnd = config_dict['luck_high_bnd']
+            self.diff_fact = config_dict['diff_fact']
+        else:
+            self.hit_type = hit_type
+            self.luck_mean = luck_mean
+            self.luck_sd = luck_sd
+            self.luck_low_bnd = luck_low_bnd
+            self.luck_high_bnd = luck_high_bnd
+            self.diff_fact = diff_fact
         self._trunc_luck = _trunc_norm_sample
 
     def check_mole_hit(self, num, left, distance, margin_drift_iter):
