@@ -204,22 +204,30 @@ class QT_Config(QT_Basic):
         self.window.luck_mean.setText(str(hit_checker_dict['luck_mean']))
         self.window.luck_sd.setValue(hit_checker_dict['luck_sd'])
         self.window.luck_low_bnd.setText(str(hit_checker_dict['luck_low_bnd']))
-        self.window.luck_high_bnd.setText(str(hit_checker_dict['luck_high_bnd']))
+        self.window.luck_high_bnd.setText(
+                str(hit_checker_dict['luck_high_bnd']))
 
     def populate_margin_drifter(self, margin_drifter_dict):
         # Screen Setup
-        self.window.drift_type.setCurrentText(margin_drifter_dict['drift_type'])
+        self.window.drift_type.setCurrentText(
+                margin_drifter_dict['drift_type'])
         self.window.gradient.setText(str(margin_drifter_dict['gradient']))
-        self.window.amplitude.setValue(margin_drifter_dict['amplitude'])
-        self.window.noise_truncated.setChecked(margin_drifter_dict['noise_truncated'])
+        self.window.amplitude.setValue(
+                margin_drifter_dict['amplitude'])
+        self.window.noise_truncated.setChecked(
+                margin_drifter_dict['noise_truncated'])
         self.window.noise_mean.setText(str(margin_drifter_dict['noise_mean']))
         self.window.noise_sd.setValue(margin_drifter_dict['noise_sd'])
-        self.window.noise_low_bnd.setText(str(margin_drifter_dict['noise_low_bnd']))
-        self.window.noise_high_bnd.setText(str(margin_drifter_dict['noise_high_bnd']))
+        self.window.noise_low_bnd.setText(
+                str(margin_drifter_dict['noise_low_bnd']))
+        self.window.noise_high_bnd.setText(
+                str(margin_drifter_dict['noise_high_bnd']))
         self.window.always_pos.setChecked(margin_drifter_dict['always_pos'])
         self.window.drift_clip.setChecked(margin_drifter_dict['drift_clip'])
-        self.window.clip_high_bnd.setText(str(margin_drifter_dict['clip_high_bnd']))
-        self.window.clip_low_bnd.setText(str(margin_drifter_dict['clip_low_bnd']))
+        self.window.clip_high_bnd.setText(
+                str(margin_drifter_dict['clip_high_bnd']))
+        self.window.clip_low_bnd.setText(
+                str(margin_drifter_dict['clip_low_bnd']))
 
     @property
     def save_check(self):
@@ -243,7 +251,9 @@ class QT_Config(QT_Basic):
                      '.pkl')
         with open(file_path, 'wb') as f:
             pickle.dump(self.save_dict, f)
-            self.window.error_textbox.setText('File - ' + file_path + ' Saved Succesfully')
+            self.window.error_textbox.setText('File - ' +
+                                              file_path +
+                                              ' Saved Succesfully')
 
     def fill_condition_meta_dict(self):
         tmp = {'cond_set_name': (self.window.cond_set_name.text()),

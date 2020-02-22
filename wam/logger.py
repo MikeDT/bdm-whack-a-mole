@@ -44,13 +44,14 @@ class WamLogger:
     log_end()
         closes down the log
     """
-    def __init__(self, usr_timestamp=False):
+    def __init__(self, usr_timestamp=False,
+                 log_file_root='../bdm-whack-a-mole/logs/'):
         if usr_timestamp is False:
             self.usr_timestamp = str(time())
         else:
             self.usr_timestamp = usr_timestamp
         self.logger = logging.getLogger('WAM_Events_' + self.usr_timestamp)
-        self.log_file_root = '../bdm-whack-a-mole/logs/'
+        self.log_file_root = log_file_root
         if not len(self.logger.handlers):
             self.create_log_instance()
 
@@ -158,7 +159,9 @@ class WamLogger:
         '''
         self._log_it(event)
 
-    def log_2x2_rate(self, mouse_pos, TWO_X_TWO_LOC, TWO_X_TWO_LEN):
+    def log_2x2_rate(self, mouse_pos, TWO_X_TWO_LOC, TWO_X_TWO_LEN,
+                     x_dim='skill_vs_luck_rating',
+                     y_dim='hit_confidence'):
         '''
         Logs the players rating using the 2x2 grid system
 
@@ -174,7 +177,9 @@ class WamLogger:
         '''
         x = (mouse_pos[0] - TWO_X_TWO_LOC[0]) / TWO_X_TWO_LEN
         y = (mouse_pos[1] - TWO_X_TWO_LOC[1]) / TWO_X_TWO_LEN
-        self._log_it("<Event(7-Rate {xy : " + str((x, y)) + " })>")
+        self._log_it("<Event(7-Rate {'" +
+                     x_dim + "': " + str(x) + ", '" +
+                     y_dim + "': " + str(y) + "})>")
 
     def log_score(self, score_inc, score):
         '''
@@ -192,8 +197,8 @@ class WamLogger:
         na
             logs the event via _log_it
         '''
-        score_str = ("score_inc: " + str(score_inc) + "," +
-                     "score: " + str(score) + "})>")
+        score_str = ("'score_inc': " + str(score_inc) + ", " +
+                     "'score': " + str(score) + "})>")
         self._log_it("<Event(11-Score {" + score_str)
 
     def log_pause(self, pause_reason):
@@ -285,14 +290,14 @@ class WamLogger:
             assert len(xy) == 2
         except AssertionError:
             print('Mole event xy coorindates did not contain exactly two dims')
-        log_string = ("{result: " + str(result) + ',' +
-                      "pos: (" +
-                      str(xy[0]) + "," +
-                      str(xy[1]) + ")," +
-                      "'distance: " + str(distance) + "," +
-                      "'relative_loc: " + str(relative_loc) + "," +
+        log_string = ("{'result': " + str(result) + ', ' +
+                      "'pos': (" +
+                      str(xy[0]) + ", " +
+                      str(xy[1]) + "), " +
+                      "'distance': " + str(distance) + ", " +
+                      "'relative_loc': " + str(relative_loc) + ", " +
                       "'window': None})>")
-        self._log_it("<Event(9 Hit Attempt " + log_string)
+        self._log_it("<Event(9-Hit Attempt " + log_string)
 
     def log_end(self):
         '''

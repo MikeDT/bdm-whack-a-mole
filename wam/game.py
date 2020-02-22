@@ -58,7 +58,8 @@ class GameManager:
         Property method, imports a text file and creates a dictionary for the
         text displayed under given game pause conditions
     """
-    def __init__(self, usr_timestamp=False):
+    def __init__(self, file_config_loc=r"config\\Default.pkl",
+                 usr_timestamp=False):
 
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
@@ -68,7 +69,7 @@ class GameManager:
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
-        self.file_config_loc = 'config\\Default.pkl'
+        self.file_config_loc = file_config_loc
 
         master_dict = self.get_config_dict
         self.CONDITION_SET = master_dict['conditions_meta']['cond_set_name']
@@ -81,10 +82,10 @@ class GameManager:
         self.TWO_X_TWO_LEN = import_dict['TWO_X_TWO_LEN']
         self.TWO_X_TWO_LOC = import_dict['TWO_X_TWO_LOC']
         self.FPS = import_dict['FPS']
-        self.MOLE_WIDTH = import_dict['MOLE_WIDTH']  # for animations
-        self.MOLE_HEIGHT = import_dict['MOLE_HEIGHT']  # for animations
-        self.MOLE_RADIUS = import_dict['MOLE_RADIUS']  # for hit calcs
-        self.MARGIN_START = import_dict['MARGIN_START']  # the margin adjustment for a mole (can be +/-)
+        self.MOLE_WIDTH = import_dict['MOLE_WIDTH']
+        self.MOLE_HEIGHT = import_dict['MOLE_HEIGHT']
+        self.MOLE_RADIUS = import_dict['MOLE_RADIUS']
+        self.MARGIN_START = import_dict['MARGIN_START']
         self.FONT_SIZE = import_dict['FONT_SIZE']
         self.FONT_TOP_MARGIN = (import_dict['SCREEN_HEIGHT'] +
                                 import_dict['COMM_BAR_HEIGHT'] - 26)
@@ -99,9 +100,9 @@ class GameManager:
             self.stage = 'Demo'
         else:
             self.stage = 1
-        self.stage_type = import_dict['stage_type']  # Standard or Attempts
-        self.feedback_limit = import_dict['feedback_limit']  # iterations per player feedback
-        self.update_delay = import_dict['update_delay']  # iterations per score update
+        self.stage_type = import_dict['stage_type']
+        self.feedback_limit = import_dict['feedback_limit']
+        self.update_delay = import_dict['update_delay']
         self.stage_length = import_dict['stage_length']
         self.stages = import_dict['stages']
         self.stage_pts = [i for i in range(self.demo_len,
@@ -114,7 +115,7 @@ class GameManager:
         self.mole_pause_interval = import_dict['mole_pause_interval']
         self.animation_interval = import_dict['animation_interval']
         self.mole_down_interval = import_dict['mole_down_interval']
-        
+
         # Set game starting paramters
         self.score = 0
         self.misses = 0
@@ -125,9 +126,12 @@ class GameManager:
         self.intro_complete = False
 
         # Initialise the score adjustment functions and data
-        self.scorer = Scorer(self.MOLE_RADIUS, config_dict=master_dict['scorer'])
-        self.margin = Drifting_Val(self.MARGIN_START, config_dict=master_dict['margin_drifter'])
-        self.hit_checker = Hit_Checker(self.MOLE_RADIUS, config_dict=master_dict['hit_checker'])
+        self.scorer = Scorer(self.MOLE_RADIUS,
+                             config_dict=master_dict['scorer'])
+        self.margin = Drifting_Val(self.MARGIN_START,
+                                   config_dict=master_dict['margin_drifter'])
+        self.hit_checker = Hit_Checker(self.MOLE_RADIUS,
+                                       config_dict=master_dict['hit_checker'])
 
         # Initialise sound effects
         self.sound_effect = SoundEffect()
@@ -190,7 +194,7 @@ class GameManager:
         self.wam_logger.log_class_dict('hit_checker',
                                        self.hit_checker.__dict__)
         self.wam_logger.log_class_dict('scorer',
-                                       self.scorer.__dict__)   
+                                       self.scorer.__dict__)
 
     @property
     def _get_hole_pos(self):
@@ -241,7 +245,6 @@ class GameManager:
         '''
         hole_pos_centre = [(x + self.MOLE_WIDTH/2, y + self.MOLE_HEIGHT/2) for
                            (x, y) in self.hole_positions]
-        print (hole_pos_centre)
         return hole_pos_centre
 
     @property
@@ -314,11 +317,10 @@ class GameManager:
                         if mods & pygame.KMOD_CTRL:
                             pygame.quit()
                             self.wam_logger.log_end()
-                            
+          
     def end(self):
         self.screen.fill([255, 255, 255])
         self.screen.blit(self.end_page, (0, 0))
-#        pygame.display.update()
         pygame.display.flip()
 
     def write_text(self, string, colour=(0, 0, 0),
@@ -426,8 +428,9 @@ class GameManager:
                     if self.mole_count == self.stage_pts[-1]:
                         self.end()
                     else:
-                        self.write_text(self.pause_reason_dict[self.pause_reason],
-                                        location_y=self.SCREEN_HEIGHT + 40)
+                        self.write_text(
+                                self.pause_reason_dict[self.pause_reason],
+                                location_y=self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
                 elif self.pause_reason == 'standard':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
@@ -552,8 +555,8 @@ class GameManager:
         else:
             pass
 
-    def mole_hit(self, num, left, mole_is_down, interval, frame_num):
-        num = 3
+    def mole_hit(self, ani_num, left, mole_is_down, interval, frame_num):
+        ani_num = 3
         left = 14
         mole_is_down = False
         interval = 0
@@ -565,9 +568,9 @@ class GameManager:
         self.mole_count += 1
         if self.FEEDBACK:
             self.sound_effect.play_hurt()
-        return num, left, mole_is_down, interval, frame_num
+        return ani_num, left, mole_is_down, interval, frame_num
 
-    def check_mouse_event(self, event, num, left, mole_is_down,
+    def check_mouse_event(self, event, ani_num, left, mole_is_down,
                           interval, frame_num):
         """
         Checks whether a couse event has resulted in a mole hit
@@ -583,17 +586,21 @@ class GameManager:
             self.sound_effect.play_fire()
             self.feedback_count += 1
             self.check_feedback()
-            self.result = self.hit_checker.check_mole_hit(num,
-                                                          left,
-                                                          self.distance,
-                                                          self.margin.drift_iter)
+            self.result = self.hit_checker.check_mole_hit(
+                                                    ani_num,
+                                                    left,
+                                                    self.distance,
+                                                    self.margin.drift_iter)
             if self.result[2]:  # the hit feedback
-                (num,
+                (ani_num,
                  left,
                  mole_is_down,
                  interval,
-                 frame_num) = self.mole_hit(num, left, mole_is_down,
-                                            interval, frame_num)
+                 frame_num) = self.mole_hit(ani_num,
+                                            left,
+                                            mole_is_down,
+                                            interval,
+                                            frame_num)
             else:
                 self.misses += 1
                 self.mole_count += 1
@@ -602,19 +609,19 @@ class GameManager:
                                            self.distance, self.relative_loc)
             self.score_update_check()
             self.set_player_stage()
-        return num, left, mole_is_down, interval, frame_num
+        return ani_num, left, mole_is_down, interval, frame_num
 
-    def pop_mole(self, num, mole_is_down, interval, frame_num):
+    def pop_mole(self, ani_num, mole_is_down, interval, frame_num):
         self.screen.blit(self.background, (0, 0))
         self.score_update_check()
-        num = 0
+        ani_num = 0
         mole_is_down = False
         interval = 0.5
         frame_num = random.randint(0, 8)
         self.wam_logger.log_mole_event(self.hole_positions[frame_num])
-        return num, mole_is_down, interval, frame_num
+        return ani_num, mole_is_down, interval, frame_num
 
-    def show_mole_frame(self, num, frame_num, left):
+    def show_mole_frame(self, ani_num, frame_num, left):
         '''
         Shows the specific mole animation frame at a given hole position
 
@@ -630,13 +637,13 @@ class GameManager:
         -------
         tbd : to be reworked
         '''
-        pic = self.mole[num]
+        pic = self.mole[ani_num]
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(pic,
                          (self.hole_positions[frame_num][0] - left,
                           self.hole_positions[frame_num][1]))
 
-    def animate_mole(self, num, left, mole_is_down, interval,
+    def animate_mole(self, ani_num, left, mole_is_down, interval,
                      frame_num, initial_interval, cycle_time, clock):
         '''
         Animates/governs the mole popping/whacking/dropping sequence
@@ -653,23 +660,23 @@ class GameManager:
         -------
         tbd : to be reworked
         '''
-        self.show_mole_frame(num, frame_num, left)
+        self.show_mole_frame(ani_num, frame_num, left)
         self.score_update_check()
         if mole_is_down is False:
-            num += 1
+            ani_num += 1
         else:
-            num -= 1
-        if num == 4:
+            ani_num -= 1
+        if ani_num == 4:
             interval = self.post_whack_interval
-        elif num == 3:
-            num -= 1
+        elif ani_num == 3:
+            ani_num -= 1
             mole_is_down = True
             self.sound_effect.play_pop()
             interval = self.mole_pause_interval  # self.get_interval_by_stage(initial_interval)
         else:
             interval = self.animation_interval
         cycle_time = 0
-        return (num, left, mole_is_down,
+        return (ani_num, left, mole_is_down,
                 interval, frame_num, initial_interval,
                 cycle_time, clock)
 
@@ -687,7 +694,7 @@ class GameManager:
         """
         # Time control variables
         cycle_time = 0
-        num = -1
+        ani_num = -1
         loop = True
         mole_is_down = False
         interval = 0.1
@@ -707,30 +714,30 @@ class GameManager:
                 if event.type == pygame.QUIT:
                     loop = False
                 self.check_key_event(event)
-                (num,
+                (ani_num,
                  left,
                  mole_is_down,
                  interval,
                  frame_num) = self.check_mouse_event(event,
-                                                     num,
+                                                     ani_num,
                                                      left,
                                                      mole_is_down,
                                                      interval,
                                                      frame_num)
 
             # refreshes screen at the point of mole popping
-            if num > 5:       # 5
+            if ani_num > 5:       # 5
                 self.screen.blit(self.background, (0, 0))
                 self.score_update_check()
-                num = -1
+                ani_num = -1
                 left = 0
 
             # pops the mole, if it's time
-            if num == -1:
-                (num,
+            if ani_num == -1:
+                (ani_num,
                  mole_is_down,
                  interval,
-                 frame_num) = self.pop_mole(num,
+                 frame_num) = self.pop_mole(ani_num,
                                             mole_is_down,
                                             interval,
                                             frame_num)
@@ -740,14 +747,14 @@ class GameManager:
             sec = mil / 1000.0
             cycle_time += sec
             if cycle_time > interval:
-                (num,
+                (ani_num,
                  left,
                  mole_is_down,
                  interval,
                  frame_num,
                  initial_interval,
                  cycle_time,
-                 clock) = self.animate_mole(num,
+                 clock) = self.animate_mole(ani_num,
                                             left,
                                             mole_is_down,
                                             interval,
