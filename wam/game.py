@@ -27,6 +27,7 @@ Related projects:
 
 import pygame
 import random
+import pyautogui
 from wam.sound import SoundEffect
 from wam.logger import WamLogger
 from wam.scorer import Scorer
@@ -65,7 +66,7 @@ class GameManager:
         self.intro_txt_file_loc = 'text\\intro.txt'
         self.hole_pos_file_loc = 'config\\hole_positions.txt'
         self.pause_info_file_loc = 'text\\pause_info.txt'
-        self.screen_img_file_loc = "images\\bg_2x2_v2_raw.png"
+        self.screen_img_file_loc = "images\\bg_2x2_v3_raw.png"
         self.mole_img_file_loc = "images\\mole.png"
         self.splash_img_file_loc = "images\\Splash_Screen.png"
         self.end_img_file_loc = "images\\End_Screen.png"
@@ -137,7 +138,7 @@ class GameManager:
         self.sound_effect = SoundEffect()
 
         # Import text information
-        self.font_obj = pygame.font.SysFont("comicsansms", 20)
+        self.font_obj = pygame.font.SysFont("comicsansms", 50)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self._get_pause_dict
 
@@ -522,8 +523,8 @@ class GameManager:
         score_text = self.font_obj.render(current_score_string,
                                           True, (1, 1, 1))
         score_text_pos = score_text.get_rect()
-        score_text_pos.centerx = self.background.get_rect().centerx
-        score_text_pos.centery = self.FONT_TOP_MARGIN
+        score_text_pos.centerx = 1135 #self.background.get_rect().centerx
+        score_text_pos.centery = 200 #self.FONT_TOP_MARGIN
         self.screen.blit(score_text, score_text_pos)
 
         # Update gui with player's misses
@@ -531,8 +532,8 @@ class GameManager:
         misses_text = self.font_obj.render(current_misses_string,
                                            True, (1, 1, 1))
         misses_text_pos = misses_text.get_rect()
-        misses_text_pos.centerx = self.SCREEN_WIDTH / 5 * 4
-        misses_text_pos.centery = self.FONT_TOP_MARGIN
+        misses_text_pos.centerx = 885 #self.SCREEN_WIDTH / 5 * 4
+        misses_text_pos.centery = 400 # self.FONT_TOP_MARGIN
         self.screen.blit(misses_text, misses_text_pos)
 
         # Update gui with player's stage
@@ -540,8 +541,8 @@ class GameManager:
         stage_text = self.font_obj.render(current_stage_string,
                                           True, (1, 1, 1))
         stage_text_pos = stage_text.get_rect()
-        stage_text_pos.centerx = self.SCREEN_WIDTH / 5 * 1
-        stage_text_pos.centery = self.FONT_TOP_MARGIN
+        stage_text_pos.centerx = 885 #self.SCREEN_WIDTH / 5 * 1
+        stage_text_pos.centery = 600 #self.FONT_TOP_MARGIN
         self.screen.blit(stage_text, stage_text_pos)
 
         # 2x2 rating persistence
@@ -560,15 +561,19 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        score_inc = self.scorer.get_score(self.margin.drift_iter,
+        self.score_t0 = self.scorer.get_score(self.margin.drift_iter,
                                           self.distance)
         self.sound_effect.stop_pop()
-        self.score += score_inc
-        self.wam_logger.log_score(score_inc, self.score)
+        self.score += self.score_t0
+        self.wam_logger.log_score(self.score_t0, self.score)
         self.mole_count += 1
         if self.FEEDBACK:
             self.sound_effect.play_hurt()
         return ani_num, left, mole_is_down, interval, frame_num
+    
+    def _displace_mouse(self):
+        xy_shift = [40,30,20,-20,-30,-40]
+        pyautogui.move(random.choice(xy_shift), random.choice(xy_shift))
 
     def check_mouse_event(self, event, ani_num, left, mole_is_down,
                           interval, frame_num):
@@ -584,6 +589,7 @@ class GameManager:
             self.relative_loc = self.get_relative_loc(pygame.mouse.get_pos(),
                                                       frame_num)
             self.sound_effect.play_fire()
+            self._displace_mouse()
             self.feedback_count += 1
             self.check_feedback()
             self.result = self.hit_checker.check_mole_hit(
@@ -592,6 +598,7 @@ class GameManager:
                                                     self.distance,
                                                     self.margin.drift_iter)
             if self.result[2]:  # the hit feedback
+
                 (ani_num,
                  left,
                  mole_is_down,

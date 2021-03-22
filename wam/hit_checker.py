@@ -20,6 +20,7 @@ Related projects:
 
 import numpy as np
 from wam.distributions import trunc_norm_sample as _trunc_norm_sample
+import pyautogui
 
 
 class Hit_Checker:

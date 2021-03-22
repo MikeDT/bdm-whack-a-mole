@@ -20,6 +20,7 @@ Related projects:
 """
 
 import numpy as np
+import random
 from wam.distributions import trunc_norm_sample as _trunc_norm_sample
 from wam.distributions import norm_sample as _norm_sample
 
@@ -65,11 +66,11 @@ class Scorer:
     _rand_adjust(score)
         gives a random adjustment to the score
     """
-    def __init__(self, MOLE_RADIUS, *, min_score=0, max_score=10,
+    def __init__(self, MOLE_RADIUS, *, min_score=0.0, max_score=10.0,
                  adjust=False, skill_type='linear_dist',
                  rand_type='uniform',
                  rand_mean=5, rand_sd=1,
-                 skill_luck_rat=1.0,
+                 skill_luck_rat=0.5,
                  config_dict=None):
         self.MOLE_RADIUS = MOLE_RADIUS
         if type(config_dict) is dict:
@@ -107,8 +108,32 @@ class Scorer:
         # Adds the distribution methods
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
+        
+    def get_score(self, distance,margin_drift_iter):
+        '''
+        Gets the score for an attempted mole whack
 
-    def get_score(self, distance, margin_drift_iter):
+        Parameters
+        ----------
+        distance: float
+            the distance from the centre of the mole
+        score_type: string
+            how scores get calculated (i.e. the skill component)
+
+        Returns
+        -------
+        score: float
+            the luck adjusted score (i.e. nearer to luckier = better score)
+        '''
+        is_skill = np.random.binomial(1,self.skill_luck_rat, 1)[0]
+        max_score = self.max_score
+        if is_skill:# == 1:
+            score = self._skill_adj(max_score, distance, margin_drift_iter)
+        else:
+            score = random.choice(list(range(1,max_score+1)))
+        return score
+
+    def get_score_deprecated(self, distance, margin_drift_iter): # to be deprecated
         '''
         Gets the score for an attempted mole whack
 
@@ -165,6 +190,7 @@ class Scorer:
                                       margin_drift_iter)
             precision = precision**2
         score = precision*score
+        round(score)
         return score
 
     def _rand_adj(self, score):
