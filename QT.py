@@ -92,7 +92,7 @@ class QT_Config(QT_Basic):
         QT_Basic.__init__(self, 'ui\\QT_Config.ui', *args, **kwargs)
         # Import the QT designer UI and name the window
         self.setWindowTitle('BDM Whack-A-Mole')
-        self.file_config_loc = 'config\\master_dict.pkl'
+        self.file_config_loc = 'config\\Default.pkl'
         self.save_dict = {}
 
         # Connect the buttons and tabs to the relevant functions
@@ -102,27 +102,32 @@ class QT_Config(QT_Basic):
         self.window.load_btn.clicked.connect(self.load_button_clicked)
         self.window.tabs.currentChanged.connect(self.refresh_nav_buttons)
 
-        # Import the configuration
-        self.set_config_dict()
-        self.populate_main_game(self.master_dict['main_game'])
-
         # Set the default visibility for the nav buttons and show the screen
         self.window.back_btn.hide()
-        self.window.error_textbox.hide()
 
         # Set the combo box valid values
-        self.set_combo_types(self.window.score_type, ['Normal',
+        self.set_combo_types(self.window.skill_type, ['Normal',
                                                       'lin_dist_skill',
                                                       'nonlin_dist_skill'])
-        self.set_combo_types(self.window.adj_type, ['rnd_wlk_neg',
-                                                    'rnd_wlk_pos',
-                                                    'static', 'design'])
         self.set_combo_types(self.window.hit_type, ['Standard',
                                                     'Binomial'])
         self.set_combo_types(self.window.stage_type, ['Standard',
                                                       'Attempts'])
+        self.set_combo_types(self.window.rand_type, ['uniform',
+                                                     'normal'])
         self.set_combo_types(self.window.drift_type, ['static',
-                                                      'dynamic'])
+                                                      'sin',
+                                                      'linear',
+                                                      'linear+sin',
+                                                      'random'])
+
+        # Import the configuration
+        self.set_config_dict()
+        self.populate_main_game(self.master_dict['main_game'])
+        self.populate_scorer(self.master_dict['scorer'])
+        self.populate_hit_checker(self.master_dict['hit_checker'])
+        self.populate_margin_drifter(self.master_dict['margin_drifter'])
+
         self.window.show()
 
     def load_button_clicked(self):
@@ -180,10 +185,49 @@ class QT_Config(QT_Basic):
         # Mole hits and scoring
         self.window.mole_radius.setValue(main_game_dict['MOLE_RADIUS'])
         self.window.margin_start.setValue(main_game_dict['MARGIN_START'])
-        self.window.drift_type.setCurrentText(main_game_dict['drift_type'])
-        self.window.hit_type.setCurrentText(main_game_dict['hit_type'])
-        self.window.adj_type.setCurrentText(main_game_dict['adj_type'])
-        self.window.score_type.setCurrentText(main_game_dict['score_type'])
+
+    def populate_scorer(self, scorer_dict):
+        # Screen Setup
+        self.window.skill_type.setCurrentText(scorer_dict['skill_type'])
+        self.window.adjust.setChecked(scorer_dict['adjust'])
+        self.window.min_score.setValue(scorer_dict['min_score'])
+        self.window.max_score.setValue(scorer_dict['max_score'])
+        self.window.skill_luck_rat.setValue(scorer_dict['skill_luck_rat'])
+        self.window.rand_mean.setValue(scorer_dict['rand_mean'])
+        self.window.rand_sd.setValue(scorer_dict['rand_sd'])
+        self.window.rand_type.setCurrentText(scorer_dict['rand_type'])
+
+    def populate_hit_checker(self, hit_checker_dict):
+        # Screen Setup
+        self.window.hit_type.setCurrentText(hit_checker_dict['hit_type'])
+        self.window.diff_fact.setValue(hit_checker_dict['diff_fact'])
+        self.window.luck_mean.setText(str(hit_checker_dict['luck_mean']))
+        self.window.luck_sd.setValue(hit_checker_dict['luck_sd'])
+        self.window.luck_low_bnd.setText(str(hit_checker_dict['luck_low_bnd']))
+        self.window.luck_high_bnd.setText(
+                str(hit_checker_dict['luck_high_bnd']))
+
+    def populate_margin_drifter(self, margin_drifter_dict):
+        # Screen Setup
+        self.window.drift_type.setCurrentText(
+                margin_drifter_dict['drift_type'])
+        self.window.gradient.setText(str(margin_drifter_dict['gradient']))
+        self.window.amplitude.setValue(
+                margin_drifter_dict['amplitude'])
+        self.window.noise_truncated.setChecked(
+                margin_drifter_dict['noise_truncated'])
+        self.window.noise_mean.setText(str(margin_drifter_dict['noise_mean']))
+        self.window.noise_sd.setValue(margin_drifter_dict['noise_sd'])
+        self.window.noise_low_bnd.setText(
+                str(margin_drifter_dict['noise_low_bnd']))
+        self.window.noise_high_bnd.setText(
+                str(margin_drifter_dict['noise_high_bnd']))
+        self.window.always_pos.setChecked(margin_drifter_dict['always_pos'])
+        self.window.drift_clip.setChecked(margin_drifter_dict['drift_clip'])
+        self.window.clip_high_bnd.setText(
+                str(margin_drifter_dict['clip_high_bnd']))
+        self.window.clip_low_bnd.setText(
+                str(margin_drifter_dict['clip_low_bnd']))
 
     @property
     def save_check(self):
@@ -192,6 +236,9 @@ class QT_Config(QT_Basic):
     def save_button_clicked(self):
         self.fill_condition_meta_dict()
         self.fill_main_game_dict()
+        self.fill_scorer_dict()
+        self.fill_hit_checker_dict()
+        self.fill_margin_drifter_dict()
         can_save, errors = self.save_check
         if can_save:
             self.save()
@@ -204,7 +251,9 @@ class QT_Config(QT_Basic):
                      '.pkl')
         with open(file_path, 'wb') as f:
             pickle.dump(self.save_dict, f)
-            self.window.error_textbox.setText('File Saved Succesfully')
+            self.window.error_textbox.setText('File - ' +
+                                              file_path +
+                                              ' Saved Succesfully')
 
     def fill_condition_meta_dict(self):
         tmp = {'cond_set_name': (self.window.cond_set_name.text()),
@@ -242,12 +291,47 @@ class QT_Config(QT_Basic):
                'stage_time_change': self.window.stage_time_change.isChecked(),
                # Mole hits and scoring
                'MOLE_RADIUS': self.window.mole_radius.value(),
-               'MARGIN_START': self.window.margin_start.value(),
-               'drift_type': self.window.drift_type.currentText(),
-               'hit_type': self.window.hit_type.currentText(),
-               'adj_type': self.window.adj_type.currentText(),
-               'score_type': self.window.score_type.currentText()}
+               'MARGIN_START': self.window.margin_start.value()}
         self.save_dict['main_game'] = tmp
+
+    def fill_scorer_dict(self):
+        tmp = {'skill_type': self.window.skill_type.currentText(),
+               'adjust': self.window.adjust.isChecked(),
+               'max_score': self.window.max_score.value(),
+               'min_score': self.window.min_score.value(),
+               'rand_type': self.window.rand_type.currentText(),
+               'rand_mean': float(self.window.rand_mean.text()),
+               'rand_sd': self.window.rand_sd.value(),
+               'skill_luck_rat': self.window.skill_luck_rat.value()
+               }
+        self.save_dict['scorer'] = tmp
+
+    def fill_hit_checker_dict(self):
+        tmp = {'hit_type': self.window.hit_type.currentText(),
+               'diff_fact': self.window.diff_fact.value(),
+               'luck_mean': float(self.window.luck_mean.text()),
+               'luck_sd': self.window.luck_sd.value(),
+               'luck_low_bnd': float(self.window.luck_low_bnd.text()),
+               'luck_high_bnd': float(self.window.luck_high_bnd.text())
+               }
+        self.save_dict['hit_checker'] = tmp
+
+    def fill_margin_drifter_dict(self):
+        tmp = {'drift_type': self.window.drift_type.currentText(),
+               'gradient': float(self.window.gradient.text()),
+               'amplitude': self.window.amplitude.value(),
+               'noise': self.window.noise.isChecked(),
+               'noise_mean': float(self.window.noise_mean.text()),
+               'noise_sd': self.window.noise_sd.value(),
+               'noise_truncated': self.window.noise_truncated.isChecked(),
+               'noise_high_bnd': float(self.window.noise_high_bnd.text()),
+               'noise_low_bnd': float(self.window.noise_low_bnd.text()),
+               'always_pos': self.window.always_pos.isChecked(),
+               'drift_clip': self.window.drift_clip.isChecked(),
+               'clip_high_bnd': float(self.window.clip_high_bnd.text()),
+               'clip_low_bnd': float(self.window.clip_low_bnd.text())
+               }
+        self.save_dict['margin_drifter'] = tmp
 
 
 class QT_GUI(QT_Basic):

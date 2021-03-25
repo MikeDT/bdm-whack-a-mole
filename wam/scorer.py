@@ -20,6 +20,7 @@ Related projects:
 """
 
 import numpy as np
+import random
 from wam.distributions import trunc_norm_sample as _trunc_norm_sample
 from wam.distributions import norm_sample as _norm_sample
 
@@ -65,38 +66,50 @@ class Scorer:
     _rand_adjust(score)
         gives a random adjustment to the score
     """
-    def __init__(self, MOLE_RADIUS, *, min_score=0, max_score=10,
+    def __init__(self, MOLE_RADIUS, *, min_score=0.0, max_score=10.0,
                  adjust=False, skill_type='linear_dist',
                  rand_type='uniform',
                  rand_mean=5, rand_sd=1,
-                 skill_luck_rat=1.0):
+                 skill_luck_rat=0.5,
+                 config_dict=None):
+        self.MOLE_RADIUS = MOLE_RADIUS
+        if type(config_dict) is dict:
+            # Sets the Scorer instance parameters
+            self.min_score = config_dict['min_score']
+            self.max_score = config_dict['max_score']
+            self.adjust = config_dict['adjust']
+            self.skill_type = config_dict['skill_type']
+            self.rand_type = config_dict['rand_type']
+            self.rand_mean = config_dict['rand_mean']
+            self.rand_sd = config_dict['rand_sd']
+            self.skill_luck_rat = config_dict['skill_luck_rat']            
+        else:
+            # Sets the Scorer instance parameters
+            self.min_score = min_score
+            self.max_score = max_score
+            self.adjust = adjust
+            self.skill_type = skill_type
+            self.rand_type = rand_type
+            self.rand_mean = rand_mean
+            self.rand_sd = rand_sd
+            self.skill_luck_rat = skill_luck_rat            
+
         # Assertion for the skill_luck_rat, only input deemed at risk of misuse
         try:
-            assert skill_luck_rat <= 1.0
+            assert self.skill_luck_rat <= 1.0
         except AssertionError:
             print('skill_luck_rat out of bounds, now set to 1.0')
         try:
-            assert skill_luck_rat <= 1.0
+            assert self.skill_luck_rat <= 1.0
         except AssertionError:
             print('skill_luck_rat out of bounds, now set to 0.0')
-            skill_luck_rat = 0.0
-
-        # Sets the Scorer instance parameters
-        self.MOLE_RADIUS = MOLE_RADIUS
-        self.min_score = min_score
-        self.max_score = max_score
-        self.adjust = adjust
-        self.skill_type = skill_type
-        self.rand_type = rand_type
-        self.rand_mean = rand_mean
-        self.rand_sd = rand_sd
-        self.skill_luck_rat = skill_luck_rat
+            self.skill_luck_rat = 0.0
 
         # Adds the distribution methods
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
-
-    def get_score(self, distance, margin_drift_iter):
+        
+    def get_score(self, distance,margin_drift_iter):
         '''
         Gets the score for an attempted mole whack
 
@@ -106,8 +119,30 @@ class Scorer:
             the distance from the centre of the mole
         score_type: string
             how scores get calculated (i.e. the skill component)
-        adj_type: string
-            how scores get adjusted (i.e. the luck component)
+
+        Returns
+        -------
+        score: float
+            the luck adjusted score (i.e. nearer to luckier = better score)
+        '''
+        is_skill = np.random.binomial(1,self.skill_luck_rat, 1)[0]
+        max_score = self.max_score
+        if is_skill == 1:
+            score = self._skill_adj(max_score, distance, margin_drift_iter)
+        else:
+            score = random.choice(list(range(1,max_score+1)))
+        return score
+
+    def get_score_deprecated(self, distance, margin_drift_iter): # to be deprecated
+        '''
+        Gets the score for an attempted mole whack
+
+        Parameters
+        ----------
+        distance: float
+            the distance from the centre of the mole
+        score_type: string
+            how scores get calculated (i.e. the skill component)
 
         Returns
         -------
@@ -155,6 +190,7 @@ class Scorer:
                                       margin_drift_iter)
             precision = precision**2
         score = precision*score
+        round(score)
         return score
 
     def _rand_adj(self, score):
@@ -192,198 +228,3 @@ class Scorer:
                                         self.min_score, self.max_score)
             score = x
         return score
-
-
-class Drifting_Val:
-    """
-    Manages the drifting of a variable over time
-
-    Attributes
-    ----------
-    noise: Bool
-        whether to add noise to the drift
-    noise_mean: float
-        the mean of the gaussian noise
-    noise_sd: float
-        the standard deviation of the gaussian noise
-    noise_trunc=True
-        whether the noise should be truncated
-    drift_type: string
-        the drift type for the model, e.g. linear, static etc.
-    gradient: float
-        the graident for any linear drift
-    amplitude: float
-        the amplitude of any sinusoidal type drift
-    always_pos: Bool
-        whether the outcome must always be positive (i.e. max of 0 and val)
-    noise_low_bnd: float
-        the low boundary for the added noise
-    noise_high_bnd: float
-        the high boundary for the added noise
-    drift_clip: Bool
-        the clipping for the drifting (i.e. ensuring it stays within set
-        boundaries)
-    clip_high_bnd: float
-        the high boundary for the clipping
-    clip_low_bnd: float
-        the low boundary for the clipping
-
-    Methods
-    ----------
-    drift_iter
-        Property method, drifts the initially supplied variable in the
-        fashion determined during initialisation (or changed in flight)
-    _function
-        Property method, creates the movement for the drifting variable
-    _noise
-        Property method, creates noise for the random walk
-    _trunc_norm_sample:
-        Property method, creates a single sample from a init determined
-        truncated normal distribution
-    _norm_sample(self):
-        Creates a single sample from a init determined truncated normal
-        distribution
-    reset_counter(self):
-        '''
-        Resets the call counter to 0
-
-    Methods
-    -------
-    method(variable)
-        desc
-    """
-    def __init__(self, variable, *, config_dict=None,
-                 drift_type='static', noise=False, noise_mean=10, noise_sd=10,
-                 noise_trunc=True, gradient=1, amplitude=1,
-                 always_pos=True, noise_low_bnd=0, noise_high_bnd=10,
-                 drift_clip=False, clip_high_bnd=10, clip_low_bnd=0):
-
-        # Sets the inital value
-        self.init_val = variable
-        self.last_val = variable
-
-        # External distribution functions
-        self._norm_sample = _norm_sample
-        self._trunc_norm_sample = _trunc_norm_sample
-
-        # Load either by input vals or config_dict (if present)
-        if config_dict is None:
-            # Sets the noise parameters
-            self.noise = noise
-            self.noise_mean = noise_mean
-            self.noise_sd = noise_sd
-            self.noise_low_bnd = noise_low_bnd
-            self.noise_high_bnd = noise_high_bnd
-
-            # Sets the gradient and amplitude (if cyclical) of the drift, and
-            # the general conditions, e.g. whether it must be positive, is the
-            # noise truncated
-            self.call_count = 0
-            self.drift_type = drift_type
-            self.always_pos = always_pos
-            self.noise_trunc = noise_trunc
-            self.gradient = gradient
-            self.amplitude = amplitude
-
-            # Sets the dirfting clipping (i.e. so drifting cannot exceed a
-            # defined set of boundaries)
-            self.drift_clip = drift_clip
-            self.clip_high_bnd = clip_high_bnd
-            self.clip_low_bnd = clip_low_bnd
-
-    @property
-    def drift_iter(self):
-        '''
-        Property method, drifts the initially supplied variable in the
-        fashion determined during initialisation (or changed in flight)
-
-        Parameters
-        ----------
-        self: self
-
-        Returns
-        -------
-        self.last_val: float
-            The newly incremented value for the drifting variable
-        '''
-        if self.drift_type == 'static':
-            pass
-        else:
-            self.last_val = self.init_val + self._function + self._noise
-            self.call_count += 1
-        if self.always_pos:
-            if self.last_val > 0:
-                pass
-            else:
-                self.last_val = 0
-        if self.drift_clip:
-            if self.last_val > self.clip_high_bnd:
-                self.last_val = self.clip_high_bnd
-            elif self.last_val < self.clip_low_bnd:
-                self.last_val = self.clip_low_bnd
-        return self.last_val
-
-    @property
-    def _function(self):
-        '''
-        Creates the movement for the drifting variable
-
-        Parameters
-        ----------
-        self: self
-
-        Returns
-        -------
-        x: float
-            the degree of change from the initial variable setting
-        '''
-        if self.drift_type == 'static':
-            x = 0
-        elif self.drift_type == 'sin':
-            x = np.sin(self.call_count) * self.amplitude
-        elif self.drift_type == 'linear':
-            x = self.gradient * self.call_count
-        elif self.drift_type == 'linear+sin':
-            x = (np.sin(self.call_count) * self.amplitude +
-                 self.gradient * self.call_count)
-        elif self.drift_type == 'random':
-            x = (np.random.random_sample() - 0.5) * 2 * self.amplitude
-        return x
-
-    @property
-    def _noise(self):
-        '''
-        Creates noise for the random walk
-
-        Parameters
-        ----------
-        self: self
-
-        Returns
-        -------
-        noise: float
-            The noise for the random walk, either a truncated or regular
-            gaussian
-        '''
-        if self.noise:
-            if self.noise_trunc:
-                noise = self._trunc_norm_sample(self.noise_mean,
-                                                self.noise_sd,
-                                                self.noise_low_bnd,
-                                                self.noise_high_bnd)
-            else:
-                noise = self._norm_sample(self.noise_mean,
-                                          self.noise_sd)
-        else:
-            noise = 0
-        return noise
-
-    def reset_counter(self):
-        '''
-        Resets the call counter to 0
-
-        Parameters
-        ----------
-        self: self
-        '''
-        self.call_count = 0
