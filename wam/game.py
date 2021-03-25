@@ -119,6 +119,7 @@ class GameManager:
 
         # Set game starting paramters
         self.score = 0
+        self.score_t0 = 0
         self.misses = 0
         self.mole_count = 0  # moles hit in stage
         self.feedback_count = 0  # iterations since last player feedback
@@ -138,7 +139,6 @@ class GameManager:
         self.sound_effect = SoundEffect()
 
         # Import text information
-        self.font_obj = pygame.font.SysFont("comicsansms", 50)
         self.intro_txt = open(self.intro_txt_file_loc, 'r').read().split('\n')
         self.pause_reason_dict = self._get_pause_dict
 
@@ -276,24 +276,24 @@ class GameManager:
         pause_dict = {x[0]: x[1] for x in pause_list}
         return pause_dict
 
-    @property
-    @staticmethod
-    def _text_objects(text, font):
-        '''
-        Property method, imports a text file and creates a dictionary for the
-        text displayed under given game pause conditions
+    # @property
+    # @staticmethod
+    # def _text_objects(text, font):
+    #     '''
+    #     Property method, imports a text file and creates a dictionary for the
+    #     text displayed under given game pause conditions
 
-        Parameters
-        ----------
-        self : self
+    #     Parameters
+    #     ----------
+    #     self : self
 
-        Returns
-        -------
-        pause_dict: dict
-            dictionary of pause conditions and pause text
-        '''
-        text_surface = font.render(text, True, (0, 0, 0))  # (0,0,0) = black
-        return text_surface, text_surface.get_rect()
+    #     Returns
+    #     -------
+    #     pause_dict: dict
+    #         dictionary of pause conditions and pause text
+    #     '''
+    #     text_surface = font.render(text, True, (0, 0, 0), (1,1,1))  # (0,0,0) = black
+    #     return text_surface, text_surface.get_rect()
 
     def intro(self):
         '''
@@ -324,7 +324,7 @@ class GameManager:
         self.screen.blit(self.end_page, (0, 0))
         pygame.display.flip()
 
-    def write_text(self, string, colour=(0, 0, 0),
+    def write_text(self, string, colour=(0, 0, 0), background=None, size=22,
                    location_x=None, location_y=None):
         """
         Writes text to the screen, defaulting to the centre
@@ -333,7 +333,8 @@ class GameManager:
             location_x = self.background.get_rect().centerx
         if location_y is None:
             location_y = self.SCREEN_HEIGHT / 2
-        text = self.font_obj.render(string, True, colour)
+        font_obj = pygame.font.SysFont("comicsansms", size)
+        text = font_obj.render(string, True, colour, background)
         text_pos = text.get_rect()
         text_pos.centerx = location_x
         text_pos.centery = location_y
@@ -431,20 +432,28 @@ class GameManager:
                     else:
                         self.write_text(
                                 self.pause_reason_dict[self.pause_reason],
-                                location_y=self.SCREEN_HEIGHT + 40)
+                                background=(255,255,255),
+                                location_y=650,#self.SCREEN_HEIGHT + 40,
+                                location_x=1150)#self.SCREEN_HEIGHT + 40)
                     self.check_key_event()
                 elif self.pause_reason == 'standard':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 40)
+                                    background=(255,255,255),
+                                    location_y=650,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1150)
                     self.check_key_event()
                 else:
                     self.write_text(self.pause_reason_dict[self.pause_reason],
-                                    location_y=self.SCREEN_HEIGHT + 40)
+                                    background=(255,255,255),
+                                    location_y=650,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1150)
                     self.check_key_event()
             elif self.pause_reason == '2x2':
-                self.write_text(self.pause_reason_dict[self.pause_reason],
-                                location_y=self.SCREEN_HEIGHT + 10)
-                self.two_by_two_rate()
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    background=(255,255,255),
+                                    location_y=650,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1150)
+                    self.two_by_two_rate()
 
     def set_player_stage(self):
         """
@@ -518,37 +527,33 @@ class GameManager:
         """
         Updates the game's stage, score, misses, previous 2x2 rating on the gui
         """
-        # Update gui with player's score
-        current_score_string = "SCORE: " + str(self.score)
-        score_text = self.font_obj.render(current_score_string,
-                                          True, (1, 1, 1))
-        score_text_pos = score_text.get_rect()
-        score_text_pos.centerx = 1135 #self.background.get_rect().centerx
-        score_text_pos.centery = 200 #self.FONT_TOP_MARGIN
-        self.screen.blit(score_text, score_text_pos)
-
-        # Update gui with player's misses
-        current_misses_string = "MISSES: " + str(self.misses)
-        misses_text = self.font_obj.render(current_misses_string,
-                                           True, (1, 1, 1))
-        misses_text_pos = misses_text.get_rect()
-        misses_text_pos.centerx = 885 #self.SCREEN_WIDTH / 5 * 4
-        misses_text_pos.centery = 400 # self.FONT_TOP_MARGIN
-        self.screen.blit(misses_text, misses_text_pos)
 
         # Update gui with player's stage
-        current_stage_string = "STAGE: " + str(self.stage)
-        stage_text = self.font_obj.render(current_stage_string,
-                                          True, (1, 1, 1))
-        stage_text_pos = stage_text.get_rect()
-        stage_text_pos.centerx = 885 #self.SCREEN_WIDTH / 5 * 1
-        stage_text_pos.centery = 600 #self.FONT_TOP_MARGIN
-        self.screen.blit(stage_text, stage_text_pos)
+        current_stage_string = "STAGE: " + str(self.stage) + "    "
+        self.write_text(current_stage_string, colour=(0, 0, 0), background=(255,255,255), size=22,
+                        location_x=1050, location_y=100)
+    
+
+        # Update gui with player's score
+        current_score_string = "SCORE: " + str(int(self.score)) + "    "
+        self.write_text(current_score_string, colour=(0, 0, 0), background=(255,255,255), size=22,
+                   location_x=1050, location_y=250)
+ 
+
+        # Update gui with player's misses
+        current_misses_string = "MISSES: " + str(self.misses) + "    "
+        self.write_text(current_misses_string, colour=(0, 0, 0), background=(255,255,255), size=22,
+                   location_x=1050, location_y=400)
+ 
+        
+        last_score = "LAST SCORE: " + str(int(self.score_t0)) + "    "
+        self.write_text(last_score, colour=(255, 0, 0), background=(255,255,255), size=22,
+                   location_x=1050, location_y=550)
 
         # 2x2 rating persistence
         if self.last_rate:
-            self.write_text('X', (255, 0, 0),
-                            self.last_rate[0], self.last_rate[1])
+            self.write_text('X',colour=(255, 0, 0), background=None, size=22,
+                   location_x=self.last_rate[0], location_y=self.last_rate[1])
 
     def get_agent_mouse_pos(self, human=True):
         if human:
@@ -572,8 +577,13 @@ class GameManager:
         return ani_num, left, mole_is_down, interval, frame_num
     
     def _displace_mouse(self):
-        xy_shift = [40,30,20,-20,-30,-40]
-        pyautogui.move(random.choice(xy_shift), random.choice(xy_shift))
+        #xy_shift = [40,30,20,-20,-30,-40]
+        #pyautogui.move(random.choice(xy_shift), random.choice(xy_shift))
+        mouse_pos = pygame.mouse.get_pos()
+        x_move = 405- mouse_pos[0] # middle of screen
+        y_move = 280 - mouse_pos[1] # middle of screen
+        pyautogui.move(x_move, y_move)
+
 
     def check_mouse_event(self, event, ani_num, left, mole_is_down,
                           interval, frame_num):
@@ -590,15 +600,12 @@ class GameManager:
                                                       frame_num)
             self.sound_effect.play_fire()
             self._displace_mouse()
-            self.feedback_count += 1
-            self.check_feedback()
             self.result = self.hit_checker.check_mole_hit(
                                                     ani_num,
                                                     left,
                                                     self.distance,
                                                     self.margin.drift_iter)
             if self.result[2]:  # the hit feedback
-
                 (ani_num,
                  left,
                  mole_is_down,
@@ -614,7 +621,12 @@ class GameManager:
             self.wam_logger.log_hit_result(self.result,
                                            self.hole_positions[frame_num],
                                            self.distance, self.relative_loc)
+            self.feedback_count += 1
+            pygame.display.flip()
+
             self.score_update_check()
+            self.check_feedback()
+            #self.score_update_check()
             self.set_player_stage()
         return ani_num, left, mole_is_down, interval, frame_num
 

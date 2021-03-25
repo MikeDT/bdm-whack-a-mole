@@ -127,7 +127,7 @@ class Scorer:
         '''
         is_skill = np.random.binomial(1,self.skill_luck_rat, 1)[0]
         max_score = self.max_score
-        if is_skill:# == 1:
+        if is_skill == 1:
             score = self._skill_adj(max_score, distance, margin_drift_iter)
         else:
             score = random.choice(list(range(1,max_score+1)))
