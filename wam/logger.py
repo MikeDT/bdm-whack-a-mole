@@ -201,6 +201,25 @@ class WamLogger:
                      "'score': " + str(score) + "})>")
         self._log_it("<Event(11-Score {" + score_str)
 
+    def log_skill_change(self, skill_luck_ratio):
+        '''
+        Logs the score, and the increment to the score
+
+        Parameters
+        ----------
+        score_inc: float
+            The increment to the score
+        score: float
+            The current score
+
+        Returns
+        -------
+        na
+            logs the event via _log_it
+        '''
+        self._log_it("<Event(12-Skill_Luck_Ratio {'New': " + str(skill_luck_ratio) + " })>")
+
+
     def log_pause(self, pause_reason):
         '''
         Logs a pause request

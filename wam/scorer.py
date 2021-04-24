@@ -66,11 +66,11 @@ class Scorer:
     _rand_adjust(score)
         gives a random adjustment to the score
     """
-    def __init__(self, MOLE_RADIUS, *, min_score=0.0, max_score=10.0,
+    def __init__(self, MOLE_RADIUS, *, min_score=1.0, max_score=10.0,
                  adjust=False, skill_type='linear_dist',
                  rand_type='uniform',
                  rand_mean=5, rand_sd=1,
-                 skill_luck_rat=0.5,
+                 #skill_luck_rat=0.5,
                  config_dict=None):
         self.MOLE_RADIUS = MOLE_RADIUS
         if type(config_dict) is dict:
@@ -92,7 +92,7 @@ class Scorer:
             self.rand_type = rand_type
             self.rand_mean = rand_mean
             self.rand_sd = rand_sd
-            self.skill_luck_rat = skill_luck_rat            
+            #self.skill_luck_rat = skill_luck_rat            
 
         # Assertion for the skill_luck_rat, only input deemed at risk of misuse
         try:
@@ -109,7 +109,7 @@ class Scorer:
         self._norm_sample = _norm_sample
         self._trunc_norm_sample = _trunc_norm_sample
         
-    def get_score(self, distance,margin_drift_iter):
+    def get_score(self, distance, margin_drift_iter, skill_luck_rat):
         '''
         Gets the score for an attempted mole whack
 
@@ -125,12 +125,17 @@ class Scorer:
         score: float
             the luck adjusted score (i.e. nearer to luckier = better score)
         '''
-        is_skill = np.random.binomial(1,self.skill_luck_rat, 1)[0]
+        is_skill = np.random.binomial(1,skill_luck_rat, 1)[0]
         max_score = self.max_score
         if is_skill == 1:
             score = self._skill_adj(max_score, distance, margin_drift_iter)
         else:
             score = random.choice(list(range(1,max_score+1)))
+        print ({'is skill':is_skill==1, 
+                'ratio':skill_luck_rat,
+                'distance':distance,
+                'score':score})
+
         return score
 
     def get_score_deprecated(self, distance, margin_drift_iter): # to be deprecated
@@ -181,16 +186,18 @@ class Scorer:
         score: float
             the skill adjusted score (i.e. nearer to optimal = better score)
         '''
-        precision = 1.0
-        if self.skill_type == 'linear_dist':
-            precision = 1 - distance/(self.MOLE_RADIUS +
+        #precision = 1.0
+        #if self.skill_type == 'linear_dist':
+        precision = 1 - distance/(self.MOLE_RADIUS +
                                       margin_drift_iter)
-        elif self.skill_type == 'non_linear_dist':
-            precision = 1 - distance/(self.MOLE_RADIUS +
-                                      margin_drift_iter)
-            precision = precision**2
+        # elif self.skill_type == 'non_linear_dist':
+        #     precision = 1 - distance/(self.MOLE_RADIUS +
+        #                               margin_drift_iter)
+        #    precision = precision**2
         score = precision*score
         round(score)
+        print('skill_adj score, distance, precision', score, distance, precision)
+
         return score
 
     def _rand_adj(self, score):

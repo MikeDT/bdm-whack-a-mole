@@ -35,6 +35,7 @@ from wam.drifter import Drifting_Val
 from wam.hit_checker import Hit_Checker
 import re
 import pickle
+import numpy as np
 
 
 class GameManager:
@@ -61,6 +62,12 @@ class GameManager:
     """
     def __init__(self, file_config_loc=r"config\\Default.pkl",
                  usr_timestamp=False):
+        # hard coded stuff to integrate properly...
+        self.skill_luck_rat = 1.0
+        self.skill_ratio_master = 0.8
+        
+        self.skill_flip_counter = 0        
+        self.skill_flip_floor = 8
 
         # Define file locations
         self.intro_txt_file_loc = 'text\\intro.txt'
@@ -367,7 +374,7 @@ class GameManager:
                         pygame.quit()
                         self.wam_logger.log_end()
 
-    def check_events_rate(self, action):
+    def check_events_rate(self, action):  # to be deprecated
         """
         Monitors the game for player feedback provided via keys
         """
@@ -464,10 +471,12 @@ class GameManager:
             if (self.mole_count) in self.stage_pts:
                 if self.demo:
                     self.misses = 0
+                    self.mole_count = 0
                     self.score = 0
                     self.stage = 1
                     self.pause_reason = 'demo'
                     self.demo = False
+                    self.check_condition_change(demo=True)
                     self.pause()
                 else:
                     self.sound_effect.play_stage_up()
@@ -498,6 +507,7 @@ class GameManager:
         current_hole_y = self.hole_positions_centre[frame_num][1]
         distance = ((xy[0] - current_hole_x)**2 +
                     (xy[1] - current_hole_y)**2)**0.5
+        
         return distance
 
     def get_relative_loc(self, xy, frame_num):
@@ -528,11 +538,19 @@ class GameManager:
         Updates the game's stage, score, misses, previous 2x2 rating on the gui
         """
 
-        # Update gui with player's stage
-        current_stage_string = "STAGE: " + str(self.stage) + "    "
+        # # Update gui with player's stage
+        # current_stage_string = "STAGE: " + str(self.stage) + "    "
+        # self.write_text(current_stage_string, colour=(0, 0, 0), background=(255,255,255), size=22,
+        #                 location_x=1050, location_y=100)
+ 
+            # # Update gui with player's stage
+        if self.demo:
+            current_stage_string = "MOLES LEFT IN DEMO: " + str(self.demo_len- self.mole_count) + "    "
+        else:
+            current_stage_string = "MOLES LEFT: " + str(self.stages * self.stage_length - self.mole_count ) + "    "
+
         self.write_text(current_stage_string, colour=(0, 0, 0), background=(255,255,255), size=22,
                         location_x=1050, location_y=100)
-    
 
         # Update gui with player's score
         current_score_string = "SCORE: " + str(int(self.score)) + "    "
@@ -566,8 +584,9 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        self.score_t0 = self.scorer.get_score(self.margin.drift_iter,
-                                          self.distance)
+        self.score_t0 = self.scorer.get_score(self.distance,
+                                              self.margin.drift_iter,
+                                              self.skill_luck_rat)
         self.sound_effect.stop_pop()
         self.score += self.score_t0
         self.wam_logger.log_score(self.score_t0, self.score)
@@ -599,13 +618,12 @@ class GameManager:
             self.relative_loc = self.get_relative_loc(pygame.mouse.get_pos(),
                                                       frame_num)
             self.sound_effect.play_fire()
-            self._displace_mouse()
             self.result = self.hit_checker.check_mole_hit(
                                                     ani_num,
                                                     left,
                                                     self.distance,
                                                     self.margin.drift_iter)
-            if self.result[2]:  # the hit feedback
+            if self.result[0]:  # the hit feedback
                 (ani_num,
                  left,
                  mole_is_down,
@@ -615,20 +633,43 @@ class GameManager:
                                             mole_is_down,
                                             interval,
                                             frame_num)
+                self._displace_mouse()                
+                self.feedback_count += 1
+                self.score_update_check()
+                self.check_feedback()
+                pygame.display.flip()
+                self.skill_flip_counter += 1
+                self.check_condition_change()
             else:
                 self.misses += 1
-                self.mole_count += 1
+                #self.mole_count += 1
+                pygame.display.flip()
+
             self.wam_logger.log_hit_result(self.result,
                                            self.hole_positions[frame_num],
                                            self.distance, self.relative_loc)
-            self.feedback_count += 1
-            pygame.display.flip()
 
-            self.score_update_check()
-            self.check_feedback()
             #self.score_update_check()
             self.set_player_stage()
         return ani_num, left, mole_is_down, interval, frame_num
+
+    def check_condition_change(self, demo=False):
+        print('check if donditions change', self.skill_flip_counter)
+        if self.skill_flip_counter > self.skill_flip_floor:
+            self.wam_logger.log_skill_change(self.skill_luck_rat)
+            if np.random.binomial(1,0.2, 1)[0] == 1:
+                self.skill_flip_counter = 0
+                if self.skill_luck_rat == self.skill_ratio_master:
+                    self.skill_luck_rat = 1-self.skill_ratio_master
+                    print('luck!')
+                else:
+                    self.skill_luck_rat = self.skill_ratio_master
+                    print('skill!')
+
+        if demo:
+            self.skill_luck_rat = random.choice([self.skill_ratio_master,1-self.skill_ratio_master])
+            self.wam_logger.log_skill_change(self.skill_luck_rat)
+            self.skill_flip_counter = 0
 
     def pop_mole(self, ani_num, mole_is_down, interval, frame_num):
         self.screen.blit(self.background, (0, 0))
