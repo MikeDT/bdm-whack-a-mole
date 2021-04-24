@@ -1,22 +1,17 @@
 <b>Game Basics</b><br/>
 Once you press the launch button a whack a mole game will be launched in another screen.  It's constructed just like the traditional funfair game, with the task being to hit moles.
 <br/><br/>
-Specifically you need to whack (that is touch your touch screen) the moles as they emerge from their holes before they disappear back down them.  IF you hit the mole in time and on target then the game will reward you with a hit with a probability based upon how close your were to the mole's nose.  While the game is skill based, in addition to your manual skill a degree of luck exists, where your reward is sometimes not what you would expect...
+You need to whack (that is touch your touch screen) the moles as they emerge from their holes before they disappear back down them.  If you hit the mole in time and on target then the game will reward you with a hit with a probability based upon how close your were to the mole's nose.  
 <br/><br/>
-<b>Game Conditions</b><br/>
-The unexpected outcomes are governed by 4 condition combinations within the game:
+While the game is skill based, sometimes your score will not be based on how close to a mole's nose you were, but on random luck...
 <br/><br/>
-<b>1. High skill + high luck:</b><br/> where you require very precise mole hits to receive a reward, but also have a large random component that moderates this skill
+Specifically, when the game is predominantly skill 70% of the time your score will bw be decided by how close to a mole's nose your hit was and 30% of the time it will be random.
 <br/><br/>
-<b>2. High skill + low luck:</b><br/> where you require very precise mole hits to receive a reward, with very little random-ness to perturb the result
+Likewise, when the game is predominantly luck based, 70% of the time your score will be random and 30% of the time it will be decided by how close to a mole's nose your hit was.
 <br/><br/>
-<b>3. Low skill + high luck:</b><br/> where hitting a mole requires significantly less precision to receive a reward, but also have a large random component that moderates this skill
+Every 5-15 whack attempts the game will flip between luck and skill.  You won't know which condition you're in, but we will ask for your insight after each attempted mole whack on a bar and the resulting score, where you are required to estiamte whether the game is predominantly luck or skill at that time,
 <br/><br/>
-<b>4. Low skill + low luck:</b><br/> where hitting a mole requires significantly less precision to receive a reward,  with very little random-ness to perturb the result
-<br/><br/>
-You won't know which condition you're in, but we will ask for your insight after each attempted mole whack in a two by two grid, where you are required to estimate the confidence in a mole hit and the degree of luck vs skill that resulted in the outcome
-<br/><br/>
-The game will pause regularly for feedback in the two by two grid, but should you want to pause the game at any time click 'p'.  Should you want to quit click 'ctr' + 'q'.
+The game will pause regularly for feedback in the bar, but should you want to pause the game at any time click 'p'.  Should you want to quit click 'ctr' + 'q'.
 <br/><br/>
 When you're ready to play, click the launch button on the bottom right.
 <br/><br/>
