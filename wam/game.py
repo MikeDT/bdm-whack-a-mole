@@ -93,6 +93,13 @@ class GameManager:
         self.mole_img_file_loc = "images/mole.png"
         self.splash_img_file_loc = "images/Splash_Screen.png"
         self.end_img_file_loc = "images/End_Screen.png"
+
+        try: 
+            open('config/UK.txt', 'r')
+            self.UK = True
+        except:
+            self.UK = False
+
         self.file_config_loc = file_config_loc
          
         master_dict = self.get_config_dict
@@ -356,10 +363,10 @@ class GameManager:
             location_x = self.background.get_rect().centerx
         if location_y is None:
             location_y = self.SCREEN_HEIGHT / 2
-        try:
-            font_obj = pygame.font.Font("fonts/YuseiMagic-Regular.ttf", size)
-        except:
+        if self.UK:
             font_obj = pygame.font.SysFont("comicsansms", size)
+        else:
+            font_obj = pygame.font.Font("fonts/YuseiMagic-Regular.ttf", size)
         text = font_obj.render(string, True, colour, background)
         text_pos = text.get_rect()
         text_pos.centerx = location_x
