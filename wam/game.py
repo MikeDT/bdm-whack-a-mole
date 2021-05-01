@@ -60,25 +60,48 @@ class GameManager:
         Property method, imports a text file and creates a dictionary for the
         text displayed under given game pause conditions
     """
-    def __init__(self, file_config_loc=r"config\\Default.pkl",
-                 usr_timestamp=False):
+    # def __init__(self, file_config_loc=r"config\\Default.pkl",
+    #              usr_timestamp=False):
+    #     # hard coded stuff to integrate properly...
+    #     self.skill_luck_rat = 1.0
+    #     self.skill_ratio_master = 0.8
+        
+    #     self.skill_flip_counter = 0        
+    #     self.skill_flip_floor = 8
+
+    #     # Define file locations
+    #     self.intro_txt_file_loc = 'text\\intro.txt'
+    #     self.hole_pos_file_loc = 'config\\hole_positions.txt'
+    #     self.pause_info_file_loc = 'text\\pause_info.txt'
+    #     self.screen_img_file_loc = "images\\bg_2x2_v3_raw.png"
+    #     self.mole_img_file_loc = "images\\mole.png"
+    #     self.splash_img_file_loc = "images\\Splash_Screen.png"
+    #     self.end_img_file_loc = "images\\End_Screen.png"
+    #     self.file_config_loc = file_config_loc
+    def __init__(self, file_config_loc=r"config/Default.pkl",
+                  usr_timestamp=False):
         # hard coded stuff to integrate properly...
         self.skill_luck_rat = 1.0
         self.skill_ratio_master = 0.8
-        
-        self.skill_flip_counter = 0        
+        self.skill_flip_counter = 0
         self.skill_flip_floor = 8
-
         # Define file locations
-        self.intro_txt_file_loc = 'text\\intro.txt'
-        self.hole_pos_file_loc = 'config\\hole_positions.txt'
-        self.pause_info_file_loc = 'text\\pause_info.txt'
-        self.screen_img_file_loc = "images\\bg_2x2_v3_raw.png"
-        self.mole_img_file_loc = "images\\mole.png"
-        self.splash_img_file_loc = "images\\Splash_Screen.png"
-        self.end_img_file_loc = "images\\End_Screen.png"
-        self.file_config_loc = file_config_loc
+        self.intro_txt_file_loc = 'text/intro.txt'
+        self.hole_pos_file_loc = 'config/hole_positions.txt'
+        self.pause_info_file_loc = 'text/pause_info.txt'
+        self.screen_img_file_loc = "images/bg_2x2_v3_raw.png"
+        self.mole_img_file_loc = "images/mole.png"
+        self.splash_img_file_loc = "images/Splash_Screen.png"
+        self.end_img_file_loc = "images/End_Screen.png"
 
+        try: 
+            open('config/UK.txt', 'r')
+            self.UK = True
+        except:
+            self.UK = False
+
+        self.file_config_loc = file_config_loc
+         
         master_dict = self.get_config_dict
         self.CONDITION_SET = master_dict['conditions_meta']['cond_set_name']
         import_dict = master_dict['main_game']
@@ -340,7 +363,10 @@ class GameManager:
             location_x = self.background.get_rect().centerx
         if location_y is None:
             location_y = self.SCREEN_HEIGHT / 2
-        font_obj = pygame.font.SysFont("comicsansms", size)
+        if self.UK:
+            font_obj = pygame.font.SysFont("comicsansms", size)
+        else:
+            font_obj = pygame.font.Font("fonts/YuseiMagic-Regular.ttf", size)
         text = font_obj.render(string, True, colour, background)
         text_pos = text.get_rect()
         text_pos.centerx = location_x

@@ -1,3 +1,4 @@
 # PyCharm's project settings file
 .log
 *.log
+config/UK.txt
