@@ -589,15 +589,36 @@ class QT_GUI(QT_Basic):
         Gets the text from the file locations and embeds it into the gui
         text boxs (made read only to prevent user edits)
         """
-        self.intro_text = open(self.intro_text_file_loc, 'r').read()
-        self.window.intro_textbox.setText(self.intro_text)
-        self.window.intro_textbox.setReadOnly(True)
-        self.disclaimer_text = open(self.disclaimer_text_file_loc, 'r').read()
-        self.window.disclaimer_textbox.setText(self.disclaimer_text)
-        self.window.disclaimer_textbox.setReadOnly(True)
-        self.instruction_text = open(self.instruct_text_file_loc, 'r').read()
-        self.window.instr_textbox.setText(self.instruction_text)
-        self.window.instr_textbox.setReadOnly(True)
-        self.debrief_text = open(self.debrief_text_file_loc, 'r').read()
-        self.window.debrief_textbox.setText('Experiment not yet complete...')
-        self.window.instr_textbox.setReadOnly(True)
+        # self.intro_text = open(self.intro_text_file_loc, 'r').read()
+        # self.window.intro_textbox.setText(self.intro_text)
+        # self.window.intro_textbox.setReadOnly(True)
+        # self.disclaimer_text = open(self.disclaimer_text_file_loc, 'r').read()
+        # self.window.disclaimer_textbox.setText(self.disclaimer_text)
+        # self.window.disclaimer_textbox.setReadOnly(True)
+        # self.instruction_text = open(self.instruct_text_file_loc, 'r').read()
+        # self.window.instr_textbox.setText(self.instruction_text)
+        # self.window.instr_textbox.setReadOnly(True)
+        # self.debrief_text = open(self.debrief_text_file_loc, 'r').read()
+        # self.window.debrief_textbox.setText('Experiment not yet complete...')
+        # self.window.instr_textbox.setReadOnly(True)
+        
+        #Fix per Nizar feedback 28042021
+        with open(self.intro_text_file_loc, 'r', encoding="utf8", errors='ignore') as f:
+            self.intro_text = f.read()
+            self.window.intro_textbox.setText(self.intro_text)
+            self.window.intro_textbox.setReadOnly(True)
+
+        with open(self.disclaimer_text_file_loc, 'r', encoding="utf8", errors='ignore') as f2:
+            self.disclaimer_text = f2.read()
+            self.window.disclaimer_textbox.setText(self.disclaimer_text)
+            self.window.disclaimer_textbox.setReadOnly(True)
+
+        with open(self.instruct_text_file_loc, 'r', encoding="utf8", errors='ignore') as f3:
+            self.instruction_text = f3.read()
+            self.window.instr_textbox.setText(self.instruction_text)
+            self.window.instr_textbox.setReadOnly(True)
+
+        with open(self.debrief_text_file_loc, 'r', encoding="utf8", errors='ignore') as f4:
+            self.debrief_text = f4.read()
+            self.window.debrief_textbox.setText('Experiment not yet complete...')
+            self.window.instr_textbox.setReadOnly(True)
