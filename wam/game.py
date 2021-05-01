@@ -60,24 +60,6 @@ class GameManager:
         Property method, imports a text file and creates a dictionary for the
         text displayed under given game pause conditions
     """
-    # def __init__(self, file_config_loc=r"config\\Default.pkl",
-    #              usr_timestamp=False):
-    #     # hard coded stuff to integrate properly...
-    #     self.skill_luck_rat = 1.0
-    #     self.skill_ratio_master = 0.8
-        
-    #     self.skill_flip_counter = 0        
-    #     self.skill_flip_floor = 8
-
-    #     # Define file locations
-    #     self.intro_txt_file_loc = 'text\\intro.txt'
-    #     self.hole_pos_file_loc = 'config\\hole_positions.txt'
-    #     self.pause_info_file_loc = 'text\\pause_info.txt'
-    #     self.screen_img_file_loc = "images\\bg_2x2_v3_raw.png"
-    #     self.mole_img_file_loc = "images\\mole.png"
-    #     self.splash_img_file_loc = "images\\Splash_Screen.png"
-    #     self.end_img_file_loc = "images\\End_Screen.png"
-    #     self.file_config_loc = file_config_loc
     def __init__(self, file_config_loc=r"config/Default.pkl",
                   usr_timestamp=False):
         # hard coded stuff to integrate properly...
@@ -93,6 +75,17 @@ class GameManager:
         self.mole_img_file_loc = "images/mole.png"
         self.splash_img_file_loc = "images/Splash_Screen.png"
         self.end_img_file_loc = "images/End_Screen.png"
+        self.pts_10 = pygame.image.load("images/10pts.png")
+        self.pts_9 = pygame.image.load("images/9pts.png")
+        self.pts_8 = pygame.image.load("images/8pts.png")
+        self.pts_7 = pygame.image.load("images/7pts.png")
+        self.pts_6 = pygame.image.load("images/6pts.png")
+        self.pts_5 = pygame.image.load("images/5pts.png")
+        self.pts_4 = pygame.image.load("images/4pts.png")
+        self.pts_3 = pygame.image.load("images/3pts.png")
+        self.pts_2 = pygame.image.load("images/2pts.png")
+        self.pts_1 = pygame.image.load("images/2pts.png")
+        self.pts_0 = pygame.image.load("images/0pts.png")
 
         try: 
             open('config/UK.txt', 'r')
@@ -487,7 +480,34 @@ class GameManager:
                                     location_y=650,#self.SCREEN_HEIGHT + 40,
                                     location_x=1150)
                     self.two_by_two_rate()
+                    self.show_big_score()
 
+
+    def show_big_score(self):
+        xy = 280,198
+        if self.score_t0 >= 9.5:
+            self.screen.blit(self.pts_10, xy)
+        elif self.score_t0 >= 8.5:
+            self.screen.blit(self.pts_9, xy)
+        elif self.score_t0 >= 7.5:
+            self.screen.blit(self.pts_8, xy)
+        elif self.score_t0 > 6.5:
+            self.screen.blit(self.pts_7, xy)
+        elif self.score_t0 >= 5.5:
+            self.screen.blit(self.pts_6, xy)
+        elif self.score_t0 >= 4.5:
+            self.screen.blit(self.pts_5, xy)
+        elif self.score_t0 >= 3.5:
+            self.screen.blit(self.pts_4, xy)
+        elif self.score_t0 >= 2.5:
+            self.screen.blit(self.pts_3, xy)            
+        elif self.score_t0 >= 1.5:
+            self.screen.blit(self.pts_2, xy)                
+        elif self.score_t0 >= 0.5:
+            self.screen.blit(self.pts_1, xy)                  
+        else :
+            self.screen.blit(self.pts_0, xy)                     
+                
     def set_player_stage(self):
         """
         Sets the game stage based upon the stage type and pause_reason
@@ -583,12 +603,10 @@ class GameManager:
         self.write_text(current_score_string, colour=(0, 0, 0), background=(255,255,255), size=22,
                    location_x=1050, location_y=250)
  
-
         # Update gui with player's misses
         current_misses_string = "MISSES: " + str(self.misses) + "    "
         self.write_text(current_misses_string, colour=(0, 0, 0), background=(255,255,255), size=22,
                    location_x=1050, location_y=400)
- 
         
         last_score = "LAST SCORE: " + str(int(self.score_t0)) + "    "
         self.write_text(last_score, colour=(255, 0, 0), background=(255,255,255), size=22,
@@ -728,6 +746,7 @@ class GameManager:
         self.screen.blit(pic,
                          (self.hole_positions[frame_num][0] - left,
                           self.hole_positions[frame_num][1]))
+        
 
     def animate_mole(self, ani_num, left, mole_is_down, interval,
                      frame_num, initial_interval, cycle_time, clock):
