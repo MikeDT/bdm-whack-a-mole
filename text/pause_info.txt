@@ -1,4 +1,6 @@
 stage | Stage Complete! Press "c" to continue, or "ctrl q" to quit
 standard | Game Paused! Press "c" to continue, or "ctrl q" to quit
-demo | Demo Complete! Press "c" to start the real game, or "ctrl q" to quit
-2x2 | <-- Please estimate whether your last score was luck or skill 
+demoGen | General Demo Complete! Press "c" to start the Luck demo             
+demoLuck | Luck Demo Complete! Press "c" to start the Skill demo               
+demoSkill | Skill Demo Complete! Press "c" to start the real game               
+2x2 | <-- Please estimate whether the current environment is luck or skill
