@@ -67,6 +67,9 @@ class GameManager:
         self.skill_ratio_master = 0.8
         self.skill_flip_counter = 0
         self.skill_flip_floor = 8
+        self.demo_stage = 0
+        
+        
         # Define file locations
         self.intro_txt_file_loc = 'text/intro.txt'
         self.hole_pos_file_loc = 'config/hole_positions.txt'
@@ -299,25 +302,6 @@ class GameManager:
         pause_dict = {x[0]: x[1] for x in pause_list}
         return pause_dict
 
-    # @property
-    # @staticmethod
-    # def _text_objects(text, font):
-    #     '''
-    #     Property method, imports a text file and creates a dictionary for the
-    #     text displayed under given game pause conditions
-
-    #     Parameters
-    #     ----------
-    #     self : self
-
-    #     Returns
-    #     -------
-    #     pause_dict: dict
-    #         dictionary of pause conditions and pause text
-    #     '''
-    #     text_surface = font.render(text, True, (0, 0, 0), (1,1,1))  # (0,0,0) = black
-    #     return text_surface, text_surface.get_rect()
-
     def intro(self):
         '''
         Runs the game intro screen (basically communicates the text)
@@ -451,7 +435,8 @@ class GameManager:
 
     def pause(self):
         while self.pause_reason:
-            if self.pause_reason in ['standard', 'stage', 'demo']:
+            if self.pause_reason in ['standard', 'stage', 'demoGen',
+                                     'demoSkill', 'demoLuck']:
                 if self.pause_reason == 'stage':
                     if self.mole_count == self.stage_pts[-1]:
                         self.end()
@@ -468,7 +453,19 @@ class GameManager:
                                     location_y=650,#self.SCREEN_HEIGHT + 40,
                                     location_x=1150)
                     self.check_key_event()
-                else:
+                elif self.pause_reason == 'demoGen':
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    background=(255,255,255),
+                                    location_y=650,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1150)
+                    self.check_key_event()
+                elif self.pause_reason == 'demoSkill':
+                    self.write_text(self.pause_reason_dict[self.pause_reason],
+                                    background=(255,255,255),
+                                    location_y=650,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1150)
+                    self.check_key_event()
+                elif self.pause_reason == 'demoLuck':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
                                     background=(255,255,255),
                                     location_y=650,#self.SCREEN_HEIGHT + 40,
@@ -519,10 +516,19 @@ class GameManager:
                     self.misses = 0
                     self.mole_count = 0
                     self.score = 0
-                    self.stage = 1
-                    self.pause_reason = 'demo'
-                    self.demo = False
-                    self.check_condition_change(demo=True)
+                    self.demo_stage +=1
+
+                    if self.demo_stage == 1:
+                        self.pause_reason = 'demoGen'
+                        self.skill_luck_rat = 1-self.skill_ratio_master
+                    elif self.demo_stage == 2:
+                        self.pause_reason = 'demoLuck'
+                        self.skill_luck_rat = self.skill_ratio_master
+                    elif self.demo_stage == 3:
+                        self.pause_reason = 'demoSkill'
+                        self.stage = 1
+                        self.demo = False
+                        self.check_condition_change(demo=True)
                     self.pause()
                 else:
                     self.sound_effect.play_stage_up()
@@ -608,10 +614,6 @@ class GameManager:
         self.write_text(current_misses_string, colour=(0, 0, 0), background=(255,255,255), size=22,
                    location_x=1050, location_y=400)
         
-        last_score = "LAST SCORE: " + str(int(self.score_t0)) + "    "
-        self.write_text(last_score, colour=(255, 0, 0), background=(255,255,255), size=22,
-                   location_x=1050, location_y=550)
-
         # 2x2 rating persistence
         if self.last_rate:
             self.write_text('X',colour=(255, 0, 0), background=None, size=22,
@@ -698,7 +700,7 @@ class GameManager:
         return ani_num, left, mole_is_down, interval, frame_num
 
     def check_condition_change(self, demo=False):
-        print('check if donditions change', self.skill_flip_counter)
+        print('check if conditions change', self.skill_flip_counter)
         if self.skill_flip_counter > self.skill_flip_floor:
             self.wam_logger.log_skill_change(self.skill_luck_rat)
             if np.random.binomial(1,0.2, 1)[0] == 1:
