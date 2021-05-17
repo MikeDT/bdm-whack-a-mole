@@ -66,7 +66,7 @@ class GameManager:
         self.skill_luck_rat = 1.0
         self.skill_ratio_master = 0.8
         self.skill_flip_counter = 0
-        self.skill_flip_floor = 8
+        self.skill_flip_floor = 14
         self.demo_stage = 0
         
         

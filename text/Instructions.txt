@@ -5,13 +5,15 @@ You need to whack (that is touch your touch screen) the moles as they emerge fro
 <br/><br/>
 While the game is skill based, sometimes your score will not be based on how close to a mole's nose you were, but on random luck...
 <br/><br/>
-Specifically, when the game is predominantly skill 70% of the time your score will bw be decided by how close to a mole's nose your hit was and 30% of the time it will be random.
+Specifically, when the game is predominantly skill 80% of the time your score will bw be decided by how close to a mole's nose your hit was and 20% of the time it will be random.
 <br/><br/>
-Likewise, when the game is predominantly luck based, 70% of the time your score will be random and 30% of the time it will be decided by how close to a mole's nose your hit was.
+Likewise, when the game is predominantly luck based, 80% of the time your score will be random and 20% of the time it will be decided by how close to a mole's nose your hit was.
 <br/><br/>
-Every 5-15 whack attempts the game will flip between luck and skill.  You won't know which condition you're in, but we will ask for your insight after each attempted mole whack on a bar and the resulting score, where you are required to estiamte whether the game is predominantly luck or skill at that time,
+Periodically the game will flip between luck and skill.  You won't know which condition you're in, but we will ask for your insight after each attempted mole whack on a bar and the resulting score, where you are required to estiamte whether the game is predominantly luck or skill at that time,
 <br/><br/>
 The game will pause regularly for feedback in the bar, but should you want to pause the game at any time click 'p'.  Should you want to quit click 'ctr' + 'q'.
+<br/><br/>
+To get you fmiliar with the game there are three demo stages initially.  The first 10 mole whacks is the game without any random element, the second 10 mole whacks is the game in the 'Luck' environment, and the final 10 mole whacks is the game in the 'Skill' environment.  After that you'll start the game!
 <br/><br/>
 When you're ready to play, click the launch button on the bottom right.
 <br/><br/>
