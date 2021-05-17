@@ -8,8 +8,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 f = open("Laky.log")
-#f = open("harada.log")
-#f = open("Nizar.log")
+f = open("harada.log")
+f = open("Nizar.log")
 skill_luck_rat = 'demo'
 line = f.readline()
 skill_luck_rat, score, skill_luck_rating, mole_x, mole_y, rel_x,rel_y = None, None,None,None,None,None,None
@@ -51,37 +51,33 @@ df['distance'] = df['distance']**0.5
 print(df)
 
 
+plt.title('Relative Hit Locations')
 plt.scatter(df['rel_x'], df['rel_y'], alpha=0.2)
 plt.xlabel('rel_x')
 plt.ylabel('rel_y')
 plt.xlim(-30,30)
 plt.ylim(-30,30)
-plt.title('Relative Hit Locations')
 plt.show()
 
+plt.title('Distance vs Skill Luck Rating')
 plt.scatter(df['distance'], df['skill_luck_rating'], alpha=0.2)
 plt.xlabel('distance')
 plt.ylabel('skill_luck_rating')
 plt.xlim(0,30)
-plt.ylim(0,1)
-plt.title('Distance vs Skill Luck Rating')
+plt.ylim(0.1,0.5)
 plt.show()
 
+plt.title('Environment Skill vs Skill Luck Rating')
 plt.scatter(df['luck_skill'], df['skill_luck_rating'], alpha=0.2)
 plt.xlabel('luck_skill actual')
 plt.ylabel('skill_luck_rating')
 plt.xlim(0,1)
-plt.ylim(0,1)
-plt.title('Environment Skill vs Skill Luck Rating')
+plt.ylim(0.1,0.5)
 plt.show()
 
+plt.title('Environment Skill vs Skill Luck Rating OVer time')
 #plt.plot(df['score'], alpha=0.2, c='g')
 plt.plot(df['skill_luck_rating'], alpha=0.2, c = 'b')
 plt.plot(df['luck_skill'], alpha=0.2, c='r')
-plt.title('Environment Skill vs Skill Luck Rating')
 plt.show()
 
-# df.plot(kind='scatter', x='rel_x', y='rel_y', xlim=(-30,30),ylim=(-30,30),alpha=0.5)
-# df.plot(kind='scatter', x='distance', y='skill_luck_rating', xlim=(0,30),ylim=(0,1),alpha=0.5)
-# df['score'].plot(linewidth=0.5)
-# df.plot(kind='scatter', y='luck_skill', x='skill_luck_rating', xlim=(0,1),ylim=(0,1),alpha=0.5)
