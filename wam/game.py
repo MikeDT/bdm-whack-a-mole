@@ -74,7 +74,7 @@ class GameManager:
         self.intro_txt_file_loc = 'text/intro.txt'
         self.hole_pos_file_loc = 'config/hole_positions.txt'
         self.pause_info_file_loc = 'text/pause_info.txt'
-        self.screen_img_file_loc = "images/bg_2x2_v3_raw.png"
+        self.screen_img_file_loc = "images/bg_2x2_v4_raw.png"
         self.mole_img_file_loc = "images/mole.png"
         self.splash_img_file_loc = "images/Splash_Screen.png"
         self.end_img_file_loc = "images/End_Screen.png"
@@ -106,8 +106,18 @@ class GameManager:
         self.SCREEN_WIDTH = import_dict['SCREEN_WIDTH']
         self.SCREEN_HEIGHT = import_dict['SCREEN_HEIGHT']
         self.COMM_BAR_HEIGHT = import_dict['COMM_BAR_HEIGHT']
-        self.TWO_X_TWO_LEN = import_dict['TWO_X_TWO_LEN']
-        self.TWO_X_TWO_LOC = import_dict['TWO_X_TWO_LOC']
+        #self.TWO_X_TWO_LEN = import_dict['TWO_X_TWO_LEN']
+        #self.TWO_X_TWO_LOC = import_dict['TWO_X_TWO_LOC']
+        
+        #
+        self.TWO_X_TWO_LOC = [0,0,0,0]
+        self.TWO_X_TWO_LOC[0] = 17
+        self.TWO_X_TWO_LOC[1] = 620
+        self.TWO_X_TWO_LOC[2] = 549
+        self.TWO_X_TWO_LOC[3] = 620
+        self.TWO_X_TWO_LEN = 238
+        self.TWO_X_TWO_HEIGHT = 60
+        
         self.FPS = import_dict['FPS']
         self.MOLE_WIDTH = import_dict['MOLE_WIDTH']
         self.MOLE_HEIGHT = import_dict['MOLE_HEIGHT']
@@ -408,7 +418,14 @@ class GameManager:
             (mouse_pos[0] > self.TWO_X_TWO_LOC[0]) and
             (mouse_pos[0] < self.TWO_X_TWO_LOC[0] + self.TWO_X_TWO_LEN) and
             (mouse_pos[1] > self.TWO_X_TWO_LOC[1]) and
-            (mouse_pos[1] < self.TWO_X_TWO_LOC[1] + self.TWO_X_TWO_LEN)
+            (mouse_pos[1] < self.TWO_X_TWO_LOC[1] + self.TWO_X_TWO_HEIGHT)
+        ):
+            return True
+        elif (
+            (mouse_pos[0] > self.TWO_X_TWO_LOC[2]) and
+            (mouse_pos[0] < self.TWO_X_TWO_LOC[2] + self.TWO_X_TWO_LEN) and
+            (mouse_pos[1] > self.TWO_X_TWO_LOC[3]) and
+            (mouse_pos[1] < self.TWO_X_TWO_LOC[3] + self.TWO_X_TWO_LEN)
         ):
             return True
         else:
@@ -432,6 +449,7 @@ class GameManager:
                     self.sound_effect.play_select()
                     self.pause_reason = False
                     self.last_rate = mouse_pos
+                
 
     def pause(self):
         while self.pause_reason:
