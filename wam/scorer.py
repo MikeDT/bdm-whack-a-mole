@@ -195,7 +195,8 @@ class Scorer:
         #                               margin_drift_iter)
         #    precision = precision**2
         score = precision*score
-        round(score)
+        score += 0.5
+        score = round(score)
         print('skill_adj score, distance, precision', score, distance, precision)
 
         return score
