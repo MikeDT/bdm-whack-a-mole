@@ -129,14 +129,12 @@ class Scorer:
         max_score = self.max_score
         if is_skill == 1:
             score = self._skill_adj(max_score, distance, margin_drift_iter)
+            skill_status = 'skill'
         else:
             score = random.choice(list(range(1,max_score+1)))
-        print ({'is skill':is_skill==1, 
-                'ratio':skill_luck_rat,
-                'distance':distance,
-                'score':score})
+            skill_status = 'luck'
 
-        return score
+        return score, skill_status
 
     def get_score_deprecated(self, distance, margin_drift_iter): # to be deprecated
         '''

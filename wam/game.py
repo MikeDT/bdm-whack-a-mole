@@ -648,12 +648,12 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        self.score_t0 = self.scorer.get_score(self.distance,
+        self.score_t0, skill_status = self.scorer.get_score(self.distance,
                                               self.margin.drift_iter,
                                               self.skill_luck_rat)
         self.sound_effect.stop_pop()
         self.score += self.score_t0
-        self.wam_logger.log_score(self.score_t0, self.score)
+        self.wam_logger.log_score(self.score_t0, self.score, skill_status)
         self.mole_count += 1
         if self.FEEDBACK:
             self.sound_effect.play_hurt()
