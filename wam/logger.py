@@ -198,7 +198,7 @@ class WamLogger:
             logs the event via _log_it
         '''
         score_str = ("'score_inc': " + str(score_inc) + ", " +
-                     "'score': " + str(score) + 
+                     "'score': " + str(score)  + ", " + 
                      "'skill/luck':" + skill_status + "})>")
         self._log_it("<Event(11-Score {" + score_str)
 

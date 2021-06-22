@@ -127,12 +127,16 @@ class Scorer:
         '''
         is_skill = np.random.binomial(1,skill_luck_rat, 1)[0]
         max_score = self.max_score
+        score = self._skill_adj(max_score, distance, margin_drift_iter)
         if is_skill == 1:
-            score = self._skill_adj(max_score, distance, margin_drift_iter)
-            skill_status = 'skill'
+            skill_status = '1'
         else:
-            score = random.choice(list(range(1,max_score+1)))
-            skill_status = 'luck'
+            score += random.choice([-2,-1,0,1,2])
+            if score > max_score:
+                score=max_score
+            elif score <1:
+                score = 1
+            skill_status = '0'
 
         return score, skill_status
 
