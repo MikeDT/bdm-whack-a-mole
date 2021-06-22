@@ -127,18 +127,19 @@ class Scorer:
         '''
         is_skill = np.random.binomial(1,skill_luck_rat, 1)[0]
         max_score = self.max_score
-        score = self._skill_adj(max_score, distance, margin_drift_iter)
+        true_score = self._skill_adj(max_score, distance, margin_drift_iter)
         if is_skill == 1:
             skill_status = '1'
+            score = true_score
         else:
-            score += random.choice([-2,-1,0,1,2])
+            score = true_score + random.choice([-2,-1,0,1,2])
             if score > max_score:
                 score=max_score
             elif score <1:
                 score = 1
             skill_status = '0'
 
-        return score, skill_status
+        return score, skill_status, true_score
 
     def get_score_deprecated(self, distance, margin_drift_iter): # to be deprecated
         '''

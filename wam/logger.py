@@ -181,7 +181,7 @@ class WamLogger:
                      x_dim + "': " + str(x) + ", '" +
                      y_dim + "': " + str(y) + "})>")
 
-    def log_score(self, score_inc, score, skill_status):
+    def log_score(self, score_inc, score, skill_status, true_score):
         '''
         Logs the score, and the increment to the score
 
@@ -199,7 +199,8 @@ class WamLogger:
         '''
         score_str = ("'score_inc': " + str(score_inc) + ", " +
                      "'score': " + str(score)  + ", " + 
-                     "'skill/luck':" + skill_status + "})>")
+                     "'skill/luck':" + str(skill_status) + "," +
+                     "'true_score':" + str(true_score) + "})>")
         self._log_it("<Event(11-Score {" + score_str)
 
     def log_skill_change(self, skill_luck_ratio):
