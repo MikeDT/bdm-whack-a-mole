@@ -38,6 +38,8 @@ for file in files:
         if 'Event(11-Score' in line:
              tmp_line = line.split("score_inc': ")
              score = tmp_line[1][0]
+             tmp_line = line.split("skill/luck':")
+             true_score = tmp_line[1][0]
         elif "Event(10-MoleUp)" in line:
              mole_up_time = line[11:23]
         elif "_vs_luck_rating': " in line:

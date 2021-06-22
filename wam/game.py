@@ -64,9 +64,9 @@ class GameManager:
                   usr_timestamp=False):
         # hard coded stuff to integrate properly...
         self.skill_luck_rat = 1.0
-        self.skill_ratio_master = 0.8
+        self.skill_ratio_master = [1.0,0.5] # used to be 0.8 vs 0.2
         self.skill_flip_counter = 0
-        self.skill_flip_floor = 14
+        self.skill_flip_floor = 20 #(used to be 14)
         self.demo_stage = 0
         
         
@@ -537,12 +537,9 @@ class GameManager:
                     self.demo_stage +=1
 
                     if self.demo_stage == 1:
-                        self.pause_reason = 'demoGen'
-                        self.skill_luck_rat = 1-self.skill_ratio_master
-                    elif self.demo_stage == 2:
                         self.pause_reason = 'demoLuck'
-                        self.skill_luck_rat = self.skill_ratio_master
-                    elif self.demo_stage == 3:
+                        self.skill_luck_rat = self.skill_ratio_master[1]
+                    elif self.demo_stage == 2:
                         self.pause_reason = 'demoSkill'
                         self.stage = 1
                         self.demo = False
@@ -648,12 +645,12 @@ class GameManager:
         left = 14
         mole_is_down = False
         interval = 0
-        self.score_t0 = self.scorer.get_score(self.distance,
+        self.score_t0, skill_status = self.scorer.get_score(self.distance,
                                               self.margin.drift_iter,
                                               self.skill_luck_rat)
         self.sound_effect.stop_pop()
         self.score += self.score_t0
-        self.wam_logger.log_score(self.score_t0, self.score)
+        self.wam_logger.log_score(self.score_t0, self.score, skill_status)
         self.mole_count += 1
         if self.FEEDBACK:
             self.sound_effect.play_hurt()
@@ -723,15 +720,16 @@ class GameManager:
             self.wam_logger.log_skill_change(self.skill_luck_rat)
             if np.random.binomial(1,0.2, 1)[0] == 1:
                 self.skill_flip_counter = 0
-                if self.skill_luck_rat == self.skill_ratio_master:
-                    self.skill_luck_rat = 1-self.skill_ratio_master
+                if self.skill_luck_rat == self.skill_ratio_master[0]:
+                    #self.skill_luck_rat = 1-self.skill_ratio_master
+                    self.skill_luck_rat = self.skill_ratio_master[1]
                     print('luck!')
                 else:
-                    self.skill_luck_rat = self.skill_ratio_master
+                    self.skill_luck_rat = self.skill_ratio_master[0]
                     print('skill!')
 
         if demo:
-            self.skill_luck_rat = random.choice([self.skill_ratio_master,1-self.skill_ratio_master])
+            self.skill_luck_rat = random.choice(self.skill_ratio_master)
             self.wam_logger.log_skill_change(self.skill_luck_rat)
             self.skill_flip_counter = 0
 
