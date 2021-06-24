@@ -497,8 +497,8 @@ class GameManager:
             elif self.pause_reason == '2x2':
                     self.write_text(self.pause_reason_dict[self.pause_reason],
                                     background=(255,255,255),
-                                    location_y=650,#self.SCREEN_HEIGHT + 40,
-                                    location_x=1150)
+                                    location_y=800,#self.SCREEN_HEIGHT + 40,
+                                    location_x=1350)
                     self.two_by_two_rate()
                     self.show_big_score()
 
