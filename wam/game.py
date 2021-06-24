@@ -64,7 +64,7 @@ class GameManager:
                   usr_timestamp=False):
         # hard coded stuff to integrate properly...
         self.skill_luck_rat = 1.0
-        self.skill_ratio_master = [1.0,0.5] # used to be 0.8 vs 0.2
+        self.skill_ratio_master = [1.0,0.0] # used to be 0.8 vs 0.2
         self.skill_flip_counter = 0
         self.skill_flip_floor = 20 #(used to be 14)
         self.demo_stage = 0
@@ -74,8 +74,8 @@ class GameManager:
         self.intro_txt_file_loc = 'text/intro.txt'
         self.hole_pos_file_loc = 'config/hole_positions.txt'
         self.pause_info_file_loc = 'text/pause_info.txt'
-        self.screen_img_file_loc = "images/bg_2x2_v4_raw.png"
-        self.mole_img_file_loc = "images/mole.png"
+        self.screen_img_file_loc = "images/bg_2x2_v4x1.2_raw.png"
+        self.mole_img_file_loc = "images/molex1.2.png"
         self.splash_img_file_loc = "images/Splash_Screen.png"
         self.end_img_file_loc = "images/End_Screen.png"
         self.pts_10 = pygame.image.load("images/10pts.png")
@@ -111,16 +111,16 @@ class GameManager:
         
         #
         self.TWO_X_TWO_LOC = [0,0,0,0]
-        self.TWO_X_TWO_LOC[0] = 17
-        self.TWO_X_TWO_LOC[1] = 620
-        self.TWO_X_TWO_LOC[2] = 549
-        self.TWO_X_TWO_LOC[3] = 620
-        self.TWO_X_TWO_LEN = 238
-        self.TWO_X_TWO_HEIGHT = 60
+        self.TWO_X_TWO_LOC[0] = 22
+        self.TWO_X_TWO_LOC[1] = 750
+        self.TWO_X_TWO_LOC[2] = 669
+        self.TWO_X_TWO_LOC[3] = 750
+        self.TWO_X_TWO_LEN = 290
+        self.TWO_X_TWO_HEIGHT = 75
         
         self.FPS = import_dict['FPS']
-        self.MOLE_WIDTH = import_dict['MOLE_WIDTH']
-        self.MOLE_HEIGHT = import_dict['MOLE_HEIGHT']
+        self.MOLE_WIDTH = 108 # import_dict['MOLE_WIDTH']
+        self.MOLE_HEIGHT = 99# import_dict['MOLE_HEIGHT']
         self.MOLE_RADIUS = import_dict['MOLE_RADIUS']
         self.MARGIN_START = import_dict['MARGIN_START']
         self.FONT_SIZE = import_dict['FONT_SIZE']
@@ -206,12 +206,12 @@ class GameManager:
         sprite_sheet = pygame.image.load(self.mole_img_file_loc)
         self.mole = []
 #        self.mole.append(sprite_sheet.subsurface(1, 0, 90, 81))  # no mole
-        self.mole.append(sprite_sheet.subsurface(169, 0, 90, 81))
-        self.mole.append(sprite_sheet.subsurface(309, 0, 90, 81))
-        self.mole.append(sprite_sheet.subsurface(449, 0, 90, 81))
-        self.mole.append(sprite_sheet.subsurface(575, 0, 116, 81))
-        self.mole.append(sprite_sheet.subsurface(717, 0, 116, 81))
-        self.mole.append(sprite_sheet.subsurface(853, 0, 116, 81))
+        self.mole.append(sprite_sheet.subsurface(203, 0, 108, 99))
+        self.mole.append(sprite_sheet.subsurface(370, 0, 108, 99))
+        self.mole.append(sprite_sheet.subsurface(539, 0, 108, 99))
+        self.mole.append(sprite_sheet.subsurface(686, 0, 140, 99))
+        self.mole.append(sprite_sheet.subsurface(854, 0, 140, 99))
+        self.mole.append(sprite_sheet.subsurface(1020, 0, 140, 99))
 
         # Sets up logging and log all the initial conditions
         self.wam_logger = WamLogger(usr_timestamp)
@@ -254,6 +254,7 @@ class GameManager:
         hole_pos_lst
             A list of hole position lists
         '''
+        scaler =1.2
         try:
             hole_pos_lst = open(self.hole_pos_file_loc, 'r').read().split('|')
             def cleaner(a): return re.sub("|".join(['\(', '\)', ' ']), '', a)
@@ -262,6 +263,10 @@ class GameManager:
         hole_pos_lst = [cleaner(x).split(',') for x in hole_pos_lst]
         hole_pos_lst = [[int(x) for x in sub_lst] for
                         sub_lst in hole_pos_lst]
+        
+        for hole in hole_pos_lst:
+            hole[0] = round(hole[0]*scaler)
+            hole[1] = round(hole[1]*scaler)
 
         return hole_pos_lst
 
@@ -617,17 +622,17 @@ class GameManager:
             current_stage_string = "MOLES LEFT: " + str(self.stages * self.stage_length - self.mole_count ) + "    "
 
         self.write_text(current_stage_string, colour=(0, 0, 0), background=(255,255,255), size=22,
-                        location_x=1050, location_y=100)
+                        location_x=1150, location_y=100)
 
         # Update gui with player's score
         current_score_string = "SCORE: " + str(int(self.score)) + "    "
         self.write_text(current_score_string, colour=(0, 0, 0), background=(255,255,255), size=22,
-                   location_x=1050, location_y=250)
+                   location_x=1150, location_y=250)
  
         # Update gui with player's misses
         current_misses_string = "MISSES: " + str(self.misses) + "    "
         self.write_text(current_misses_string, colour=(0, 0, 0), background=(255,255,255), size=22,
-                   location_x=1050, location_y=400)
+                   location_x=1150, location_y=400)
         
         # 2x2 rating persistence
         if self.last_rate:
